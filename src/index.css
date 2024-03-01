@@ -1,0 +1,60 @@
+html,body, #root{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+h1{
+    font-size: 1rem;
+}
+
+.app .hero{
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none ;
+    z-index: 1;
+}
+
+.canvas{
+    position: fixed !important;
+    inset: 0 !important;
+}
+
+.floatinButton{
+    width: 3rem;
+    height: 5vh;
+    font-size: 2vw;
+    /* background-color: gray; */
+    /* display: none; */
+}
+.floatinButton:hover{
+    /* width: 6vw;
+    height: 6vw; */
+    font-size: 2vw;
+    background-color: rgb(255, 153, 0);
+}
+
+.cancelButtons{
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    z-index: 1;
+    background-color: red;
+    padding: 0.5rem 1rem; 
+    border-radius: 5px; 
+}
+
+.cancelButtons:hover{
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    z-index: 1;
+    background-color: red;
+    padding: 0.5rem 1rem; 
+    border-radius: 5px; 
+}
