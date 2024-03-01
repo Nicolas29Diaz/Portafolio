@@ -1,20 +1,14 @@
-import {
-  CameraControls,
-  Environment,
-  Stars,
-  Html,
-  OrbitControls,
-} from "@react-three/drei";
-import { useState, useRef, useEffect, Suspense } from "react";
+import { CameraControls } from "@react-three/drei";
+import { useState, useRef, useEffect } from "react";
+
 import { FloatButton } from "./FloatButton.jsx";
+import { MeshFit } from "./MeshFit.jsx";
+import { SceneConf } from "./SceneConf.jsx";
+
 import useStore from "../Store/Store.js";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
 
 export function ThreeScene() {
   const { showButton, setShowButton } = useStore();
-
-  const [toggle, setToggle] = useState(true);
 
   //Current view of the camera
   const [currentView, setCurrentView] = useState("character");
@@ -29,8 +23,8 @@ export function ThreeScene() {
   const maxDistCharacter = 50;
   const minDistCharacter = 10;
 
-  const maxDistTV = 80;
-  const minDistTV = 10;
+  const maxDistTV = 12;
+  const minDistTV = 0;
 
   const maxDistPC = 80;
   const minDistPC = 10;
@@ -42,14 +36,14 @@ export function ThreeScene() {
 
   //Coordinates to posisionate the camera view
   const coordCameraCharacter = { x: 0, y: 0, z: 0 };
-  const coordCameraTV = { x: 1, y: 0, z: 1 };
+  const coordCameraTV = { x: 4, y: 0, z: 4 };
   const coordCameraPC = { x: 0, y: 0, z: 0 };
 
   //Function to fitCameraView responsive
   const fitCamera = () => {
     switch (currentView) {
       case "character":
-        meshFitCameraCharacter.current.layers.set(1);
+        // meshFitCameraCharacter.current.layers.set(1);
         cameraControlRef.current.fitToSphere(
           meshFitCameraCharacter.current,
           true,
@@ -60,7 +54,7 @@ export function ThreeScene() {
         );
         break;
       case "tv":
-        meshFitCameraTV.current.layers.set(1);
+        // meshFitCameraTV.current.layers.set(1);
         cameraControlRef.current.fitToSphere(
           meshFitCameraTV.current,
           true,
@@ -77,7 +71,7 @@ export function ThreeScene() {
   function movCamera() {
     switch (currentView) {
       case "tv":
-        orbitControls(0, 100, 10);
+        orbitControls(0, maxDistTV, minDistTV);
         cameraControlRef.current.setLookAt(
           coordCameraTV.x,
           coordCameraTV.y,
@@ -109,8 +103,6 @@ export function ThreeScene() {
     Intro();
   }, []);
 
-  useFrame(() => {});
-
   //Responsive fit camera
   useEffect(() => {
     if (currentView === "tv") {
@@ -120,25 +112,10 @@ export function ThreeScene() {
         setShowButton(true);
       }, 2000);
     }
-
     fitCamera();
     window.addEventListener("resize", fitCamera);
     return () => window.removeEventListener("resize", fitCamera);
   }, [currentView]);
-
-  // let timeOut = 0;
-  // useFrame(() => {
-
-  //   if (currentView === "tv") {
-  //     if (timeOut <= 60) {
-  //       movCamera();
-  //       setShowButton(true);
-  //       console.log(timeOut);
-
-  //       timeOut = timeOut + 1;
-  //     }
-  //   }
-  // }, [currentView]);
 
   //orbitControls properties
   function orbitControls(speed, max = 50, min = 10) {
@@ -159,9 +136,9 @@ export function ThreeScene() {
   ////////////////////////////////
   return (
     <>
+      {/* Camera configuration */}
       <CameraControls
         ref={cameraControlRef}
-        // onPointerMove={()=>(console.log("Moving"))}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 2}
         maxDistance={maxDistance}
@@ -173,50 +150,32 @@ export function ThreeScene() {
         azimuthRotateSpeed={speed}
       ></CameraControls>
 
-      <mesh position={[0, 0, 0]} ref={meshFitCameraCharacter} visible={true}>
-        {/* Para fijar la vista de la camara a un obj y hacer el responsive*/}
-        <boxGeometry args={[10, 10, 10]}></boxGeometry>
-        <meshStandardMaterial
-          color="orange"
-          transparent
-          opacity={0.5}
-        ></meshStandardMaterial>
-      </mesh>
-      <mesh position={[10, 0, 10]} ref={meshFitCameraTV} visible={true}>
-        <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        <meshStandardMaterial
-          color="orange"
-          transparent
-          opacity={0.5}
-        ></meshStandardMaterial>
-      </mesh>
-      <mesh position={[10, 0, 10]}>
-        <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        <meshStandardMaterial></meshStandardMaterial>
-      </mesh>
+      {/* Scene configuration */}
+      <SceneConf></SceneConf>
 
-      <mesh position={[20, 0, 20]}>
-        <boxGeometry args={[1, 5, 1]}></boxGeometry>
-        <meshStandardMaterial color={"black"}></meshStandardMaterial>
-      </mesh>
+      {/* Mesh fit camera targets */}
+      <>
+        <MeshFit
+          ref={meshFitCameraCharacter}
+          position={[0, 0, 0]}
+          size={[2, 2, 2]}
+          layer={1}
+        ></MeshFit>
+        <MeshFit
+          ref={meshFitCameraPC}
+          position={[-10, 0, -10]}
+          size={[1, 1, 1]}
+          layer={1}
+        ></MeshFit>
+        <MeshFit
+          ref={meshFitCameraTV}
+          position={[10, 0, 10]}
+          size={[1, 1, 1]}
+          layer={0}
+        ></MeshFit>
+      </>
 
-      <Environment preset="city"></Environment>
-      <ambientLight></ambientLight>
-      <color attach="background" args={["#ffffff"]}></color>
-      <Suspense>
-        <group position={[0, -10, 0]}>
-          <mesh>
-            <cylinderGeometry args={[30, 30, 10, 64]} />
-            <meshStandardMaterial
-              color="black"
-              roughness={0}
-              metalness={0}
-              envMapIntensity={0.5}
-            ></meshStandardMaterial>
-          </mesh>
-        </group>
-      </Suspense>
-
+      {/* Buttons configuration */}
       <FloatButton
         position={[10, 1, 10]}
         backgroundColor={"blue"}
@@ -225,13 +184,7 @@ export function ThreeScene() {
         text={"Move Camera"}
       />
       <FloatButton
-        position={[1, 3, 0]}
-        backgroundColor={toggle ? "Red" : "Green"}
-        // onClick={}
-        text={toggle ? "Off Controls" : "On Controls"}
-      />
-      <FloatButton
-        position={[-1, 3, 0]}
+        position={[-10, 1, -10]}
         backgroundColor={"White"}
         // onClick={ResetCamera}
         text={"Reset Camera"}
@@ -241,16 +194,6 @@ export function ThreeScene() {
         backgroundColor={"Orange"}
         // onClick={toggleButtonVisibility}
         text={"Shake Camera"}
-      />
-
-      <Stars
-        radius={50}
-        depth={50}
-        count={5000}
-        factor={20}
-        saturation={0}
-        fade
-        speed={1}
       />
     </>
   );

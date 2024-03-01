@@ -6,13 +6,6 @@ import { useEffect } from "react";
 function App() {
   const { showButton, setShowButton } = useStore();
 
-
-  // useEffect(()=>{
-  //   console.log(
-  //     `Estado actual del botón APP: ${showButton ? "Visible" : "Oculto"}`
-  //   );
-  // },[showButton])
-
   return (
     <>
       <Canvas
