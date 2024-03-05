@@ -1,99 +1,101 @@
-import {
-  CameraControls,
-  Environment,
-  Stars,
-  Html,
-  OrbitControls,
-} from "@react-three/drei";
-import { useState, useRef, useEffect, Suspense } from "react";
+import { CameraControls } from "@react-three/drei";
+import { useState, useRef, useEffect } from "react";
+
 import { FloatButton } from "./FloatButton.jsx";
+import { MeshFit } from "./MeshFit.jsx";
+import { SceneConf } from "./SceneConf.jsx";
+import IronManAnim from "./IronManAnim.jsx";
 import useStore from "../Store/Store.js";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
 
 export function ThreeScene() {
   const { showButton, setShowButton } = useStore();
 
-  const [toggle, setToggle] = useState(true);
-
   //Current view of the camera
-  const [currentView, setCurrentView] = useState("character");
+  const views = { TV: "TV", IRONMAN: "IRONMAN", PC: "PC" };
+  const [currentView, setCurrentView] = useState(views.IRONMAN);
   const cameraControlRef = useRef();
+
+  const speedMov = 0.7;
+
+  //Properties of the current camera view
+  const cameraViews = {
+    TV: {
+      maxDist: 20, //Max distance dolly to the object focused
+      minDist: 5, //Min distance dolly to the object focused
+      coordCamera: { x: 4, y: 0, z: 4 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [10, 0, 10], //Mesh fit position
+        size: [1, 1, 1], //Mesh fit size
+        layer: 0, //Mesh fit layer
+      },
+    },
+    IRONMAN: {
+      maxDist: 20, //Max distance dolly to the object focused
+      minDist: 12, //Min distance dolly to the object focused
+      coordCamera: { x: 0, y: 0, z: 0 }, //Coordinates to posisionate the camera view
+      speed: speedMov, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [0, 2, 0], //Mesh fit position
+        size: [1, 2, 1], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        cube: true, //Other cube mesh
+        cubeSize: [1, 2, 1], //Other cube size
+        cubeVisible: true, //Other cube visible
+      },
+    },
+    PC: {
+      maxDist: 12, //Max distance dolly to the object focused
+      minDist: 0, //Min distance dolly to the object focused
+      coordCamera: { x: 0, y: 0, z: 0 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [-10, 0, -10], //Mesh fit position
+        size: [1, 1, 1], //Mesh fit size
+        layer: 0, //Mesh fit layer
+      },
+    },
+  };
 
   //Orbital controls
   const [speed, setSpeed] = useState(1);
-  const [maxDistance, setmaxDistance] = useState(50);
-  const [minDistance, setminDistance] = useState(10);
-
-  //Max/Min distance dolly to the object focused
-  const maxDistCharacter = 50;
-  const minDistCharacter = 10;
-
-  const maxDistTV = 80;
-  const minDistTV = 10;
-
-  const maxDistPC = 80;
-  const minDistPC = 10;
-
-  //Mesh to center the camera view
-  const meshFitCameraCharacter = useRef();
-  const meshFitCameraTV = useRef();
-  const meshFitCameraPC = useRef();
-
-  //Coordinates to posisionate the camera view
-  const coordCameraCharacter = { x: 0, y: 0, z: 0 };
-  const coordCameraTV = { x: 1, y: 0, z: 1 };
-  const coordCameraPC = { x: 0, y: 0, z: 0 };
+  const [distMax, setDistMax] = useState(cameraViews.IRONMAN.maxDist);
+  const [distMin, setDistMin] = useState(cameraViews.IRONMAN.minDist);
 
   //Function to fitCameraView responsive
   const fitCamera = () => {
-    switch (currentView) {
-      case "character":
-        meshFitCameraCharacter.current.layers.set(1);
-        cameraControlRef.current.fitToSphere(
-          meshFitCameraCharacter.current,
-          true,
-          0,
-          0,
-          0,
-          0
-        );
-        break;
-      case "tv":
-        meshFitCameraTV.current.layers.set(1);
-        cameraControlRef.current.fitToSphere(
-          meshFitCameraTV.current,
-          true,
-          0,
-          0,
-          0,
-          0
-        );
-        break;
-      default:
-    }
+    const { maxDist, minDist, speed } = cameraViews[currentView];
+
+    setDistMax(maxDist);
+    setDistMin(minDist);
+    setSpeed(speed);
+
+    cameraControlRef.current.fitToSphere(
+      cameraViews[currentView].mesh.ref.current,
+      true,
+      0,
+      0,
+      0,
+      0
+    );
   };
 
+  //Move the camera to a point and set its look
   function movCamera() {
-    switch (currentView) {
-      case "tv":
-        orbitControls(0, 100, 10);
-        cameraControlRef.current.setLookAt(
-          coordCameraTV.x,
-          coordCameraTV.y,
-          coordCameraTV.z,
-          meshFitCameraTV.current.position.x,
-          meshFitCameraTV.current.position.y,
-          meshFitCameraTV.current.position.z,
-          true
-        );
-        break;
-      case "pc":
-        break;
-      case "character":
-        break;
-      default:
-    }
+    const { coordCamera, mesh } = cameraViews[currentView];
+
+    cameraControlRef.current.setLookAt(
+      coordCamera.x,
+      coordCamera.y,
+      coordCamera.z,
+      mesh.ref.current.position.x,
+      mesh.ref.current.position.y,
+      mesh.ref.current.position.z,
+      true
+    );
   }
 
   //Introduction anamiation
@@ -109,11 +111,9 @@ export function ThreeScene() {
     Intro();
   }, []);
 
-  useFrame(() => {});
-
   //Responsive fit camera
   useEffect(() => {
-    if (currentView === "tv") {
+    if (currentView !== views.IRONMAN) {
       const intervalId = setInterval(movCamera, 1);
       setTimeout(() => {
         clearInterval(intervalId);
@@ -122,136 +122,82 @@ export function ThreeScene() {
     }
 
     fitCamera();
+
     window.addEventListener("resize", fitCamera);
     return () => window.removeEventListener("resize", fitCamera);
   }, [currentView]);
 
-  // let timeOut = 0;
-  // useFrame(() => {
-
-  //   if (currentView === "tv") {
-  //     if (timeOut <= 60) {
-  //       movCamera();
-  //       setShowButton(true);
-  //       console.log(timeOut);
-
-  //       timeOut = timeOut + 1;
-  //     }
-  //   }
-  // }, [currentView]);
-
-  //orbitControls properties
-  function orbitControls(speed, max = 50, min = 10) {
-    setSpeed(speed);
-    setmaxDistance(max);
-    setminDistance(min);
-  }
-
   //Cancel button hidde
   useEffect(() => {
     if (!showButton) {
-      orbitControls(1);
-      setCurrentView("character");
-      orbitControls(1);
+      // orbitControls(1);
+      setCurrentView(views.IRONMAN);
     }
   }, [showButton]);
 
+  //Para mapear el cameraViews y mostrarlos
+  const meshFitComponents = Object.entries(cameraViews).map(([view, data]) => (
+    <MeshFit
+      key={view} // Asegúrate de tener una clave única
+      ref={data.mesh.ref}
+      position={data.mesh.position || [0, 0, 0]}
+      size={data.mesh.size || [1, 1, 1]}
+      layer={data.mesh.layer || 0}
+      {...(data.mesh.cube && { cube: data.mesh.cube })}
+      {...(data.mesh.cubeSize && { cubeSize: data.mesh.cubeSize })}
+      {...(data.mesh.cubeVisible && { cubeVisible: data.mesh.cubeVisible })}
+    />
+  ));
   ////////////////////////////////
+
   return (
     <>
-      <CameraControls
-        ref={cameraControlRef}
-        // onPointerMove={()=>(console.log("Moving"))}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2}
-        maxDistance={maxDistance}
-        minDistance={minDistance}
-        infinityDolly={false}
-        truckSpeed={0}
-        dollySpeed={speed}
-        polarRotateSpeed={speed}
-        azimuthRotateSpeed={speed}
-      ></CameraControls>
+      {/* Scene configuration */}
+      <SceneConf></SceneConf>
 
-      <mesh position={[0, 0, 0]} ref={meshFitCameraCharacter} visible={true}>
-        {/* Para fijar la vista de la camara a un obj y hacer el responsive*/}
-        <boxGeometry args={[10, 10, 10]}></boxGeometry>
-        <meshStandardMaterial
-          color="orange"
-          transparent
-          opacity={0.5}
-        ></meshStandardMaterial>
-      </mesh>
-      <mesh position={[10, 0, 10]} ref={meshFitCameraTV} visible={true}>
-        <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        <meshStandardMaterial
-          color="orange"
-          transparent
-          opacity={0.5}
-        ></meshStandardMaterial>
-      </mesh>
-      <mesh position={[10, 0, 10]}>
-        <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        <meshStandardMaterial></meshStandardMaterial>
-      </mesh>
+      {/* Mesh fit camera targets */}
+      <>{meshFitComponents}</>
 
-      <mesh position={[20, 0, 20]}>
-        <boxGeometry args={[1, 5, 1]}></boxGeometry>
-        <meshStandardMaterial color={"black"}></meshStandardMaterial>
-      </mesh>
-
-      <Environment preset="city"></Environment>
-      <ambientLight></ambientLight>
-      <color attach="background" args={["#ffffff"]}></color>
-      <Suspense>
-        <group position={[0, -10, 0]}>
-          <mesh>
-            <cylinderGeometry args={[30, 30, 10, 64]} />
-            <meshStandardMaterial
-              color="black"
-              roughness={0}
-              metalness={0}
-              envMapIntensity={0.5}
-            ></meshStandardMaterial>
-          </mesh>
-        </group>
-      </Suspense>
-
+      {/* Buttons configuration */}
       <FloatButton
         position={[10, 1, 10]}
         backgroundColor={"blue"}
         // onClick={(e) => focusCamera("tv")}
-        onClick={() => setCurrentView("tv")}
+        onClick={() => setCurrentView(views.TV)}
         text={"Move Camera"}
       />
       <FloatButton
-        position={[1, 3, 0]}
-        backgroundColor={toggle ? "Red" : "Green"}
-        // onClick={}
-        text={toggle ? "Off Controls" : "On Controls"}
-      />
-      <FloatButton
-        position={[-1, 3, 0]}
+        position={[-10, 1, -10]}
         backgroundColor={"White"}
-        // onClick={ResetCamera}
+        onClick={() => setDistMax(80)}
         text={"Reset Camera"}
       />
+
       <FloatButton
-        position={[-2, 3, 0]}
-        backgroundColor={"Orange"}
+        position={[0, 4, 0]}
+        backgroundColor={"White"}
         // onClick={toggleButtonVisibility}
-        text={"Shake Camera"}
+        text={"Skills"}
       />
 
-      <Stars
-        radius={50}
-        depth={50}
-        count={5000}
-        factor={20}
-        saturation={0}
-        fade
-        speed={1}
-      />
+      <group rotation={[0, -Math.PI / 2, 0]}>
+        <IronManAnim />
+      </group>
+
+      {/* Camera configuration */}
+      <CameraControls
+        ref={cameraControlRef}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI / 2}
+        maxDistance={distMax}
+        minDistance={distMin}
+        // infinityDolly={false}
+        truckSpeed={speed}
+        dollySpeed={speed}
+        polarRotateSpeed={speed}
+        azimuthRotateSpeed={speed}
+        // enabled={false}
+      ></CameraControls>
     </>
   );
 }
