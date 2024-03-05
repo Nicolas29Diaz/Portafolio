@@ -5,8 +5,8 @@ export function SceneConf() {
     <>
       <Environment preset="city"></Environment>
       <ambientLight></ambientLight>
-      <color attach="background" args={["#000000"]}></color>
-      <Stars
+      <color attach="background" args={["#ffffff"]}></color>
+      {/* <Stars
         radius={50}
         depth={50}
         count={5000}
@@ -14,7 +14,7 @@ export function SceneConf() {
         saturation={0}
         fade
         speed={1}
-      />
+      /> */}
     </>
   );
 }

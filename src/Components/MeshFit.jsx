@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 export const MeshFit = React.forwardRef(
-  ({ position = [0, 0, 0], size = [1, 1, 1], layer = 0 }, ref) => {
+  ({ position = [0, 0, 0], size = [1, 1, 1], layer = 0, cube = true, cubeSize = [1, 1, 1], cubeVisible = true}, ref) => {
     useEffect(() => {
       if (ref && ref.current) {
         ref.current.layers.set(layer);
@@ -18,10 +18,13 @@ export const MeshFit = React.forwardRef(
             opacity={0.5}
           ></meshStandardMaterial>
         </mesh>
-        <mesh position={position}>
-          <boxGeometry args={[1, 1, 1]}></boxGeometry>
-          <meshStandardMaterial></meshStandardMaterial>
-        </mesh>
+
+        {cube && (
+          <mesh position={position} visible={cubeVisible}>
+            <boxGeometry args={cubeSize}></boxGeometry>
+            <meshStandardMaterial></meshStandardMaterial>
+          </mesh>
+        )}
       </>
     );
   }
