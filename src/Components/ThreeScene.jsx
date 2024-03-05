@@ -4,8 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
-import IronManAnim from "./IronManAnim.jsx";
+import Animations from "./Animations.jsx";
 import useStore from "../Store/Store.js";
+import { useFrame } from "@react-three/fiber";
 
 export function ThreeScene() {
   const { showButton, setShowButton } = useStore();
@@ -30,21 +31,21 @@ export function ThreeScene() {
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [10, 0, 10], //Mesh fit position
+        position: [10, 0, 0], //Mesh fit position
         size: [1, 1, 1], //Mesh fit size
         layer: 0, //Mesh fit layer
       },
     },
     IRONMAN: {
       maxDist: 20, //Max distance dolly to the object focused
-      minDist: 20, //Min distance dolly to the object focused
+      minDist: 18, //Min distance dolly to the object focused
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2.5,
-      coordCamera: { x: 0, y: 0, z: 0 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
       speed: speedMov, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [0, 2, 0], //Mesh fit position
+        position: [0, 1, 0], //Mesh fit position
         size: [1, 2, 1], //Mesh fit size
         layer: 0, //Mesh fit layer
       },
@@ -58,7 +59,7 @@ export function ThreeScene() {
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-10, 0, -10], //Mesh fit position
+        position: [-10, 0, 0], //Mesh fit position
         size: [1, 1, 1], //Mesh fit size
         layer: 0, //Mesh fit layer
       },
@@ -70,16 +71,15 @@ export function ThreeScene() {
   const [distMax, setDistMax] = useState(cameraViews.IRONMAN.maxDist);
   const [distMin, setDistMin] = useState(cameraViews.IRONMAN.minDist);
 
+  useFrame(() => {
+    console.log(cameraControlRef.current.distance);
+  });
   //Function to fitCameraView responsive
   const fitCamera = () => {
+    console.log("Fir");
+
     const { maxDist, minDist, speed, maxAngle, minAngle } =
       cameraViews[currentView];
-
-    setDistMax(maxDist);
-    setDistMin(minDist);
-    setMaxPolarAngle(maxAngle);
-    setMinPolarAngle(minAngle);
-    setSpeed(speed);
 
     cameraControlRef.current.fitToSphere(
       cameraViews[currentView].mesh.ref.current,
@@ -89,6 +89,12 @@ export function ThreeScene() {
       0,
       0
     );
+
+    setDistMax(maxDist);
+    setDistMin(minDist);
+    setMaxPolarAngle(maxAngle);
+    setMinPolarAngle(minAngle);
+    setSpeed(speed);
   };
 
   //Move the camera to a point and set its look
@@ -108,7 +114,7 @@ export function ThreeScene() {
 
   //Introduction anamiation
   async function Intro() {
-    cameraControlRef.current.dolly(-22);
+    // cameraControlRef.current.dolly(-22);
     cameraControlRef.current.smoothTime = 0.5;
     fitCamera();
   }
@@ -127,6 +133,11 @@ export function ThreeScene() {
         clearInterval(intervalId);
         setShowButton(true);
       }, 2000);
+    } else {
+      const intervalId = setInterval(movCamera, 1);
+      setTimeout(() => {
+        clearInterval(intervalId);
+      }, 500);
     }
 
     fitCamera();
@@ -139,7 +150,9 @@ export function ThreeScene() {
   useEffect(() => {
     if (!showButton) {
       // orbitControls(1);
+      // cameraControlRef.current.distance = cameraViews.IRONMAN.minDist;
       setCurrentView(views.IRONMAN);
+      cameraControlRef.current.distance = cameraViews.IRONMAN.minDist;
     }
   }, [showButton]);
 
@@ -165,14 +178,14 @@ export function ThreeScene() {
 
       {/* Buttons configuration */}
       <FloatButton
-        position={[10, 1, 10]}
+        position={[10, 1, 0]}
         backgroundColor={"blue"}
         // onClick={(e) => focusCamera("tv")}
         onClick={() => setCurrentView(views.TV)}
         text={"Move Camera"}
       />
       <FloatButton
-        position={[-10, 1, -10]}
+        position={[-10, 1, 0]}
         backgroundColor={"White"}
         onClick={() => setCurrentView(views.PC)}
         text={"Move Camera"}
@@ -185,8 +198,8 @@ export function ThreeScene() {
         text={"Skills"}
       />
 
-      <group rotation={[0, -Math.PI / 2, 0]} position={[0, 0, 0]}>
-        <IronManAnim />
+      <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
+        <Animations />
       </group>
 
       {/* Camera configuration */}

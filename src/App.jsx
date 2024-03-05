@@ -11,7 +11,7 @@ function App() {
       <Canvas
         className="canvas"
         shadows
-        camera={{ position: [0, 0, 80], fov: 15 }}
+        camera={{ position: [0, 0, 40], fov: 15 }}
       >
         <ThreeScene></ThreeScene>
       </Canvas>

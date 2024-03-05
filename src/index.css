@@ -5,8 +5,8 @@ html,body, #root{
 }
 
 h1{
-    font-size: 1rem;
-    color: white;
+    font-size: 0.5rem;
+    color: rgb(0, 0, 0);
 }
 
 .app .hero{
@@ -25,17 +25,22 @@ h1{
 }
 
 .floatinButton{
-    width: 3rem;
-    height: 5vh;
-    font-size: 2vw;
+    width: 1rem;
+    height: 2vh;
+    font-size: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0%;
+    margin: auto;
     /* background-color: gray; */
     /* display: none; */
 }
 .floatinButton:hover{
     /* width: 6vw;
     height: 6vw; */
-    font-size: 2vw;
-    background-color: rgb(255, 153, 0);
+    width: 1.1rem;
+    height: 2.1vh;
+    background-color: rgb(255, 145, 0);
 }
 
 .cancelButtons{

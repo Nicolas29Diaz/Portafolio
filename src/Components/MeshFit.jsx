@@ -19,12 +19,12 @@ export const MeshFit = React.forwardRef(
           ></meshStandardMaterial>
         </mesh>
 
-        {cube && (
+        {/* {cube && (
           <mesh position={position} visible={cubeVisible}>
             <boxGeometry args={cubeSize}></boxGeometry>
             <meshStandardMaterial></meshStandardMaterial>
           </mesh>
-        )}
+        )} */}
       </>
     );
   }
