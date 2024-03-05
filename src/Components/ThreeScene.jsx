@@ -13,6 +13,8 @@ export function ThreeScene() {
   //Current view of the camera
   const views = { TV: "TV", IRONMAN: "IRONMAN", PC: "PC" };
   const [currentView, setCurrentView] = useState(views.IRONMAN);
+  const [minPolarAngle, setMinPolarAngle] = useState(views.IRONMAN.minAngle);
+  const [maxPolarAngle, setMaxPolarAngle] = useState(views.IRONMAN.maxAngle);
   const cameraControlRef = useRef();
 
   const speedMov = 0.7;
@@ -20,8 +22,10 @@ export function ThreeScene() {
   //Properties of the current camera view
   const cameraViews = {
     TV: {
-      maxDist: 20, //Max distance dolly to the object focused
-      minDist: 5, //Min distance dolly to the object focused
+      maxDist: 13, //Max distance dolly to the object focused
+      minDist: 1, //Min distance dolly to the object focused
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
       coordCamera: { x: 4, y: 0, z: 4 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
@@ -33,23 +37,24 @@ export function ThreeScene() {
     },
     IRONMAN: {
       maxDist: 20, //Max distance dolly to the object focused
-      minDist: 12, //Min distance dolly to the object focused
+      minDist: 20, //Min distance dolly to the object focused
+      minAngle: Math.PI / 3,
+      maxAngle: Math.PI / 2.5,
       coordCamera: { x: 0, y: 0, z: 0 }, //Coordinates to posisionate the camera view
       speed: speedMov, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
         position: [0, 2, 0], //Mesh fit position
         size: [1, 2, 1], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        cube: true, //Other cube mesh
-        cubeSize: [1, 2, 1], //Other cube size
-        cubeVisible: true, //Other cube visible
+        layer: 0, //Mesh fit layer
       },
     },
     PC: {
-      maxDist: 12, //Max distance dolly to the object focused
-      minDist: 0, //Min distance dolly to the object focused
-      coordCamera: { x: 0, y: 0, z: 0 }, //Coordinates to posisionate the camera view
+      maxDist: 13, //Max distance dolly to the object focused
+      minDist: 1, //Min distance dolly to the object focused
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
+      coordCamera: { x: -1, y: 1, z: -1 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
@@ -67,10 +72,13 @@ export function ThreeScene() {
 
   //Function to fitCameraView responsive
   const fitCamera = () => {
-    const { maxDist, minDist, speed } = cameraViews[currentView];
+    const { maxDist, minDist, speed, maxAngle, minAngle } =
+      cameraViews[currentView];
 
     setDistMax(maxDist);
     setDistMin(minDist);
+    setMaxPolarAngle(maxAngle);
+    setMinPolarAngle(minAngle);
     setSpeed(speed);
 
     cameraControlRef.current.fitToSphere(
@@ -140,12 +148,9 @@ export function ThreeScene() {
     <MeshFit
       key={view} // Asegúrate de tener una clave única
       ref={data.mesh.ref}
-      position={data.mesh.position || [0, 0, 0]}
-      size={data.mesh.size || [1, 1, 1]}
-      layer={data.mesh.layer || 0}
-      {...(data.mesh.cube && { cube: data.mesh.cube })}
-      {...(data.mesh.cubeSize && { cubeSize: data.mesh.cubeSize })}
-      {...(data.mesh.cubeVisible && { cubeVisible: data.mesh.cubeVisible })}
+      position={data.mesh.position}
+      size={data.mesh.size}
+      layer={data.mesh.layer}
     />
   ));
   ////////////////////////////////
@@ -169,26 +174,26 @@ export function ThreeScene() {
       <FloatButton
         position={[-10, 1, -10]}
         backgroundColor={"White"}
-        onClick={() => setDistMax(80)}
-        text={"Reset Camera"}
+        onClick={() => setCurrentView(views.PC)}
+        text={"Move Camera"}
       />
 
       <FloatButton
-        position={[0, 4, 0]}
+        position={[0.2, 3.6, 0]}
         backgroundColor={"White"}
         // onClick={toggleButtonVisibility}
         text={"Skills"}
       />
 
-      <group rotation={[0, -Math.PI / 2, 0]}>
+      <group rotation={[0, -Math.PI / 2, 0]} position={[0, 0, 0]}>
         <IronManAnim />
       </group>
 
       {/* Camera configuration */}
       <CameraControls
         ref={cameraControlRef}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={minPolarAngle}
+        maxPolarAngle={maxPolarAngle}
         maxDistance={distMax}
         minDistance={distMin}
         // infinityDolly={false}
