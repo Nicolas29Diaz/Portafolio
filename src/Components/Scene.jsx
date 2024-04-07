@@ -1,13 +1,12 @@
-import { CameraControls, OrbitControls } from "@react-three/drei";
+import { CameraControls } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
-import Animations from "./Animations.jsx";
 import useStore from "../Store/Store.js";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+
+import { Scene3D } from "./3D_Components/Scene3D.jsx";
 
 export function Scene() {
   const cameraControls = {
@@ -27,11 +26,11 @@ export function Scene() {
       },
     },
     CHARACTER: {
-      maxDist: 20, //Max distance dolly to the object focused
-      minDist: 18, //Min distance dolly to the object focused
-      currentDist: 18,
+      maxDist: 9, //Max distance dolly to the object focused
+      minDist: 7, //Min distance dolly to the object focused
+      currentDist: 7,
       minAngle: Math.PI / 3,
-      maxAngle: Math.PI / 2.5,
+      maxAngle: Math.PI / 2,
       coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
       speed: 0.7, //Enable/Disable (1 or 0) orbits controls
       mesh: {
@@ -56,14 +55,33 @@ export function Scene() {
         layer: 0, //Mesh fit layer
       },
     },
+    INITIAL: {
+      maxDist: 15, //Max distance dolly to the object focused
+      minDist: 0, //Min distance dolly to the object focused
+      currentDist: 7,
+      minAngle: Math.PI / 3,
+      maxAngle: Math.PI / 2,
+      coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [3, 1, 0], //Mesh fit position
+        size: [5, 5, 5], //Mesh fit size
+        layer: 1, //Mesh fit layer
+      },
+    },
   };
-  const { showButton, setShowButton } = useStore();
+  const { showButton, setShowButton, showButtonStart, setShowButtonStart } =
+    useStore();
 
   //Current view of the camera
-  const views = { TV: "TV", CHARACTER: "CHARACTER", PC: "PC" };
-  const [currentView, setCurrentView] = useState(views.CHARACTER);
-  const [lastView, setLastView] = useState();
-  const [lastCameraPosition, setLastCameraPosition] = useState();
+  const views = {
+    TV: "TV",
+    CHARACTER: "CHARACTER",
+    PC: "PC",
+    INITIAL: "INITIAL",
+  };
+  const [currentView, setCurrentView] = useState(views.INITIAL);
 
   let firstFit = true;
 
@@ -77,11 +95,11 @@ export function Scene() {
   const [distMin, setDistMin] = useState();
 
   function initialConfig() {
-    setMinPolarAngle(cameraControls.CHARACTER.minAngle);
-    setMaxPolarAngle(cameraControls.CHARACTER.maxAngle);
-    setDistMax(cameraControls.CHARACTER.maxDist);
-    setDistMin(cameraControls.CHARACTER.minDist);
-    setSpeed(cameraControls.CHARACTER.speed);
+    setMinPolarAngle(cameraControls.INITIAL.minAngle);
+    setMaxPolarAngle(cameraControls.INITIAL.maxAngle);
+    setDistMax(cameraControls.INITIAL.maxDist);
+    setDistMin(cameraControls.INITIAL.minDist);
+    setSpeed(cameraControls.INITIAL.speed);
   }
 
   const fitCamera = () => {
@@ -118,7 +136,17 @@ export function Scene() {
   }, []);
 
   useEffect(() => {
-    if (currentView !== views.CHARACTER) {
+    if (currentView === views.INITIAL) {
+      console.log("INITIAL");
+      // const intervalId = setInterval(movCameraToObject, 1);
+      // setTimeout(() => {
+      //   clearInterval(intervalId);
+      //   setShowButton(true);
+      // }, 1500);
+    }
+
+    if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
+      console.log("CHARACTER");
       const intervalId = setInterval(movCameraToObject, 1);
       setTimeout(() => {
         clearInterval(intervalId);
@@ -151,10 +179,20 @@ export function Scene() {
   }
 
   useEffect(() => {
+    console.log(showButton);
     if (!showButton) {
       setCurrentView(views.CHARACTER);
     }
   }, [showButton]);
+
+  useEffect(() => {
+    if (!showButtonStart) {
+      setCurrentView(views.INITIAL);
+      fitCamera();
+    } else {
+      setCurrentView(views.CHARACTER);
+    }
+  }, [showButtonStart]);
 
   //Para mapear el cameraViews y mostrarlos
   const meshFitComponents = Object.entries(cameraControls).map(
@@ -171,6 +209,20 @@ export function Scene() {
 
   return (
     <>
+      {/* Camera configuration */}
+      <CameraControls
+        ref={cameraControlRef}
+        minPolarAngle={minPolarAngle}
+        maxPolarAngle={maxPolarAngle}
+        maxDistance={distMax}
+        minDistance={distMin}
+        // infinityDolly={false}
+        truckSpeed={0}
+        dollySpeed={speed ? speed : 0}
+        polarRotateSpeed={speed ? speed : 0}
+        azimuthRotateSpeed={speed ? speed : 0}
+        // enabled={false}
+      ></CameraControls>
       {/* Scene configuration */}
       <SceneConf></SceneConf>
 
@@ -201,24 +253,9 @@ export function Scene() {
       />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <Animations />
+        <Scene3D />
+        {/* <Model></Model> */}
       </group>
-
-      {/* Camera configuration */}
-      <CameraControls
-        ref={cameraControlRef}
-        minPolarAngle={minPolarAngle}
-        maxPolarAngle={maxPolarAngle}
-        maxDistance={distMax}
-        minDistance={distMin}
-        // infinityDolly={false}
-        truckSpeed={0}
-        dollySpeed={speed}
-        polarRotateSpeed={speed}
-        azimuthRotateSpeed={speed}
-        // enabled={false}
-      ></CameraControls>
-      {/* <OrbitControls > </OrbitControls> */}
     </>
   );
 }
