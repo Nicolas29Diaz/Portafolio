@@ -7,7 +7,6 @@ import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 
 import { Scene3D } from "./3D_Components/Scene3D.jsx";
-import { useThree } from "@react-three/fiber";
 
 export function Scene() {
   const cameraControls = {
@@ -24,7 +23,7 @@ export function Scene() {
         ref: useRef(), //Mesh to center the camera view
         position: [-9.2, 3.6, 6], //Mesh fit position
         size: [1, 1.8, 1], //Mesh fit size
-        layer: 0, //Mesh fit layer
+        layer: 1, //Mesh fit layer
         rotation: [0, Math.PI / 5, 0],
       },
     },
@@ -92,6 +91,8 @@ export function Scene() {
   const { showButton, setShowButton, showButtonStart, setShowButtonStart } =
     useStore();
 
+  const [showFloatButtons, setShowFloatButtons] = useState(false);
+
   //Current view of the camera
   const views = {
     TV: "TV",
@@ -151,15 +152,6 @@ export function Scene() {
   }, []);
 
   useEffect(() => {
-    if (currentView === views.INITIAL) {
-      console.log("INITIAL");
-      // const intervalId = setInterval(movCameraToObject, 1);
-      // setTimeout(() => {
-      //   clearInterval(intervalId);
-      //   setShowButton(true);
-      // }, 1500);
-    }
-
     if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
       console.log("CHARACTER");
       const intervalId = setInterval(movCameraToObject, 1);
@@ -194,20 +186,11 @@ export function Scene() {
     fitCamera();
   }
 
-  const { camera } = useThree();
-  useEffect(() => {
-    console.log(camera);
-  }, []);
-  useEffect(() => {
-    if (currentView === views.CHARACTER) {
-      // cameraControlRef.current._target.lerp([20, 20, 20], 0.025);
-    }
-  }, [currentView]);
-
   useEffect(() => {
     console.log(showButton);
     if (!showButton) {
       setCurrentView(views.CHARACTER);
+      setShowFloatButtons(true);
     }
   }, [showButton]);
 
@@ -217,30 +200,14 @@ export function Scene() {
       fitCamera();
     } else {
       setCurrentView(views.CHARACTER);
-
-      // console.log("Target");
-      // console.log(cameraControlRef.current._target);
-      // console.log("pos");
-      // console.log(cameraControlRef.current._camera.position);
-      // // cameraControlRef.current._target = new Vector3(0, 2, 2);
-      // cameraControlRef.current.lerpLookAt(
-      //   cameraControlRef.current._camera.position.x,
-      //   cameraControlRef.current._camera.position.y,
-      //   cameraControlRef.current._camera.position.z,
-      //   cameraControlRef.current._target.x,
-      //   cameraControlRef.current._target.y,
-      //   cameraControlRef.current._target.z,
-      //   10,
-      //   10,
-      //   10,
-      //   8,
-      //   8,
-      //   8,
-      //   0.4,
-      //   true
-      // );
+      setShowFloatButtons(true);
     }
   }, [showButtonStart]);
+
+  const changeView = (view) => {
+    setCurrentView(view);
+    setShowFloatButtons(false);
+  };
 
   //Para mapear el cameraViews y mostrarlos
   const meshFitComponents = Object.entries(cameraControls).map(
@@ -287,32 +254,29 @@ export function Scene() {
       <>{meshFitComponents}</>
 
       {/* Buttons configuration */}
-      <FloatButton
-        position={[10, 1, 0]}
-        backgroundColor={"blue"}
-        onClick={() => setCurrentView(views.TV)}
-        text={"Move Camera"}
-      />
-      <FloatButton
-        position={[-9.2, 3.6, 5]}
-        backgroundColor={"White"}
-        onClick={() => {
-          setCurrentView(views.SKILLS);
-        }}
-        text={"SKILLS"}
-      />
-      {/* 
-      <FloatButton
-        position={[0.2, 3.6, 0]}
-        backgroundColor={"White"}
-        onClick={() => setCurrentView(views.TV)}
-        text={"Skills"}
-      /> */}
+      {showFloatButtons && (
+        <>
+          <FloatButton
+            position={[10, 1, 0]}
+            backgroundColor={"blue"}
+            onClick={() => changeView(views.TV)}
+            text={"Move Camera"}
+          />
+          <FloatButton
+            position={[-9.2, 3.6, 5]}
+            backgroundColor={"White"}
+            onClick={() => {
+              changeView(views.SKILLS);
+            }}
+            text={"SKILLS"}
+          />
+        </>
+      )}
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         <Scene3D />
-        {/* <Model></Model> */}
       </group>
+      
     </>
   );
 }

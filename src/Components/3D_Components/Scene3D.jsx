@@ -7,6 +7,7 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import useStore from "../../Store/Store";
 import * as THREE from "three"; // Importa Three.js
+import { Html } from "@react-three/drei";
 export function Scene3D(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
@@ -361,7 +362,22 @@ export function Scene3D(props) {
               name="Cube020_1"
               geometry={nodes.Cube020_1.geometry}
               material={materials.SkillsBase2}
-            />
+            >
+              <Html
+              distanceFactor={1}
+                transform
+                occlude="blending"
+                style={{
+                  backgroundColor: "red",
+                  width: "795px",
+                  height: "450px",
+                  borderRadius: "100px",
+                }}
+                position={[0, 0.04, 0.1]}
+              >
+                <h1 style={{fontSize:"40px", margin:"0px", padding:"100px"}}>SKILLS</h1>
+              </Html>
+            </mesh>
           </group>
         </group>
         <mesh

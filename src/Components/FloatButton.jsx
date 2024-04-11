@@ -24,9 +24,9 @@ export function FloatButton({ text, backgroundColor, position, ...props }) {
         // 3D-transform contents
         // transform
         // Hide contents "behind" other meshes
-        occlude
+        occlude="blending"
         // Tells us when contents are occluded (or not)
-        onOcclude={setOccluded}
+        // onOcclude={setOccluded}
         // We just interpolate the visible state into css opacity and transforms
         style={{
           transition: "all 0.2s",
@@ -34,7 +34,7 @@ export function FloatButton({ text, backgroundColor, position, ...props }) {
           transform: `scale(${isVisible ? 1 : 0.25})`,
         }}
       >
-        <div style={{ display: "flex", alignContent:"center", gap:"0.2rem" }}>
+        <div style={{ display: "flex", alignContent: "center", gap: "0.2rem" }}>
           <button
             className="floatinButton"
             style={{ backgroundColor: backgroundColor }}
