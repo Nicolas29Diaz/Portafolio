@@ -1,8 +1,8 @@
-import { ThreeScene } from "./Components/ThreeScene";
 import { Canvas } from "@react-three/fiber";
 import useStore from "./Store/Store.js";
-import { useEffect } from "react";
 import { Scene } from "./Components/Scene.jsx";
+import { Suspense } from "react";
+import LoadingScreen from "./Components/LoadingScreen.jsx";
 function App() {
   const { showButton, setShowButton } = useStore();
   const { showButtonStart, setShowButtonStart } = useStore();
@@ -14,8 +14,10 @@ function App() {
         shadows
         camera={{ position: [5, 20, 80], fov: 40 }}
       >
+        <Suspense fallback={null} />
         <Scene></Scene>
       </Canvas>
+      <LoadingScreen />
       {showButton && (
         <button className="cancelButtons" onClick={() => setShowButton(false)}>
           X

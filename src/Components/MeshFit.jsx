@@ -1,7 +1,18 @@
 import React, { useEffect } from "react";
 
 export const MeshFit = React.forwardRef(
-  ({ position = [0, 0, 0], size = [1, 1, 1], layer = 0, cube = true, cubeSize = [1, 1, 1], cubeVisible = true}, ref) => {
+  (
+    {
+      position = [0, 0, 0],
+      rotation = [0, 0, 0],
+      size = [1, 1, 1],
+      layer = 0,
+      cube = true,
+      cubeSize = [1, 1, 1],
+      cubeVisible = true,
+    },
+    ref
+  ) => {
     useEffect(() => {
       if (ref && ref.current) {
         ref.current.layers.set(layer);
@@ -10,7 +21,7 @@ export const MeshFit = React.forwardRef(
 
     return (
       <>
-        <mesh position={position} ref={ref} visible={true}>
+        <mesh position={position} rotation={rotation} ref={ref} visible={true}>
           <boxGeometry args={size}></boxGeometry>
           <meshStandardMaterial
             color="orange"

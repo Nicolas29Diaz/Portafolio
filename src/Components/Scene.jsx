@@ -7,13 +7,31 @@ import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 
 import { Scene3D } from "./3D_Components/Scene3D.jsx";
+import { useThree } from "@react-three/fiber";
 
 export function Scene() {
   const cameraControls = {
-    TV: {
-      maxDist: 13, //Max distance dolly to the object focused
+    SKILLS: {
+      maxDist: 12, //Max distance dolly to the object focused
       minDist: 1, //Min distance dolly to the object focused
-      currentDist: 13,
+      currentDist: 3,
+      currentDistMobile: 6,
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
+      coordCamera: { x: -5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [-9.2, 3.6, 6], //Mesh fit position
+        size: [1, 1.8, 1], //Mesh fit size
+        layer: 0, //Mesh fit layer
+        rotation: [0, Math.PI / 5, 0],
+      },
+    },
+    TV: {
+      maxDist: 9, //Max distance dolly to the object focused
+      minDist: 1, //Min distance dolly to the object focused
+      currentDist: 3,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
       coordCamera: { x: 4, y: 0, z: 4 }, //Coordinates to posisionate the camera view
@@ -28,22 +46,22 @@ export function Scene() {
     CHARACTER: {
       maxDist: 9, //Max distance dolly to the object focused
       minDist: 7, //Min distance dolly to the object focused
-      currentDist: 7,
+      currentDist: 9,
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
       coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
       speed: 0.7, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [0, 1, 0], //Mesh fit position
-        size: [1, 2, 1], //Mesh fit size
-        layer: 0, //Mesh fit layer
+        position: [0.5, 1, 0], //Mesh fit position
+        size: [2, 2, 1], //Mesh fit size
+        layer: 1, //Mesh fit layer
       },
     },
     PC: {
-      maxDist: 13, //Max distance dolly to the object focused
+      maxDist: 10, //Max distance dolly to the object focused
       minDist: 1, //Min distance dolly to the object focused
-      currentDist: 10,
+      currentDist: 3,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
       coordCamera: { x: -1, y: 1, z: -1 }, //Coordinates to posisionate the camera view
@@ -56,7 +74,7 @@ export function Scene() {
       },
     },
     INITIAL: {
-      maxDist: 15, //Max distance dolly to the object focused
+      maxDist: 30, //Max distance dolly to the object focused
       minDist: 0, //Min distance dolly to the object focused
       currentDist: 7,
       minAngle: Math.PI / 3,
@@ -80,6 +98,7 @@ export function Scene() {
     CHARACTER: "CHARACTER",
     PC: "PC",
     INITIAL: "INITIAL",
+    SKILLS: "SKILLS",
   };
   const [currentView, setCurrentView] = useState(views.INITIAL);
 
@@ -103,17 +122,13 @@ export function Scene() {
   }
 
   const fitCamera = () => {
-    const { maxDist, minDist, speed, maxAngle, minAngle, currentDist } =
+    const { maxDist, minDist, speed, maxAngle, minAngle } =
       cameraControls[currentView];
 
     cameraControlRef.current.smoothTime = 0.3;
     cameraControlRef.current.fitToSphere(
       cameraControls[currentView].mesh.ref.current,
-      true,
-      0,
-      0,
-      0,
-      0
+      true
     );
 
     setDistMax(maxDist);
@@ -175,8 +190,19 @@ export function Scene() {
       true
     );
 
-    cameraControlRef.current.distance = currentDist;
+    // cameraControlRef.current.distance = currentDist;
+    fitCamera();
   }
+
+  const { camera } = useThree();
+  useEffect(() => {
+    console.log(camera);
+  }, []);
+  useEffect(() => {
+    if (currentView === views.CHARACTER) {
+      // cameraControlRef.current._target.lerp([20, 20, 20], 0.025);
+    }
+  }, [currentView]);
 
   useEffect(() => {
     console.log(showButton);
@@ -191,6 +217,28 @@ export function Scene() {
       fitCamera();
     } else {
       setCurrentView(views.CHARACTER);
+
+      // console.log("Target");
+      // console.log(cameraControlRef.current._target);
+      // console.log("pos");
+      // console.log(cameraControlRef.current._camera.position);
+      // // cameraControlRef.current._target = new Vector3(0, 2, 2);
+      // cameraControlRef.current.lerpLookAt(
+      //   cameraControlRef.current._camera.position.x,
+      //   cameraControlRef.current._camera.position.y,
+      //   cameraControlRef.current._camera.position.z,
+      //   cameraControlRef.current._target.x,
+      //   cameraControlRef.current._target.y,
+      //   cameraControlRef.current._target.z,
+      //   10,
+      //   10,
+      //   10,
+      //   8,
+      //   8,
+      //   8,
+      //   0.4,
+      //   true
+      // );
     }
   }, [showButtonStart]);
 
@@ -201,6 +249,7 @@ export function Scene() {
         key={view} // Asegúrate de tener una clave única
         ref={data.mesh.ref}
         position={data.mesh.position}
+        rotation={data.mesh?.rotation}
         size={data.mesh.size}
         layer={data.mesh.layer}
       />
@@ -209,6 +258,14 @@ export function Scene() {
 
   return (
     <>
+      <mesh position={[2, 2, -5]}>
+        <boxGeometry args={[1, 1, 1]}></boxGeometry>
+        <meshStandardMaterial
+          color="orange"
+          transparent
+          opacity={0.5}
+        ></meshStandardMaterial>
+      </mesh>
       {/* Camera configuration */}
       <CameraControls
         ref={cameraControlRef}
@@ -237,20 +294,20 @@ export function Scene() {
         text={"Move Camera"}
       />
       <FloatButton
-        position={[-10, 1, 0]}
+        position={[-9.2, 3.6, 5]}
         backgroundColor={"White"}
         onClick={() => {
-          setCurrentView(views.PC);
+          setCurrentView(views.SKILLS);
         }}
-        text={"Move Camera"}
+        text={"SKILLS"}
       />
-
+      {/* 
       <FloatButton
         position={[0.2, 3.6, 0]}
         backgroundColor={"White"}
         onClick={() => setCurrentView(views.TV)}
         text={"Skills"}
-      />
+      /> */}
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         <Scene3D />

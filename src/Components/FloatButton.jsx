@@ -20,7 +20,7 @@ export function FloatButton({ text, backgroundColor, position, ...props }) {
   return (
     <group ref={ref} position={position}>
       <Html
-        distanceFactor={10}
+        distanceFactor={20}
         // 3D-transform contents
         // transform
         // Hide contents "behind" other meshes
