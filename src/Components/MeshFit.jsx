@@ -2,15 +2,7 @@ import React, { useEffect } from "react";
 
 export const MeshFit = React.forwardRef(
   (
-    {
-      position = [0, 0, 0],
-      rotation = [0, 0, 0],
-      size = [1, 1, 1],
-      layer = 0,
-      cube = true,
-      cubeSize = [1, 1, 1],
-      cubeVisible = true,
-    },
+    { position = [0, 0, 0], rotation = [0, 0, 0], size = [1, 1, 1], layer = 0 },
     ref
   ) => {
     useEffect(() => {

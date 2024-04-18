@@ -27,21 +27,6 @@ export function Scene() {
         rotation: [0, Math.PI / 5, 0],
       },
     },
-    TV: {
-      maxDist: 9, //Max distance dolly to the object focused
-      minDist: 1, //Min distance dolly to the object focused
-      currentDist: 3,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      coordCamera: { x: 4, y: 0, z: 4 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [10, 0, 0], //Mesh fit position
-        size: [1, 1, 1], //Mesh fit size
-        layer: 0, //Mesh fit layer
-      },
-    },
     CHARACTER: {
       maxDist: 9, //Max distance dolly to the object focused
       minDist: 7, //Min distance dolly to the object focused
@@ -57,21 +42,6 @@ export function Scene() {
         layer: 1, //Mesh fit layer
       },
     },
-    PC: {
-      maxDist: 10, //Max distance dolly to the object focused
-      minDist: 1, //Min distance dolly to the object focused
-      currentDist: 3,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      coordCamera: { x: -1, y: 1, z: -1 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [-10, 0, 0], //Mesh fit position
-        size: [1, 1, 1], //Mesh fit size
-        layer: 0, //Mesh fit layer
-      },
-    },
     INITIAL: {
       maxDist: 30, //Max distance dolly to the object focused
       minDist: 0, //Min distance dolly to the object focused
@@ -79,12 +49,29 @@ export function Scene() {
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
       coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      speed: 1, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
         position: [3, 1, 0], //Mesh fit position
         size: [5, 5, 5], //Mesh fit size
         layer: 1, //Mesh fit layer
+      },
+    },
+    CONTACT: {
+      maxDist: 12, //Max distance dolly to the object focused
+      minDist: 1, //Min distance dolly to the object focused
+      currentDist: 3,
+      currentDistMobile: 6,
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
+      coordCamera: { x: -5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [5.8, 2, -10], //Mesh fit position
+        size: [4, 4, 4], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        rotation: [0, 0, 0],
       },
     },
   };
@@ -100,7 +87,9 @@ export function Scene() {
     PC: "PC",
     INITIAL: "INITIAL",
     SKILLS: "SKILLS",
+    CONTACT: "CONTACT",
   };
+
   const [currentView, setCurrentView] = useState(views.INITIAL);
 
   let firstFit = true;
@@ -225,14 +214,6 @@ export function Scene() {
 
   return (
     <>
-      <mesh position={[2, 2, -5]}>
-        <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        <meshStandardMaterial
-          color="orange"
-          transparent
-          opacity={0.5}
-        ></meshStandardMaterial>
-      </mesh>
       {/* Camera configuration */}
       <CameraControls
         ref={cameraControlRef}
@@ -253,30 +234,28 @@ export function Scene() {
       {/* Mesh fit camera targets */}
       <>{meshFitComponents}</>
 
-      {/* Buttons configuration */}
+      <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
+        <Scene3D showFloatButtons={showFloatButtons} />
+      </group>
+
       {showFloatButtons && (
         <>
           <FloatButton
-            position={[10, 1, 0]}
-            backgroundColor={"blue"}
-            onClick={() => changeView(views.TV)}
-            text={"Move Camera"}
+            view={views.CONTACT}
+            changeView={changeView}
+            position={[5, 1.802, -7.668]}
+            rotation={[0, -Math.PI/5, Math.PI / 4]}
+            scale={1}
           />
           <FloatButton
-            position={[-9.2, 3.6, 5]}
-            backgroundColor={"White"}
-            onClick={() => {
-              changeView(views.SKILLS);
-            }}
-            text={"SKILLS"}
+            view={views.SKILLS}
+            changeView={changeView}
+            position={[-8, 3.5, 5.5]}
+            rotation={[-Math.PI, 1.004, Math.PI / 4]}
+            scale={0.9}
           />
         </>
       )}
-
-      <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <Scene3D />
-      </group>
-      
     </>
   );
 }

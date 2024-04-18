@@ -1,0 +1,115 @@
+:root {
+  --button-border-color: rgb(255, 255, 255);
+  --button-hover-color: rgb(0, 159, 203);
+  --button-bg-color: rgb(71, 71, 71);
+  --button-animation: 0.3s;
+}
+.contentButton {
+  margin: 0px;
+  text-align: center;
+  align-content: center;
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  background: var(--button-border-color);
+  color: var(--button-border-color);
+  transition: 0.5s;
+  /* transform: rotate(-45deg); */
+}
+
+.contentButton:hover {
+  background-color: var(--button-hover-color);
+  box-shadow: 0 0 30px 10px var(--button-hover-color);
+  color: var(--button-hover-color);
+  /* width: 35px;
+  height: 35px; */
+  /* transform: rotate(45deg); */
+}
+
+.contentButton::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--button-bg-color);
+}
+
+.contentButton div {
+  position: relative;
+  z-index: 1;
+  transform: rotate(45deg);
+  font-size: 35px;
+  font-weight: 800;
+}
+
+.contentButton i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.contentButton i:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3.2%;
+  width: 50%;
+  height: 3px;
+  background: var(--button-bg-color);
+  transform: skewX(45deg);
+  transition: var(--button-animation);
+}
+.contentButton:hover i:nth-child(2)::before {
+  transform: skewX(-45deg);
+  width: 47%;
+  left: 50%;
+}
+
+.contentButton i:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  top: 3.2%;
+  left: 0%;
+  width: 3px;
+  height: 50%;
+  background: var(--button-bg-color);
+  transform: skewY(45deg);
+  transition: var(--button-animation);
+}
+.contentButton:hover i:nth-child(2)::after {
+  transform: skewY(-45deg);
+  height: 50%;
+  top: 47%;
+}
+
+.contentButton i:nth-child(3)::before {
+  content: "";
+  position: absolute;
+  top: 47%;
+  right: 0;
+  width: 3px;
+  height: 50%;
+  background: var(--button-bg-color);
+  transform: skewY(45deg);
+  transition: var(--button-animation);
+}
+.contentButton:hover i:nth-child(3)::before {
+  transform: skewY(-45deg);
+  top: 3%;
+}
+
+.contentButton i:nth-child(3)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 47%;
+  width: 50%;
+  height: 3px;
+  background: var(--button-bg-color);
+  transform: skewX(45deg);
+  transition: var(--button-animation);
+}
+.contentButton:hover i:nth-child(3)::after {
+  transform: skewX(-45deg);
+  left: 3.2%;
+}
