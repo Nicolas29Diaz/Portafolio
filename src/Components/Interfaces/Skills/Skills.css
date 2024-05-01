@@ -1,0 +1,43 @@
+.about-box-line {
+  fill: none;
+  stroke: #00b7ff;
+  stroke-width: 2;
+  stroke-dasharray: 0 1000;
+  animation: drawLine 5s ease forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dasharray: 1000 0;
+  }
+}
+
+.heart-line {
+  fill: none;
+  stroke: #00b7ff;
+  stroke-width: 4;
+}
+
+
+
+.heart-rect-mask:nth-child(1) {
+  width: 0px;
+  animation: expandWidth1 2s ease forwards;
+}
+
+.heart-rect-mask:nth-child(2) {
+  width: 0px;
+  animation: expandWidth2 2s ease forwards 2s; /* Comienza después de 2 segundos */
+}
+
+@keyframes expandWidth1 {
+  to {
+    width: 400px;
+  }
+}
+
+@keyframes expandWidth2 {
+  to {
+    width: 400px;
+  }
+}

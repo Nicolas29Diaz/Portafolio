@@ -5,8 +5,9 @@ import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
-
+import { views } from "../Store/Store.js";
 import { Scene3D } from "./3D_Components/Scene3D.jsx";
+import { Escena } from "./3D_Components/Escena.jsx";
 
 export function Scene() {
   const cameraControls = {
@@ -49,7 +50,7 @@ export function Scene() {
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
       coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
-      speed: 1, //Enable/Disable (1 or 0) orbits controls
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
         position: [3, 1, 0], //Mesh fit position
@@ -75,20 +76,10 @@ export function Scene() {
       },
     },
   };
-  const { showButton, setShowButton, showButtonStart, setShowButtonStart } =
+  const { showButton, setShowButton, showButtonStart, setCameraFocus } =
     useStore();
 
   const [showFloatButtons, setShowFloatButtons] = useState(false);
-
-  //Current view of the camera
-  const views = {
-    TV: "TV",
-    CHARACTER: "CHARACTER",
-    PC: "PC",
-    INITIAL: "INITIAL",
-    SKILLS: "SKILLS",
-    CONTACT: "CONTACT",
-  };
 
   const [currentView, setCurrentView] = useState(views.INITIAL);
 
@@ -178,13 +169,14 @@ export function Scene() {
   useEffect(() => {
     console.log(showButton);
     if (!showButton) {
+      setCameraFocus(views.CHARACTER);
       setCurrentView(views.CHARACTER);
       setShowFloatButtons(true);
     }
   }, [showButton]);
 
   useEffect(() => {
-    if (!showButtonStart) {
+    if (showButtonStart) {
       setCurrentView(views.INITIAL);
       fitCamera();
     } else {
@@ -194,6 +186,7 @@ export function Scene() {
   }, [showButtonStart]);
 
   const changeView = (view) => {
+    setCameraFocus(view);
     setCurrentView(view);
     setShowFloatButtons(false);
   };
@@ -235,16 +228,19 @@ export function Scene() {
       <>{meshFitComponents}</>
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <Scene3D showFloatButtons={showFloatButtons} />
+        <Escena></Escena> 
+        {/* <mesh>
+          <boxGeometry args={[1, 1, 1]}></boxGeometry>
+        </mesh> */}
       </group>
 
-      {showFloatButtons && (
+      {showFloatButtons && !showButtonStart && (
         <>
           <FloatButton
             view={views.CONTACT}
             changeView={changeView}
             position={[5, 1.802, -7.668]}
-            rotation={[0, -Math.PI/5, Math.PI / 4]}
+            rotation={[0, -Math.PI / 5, Math.PI / 4]}
             scale={1}
           />
           <FloatButton

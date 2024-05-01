@@ -7,6 +7,7 @@ function HtmlBase({
   borderRadius = "10px",
   backgroundColor,
   children,
+  rotation,
 }) {
   return (
     <Html
@@ -18,8 +19,10 @@ function HtmlBase({
         width: sizeScreen[0],
         height: sizeScreen[1],
         borderRadius: borderRadius,
+        alignContent:"center"
       }}
       position={position}
+      rotation={rotation}
     >
       {children}
     </Html>
