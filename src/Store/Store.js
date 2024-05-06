@@ -14,7 +14,9 @@ const useStore = create((set) => ({
   showButtonStart: true,
 
   cameraFocus: views.INITIAL,
+  gpuTier: 1,
 
+  setGpuTier: (value) => set({ gpuTier: value }),
   setShowButton: (value) => set({ showButton: value }),
   setShowButtonStart: (value) => set({ showButtonStart: value }),
   setCameraFocus: (focus) => set({ cameraFocus: focus }),

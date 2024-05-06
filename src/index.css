@@ -1,33 +1,13 @@
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
+* {
   margin: 0;
-  background-color: transparent;
-
+  padding: 0;
+  box-sizing: border-box;
 }
-
-h1 {
-  font-size: 0.5rem;
-  color: rgb(0, 0, 0);
+.canvas-container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
 }
-
-.app .hero {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.canvas {
-  position: fixed !important;
-  inset: 0 !important;
-}
-
 
 .cancelButtons {
   position: fixed;

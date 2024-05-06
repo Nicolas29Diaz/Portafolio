@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Html } from "@react-three/drei";
 
 function HtmlBase({
@@ -9,6 +9,12 @@ function HtmlBase({
   children,
   rotation,
 }) {
+  const htmlRef = useRef();
+  const handleWheel = () => {
+    // Enfocar el contenedor HTML para que la rueda del mouse funcione
+    htmlRef.current.focus();
+  };
+
   return (
     <Html
       distanceFactor={1}
@@ -19,10 +25,12 @@ function HtmlBase({
         width: sizeScreen[0],
         height: sizeScreen[1],
         borderRadius: borderRadius,
-        alignContent:"center"
+        alignContent: "center",
       }}
       position={position}
       rotation={rotation}
+      tabIndex={0}
+      ref={htmlRef}
     >
       {children}
     </Html>

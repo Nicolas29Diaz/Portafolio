@@ -8,25 +8,26 @@ import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Scene3D } from "./3D_Components/Scene3D.jsx";
 import { Escena } from "./3D_Components/Escena.jsx";
-
-export function Scene() {
+import { OrbitControls } from "@react-three/drei";
+import { Html } from "@react-three/drei";
+export function SceneOrbits() {
   const [enableControls, setEnableControls] = useState();
   const cameraControls = {
     SKILLS: {
-      maxDist: 7, //Max distance dolly to the object focused
+      maxDist: 12, //Max distance dolly to the object focused
       minDist: 1, //Min distance dolly to the object focused
-      currentDist: 1,
+      currentDist: 3,
       currentDistMobile: 6,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: -4.5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
-      speed: 0.05, //Enable/Disable (1 or 0) orbits controls
+      coordCamera: { x: -5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-9, 3.5, 6], //Mesh fit position
-        size: [1, 0.5, 1.5], //Mesh fit size
-        layer: 0, //Mesh fit layer
-        rotation: [0, Math.PI / 6, 0],
+        position: [-9.2, 3.6, 6], //Mesh fit position
+        size: [1, 1.8, 1], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        rotation: [0, Math.PI / 5, 0],
       },
     },
     CHARACTER: {
@@ -88,7 +89,7 @@ export function Scene() {
 
   const [minPolarAngle, setMinPolarAngle] = useState();
   const [maxPolarAngle, setMaxPolarAngle] = useState();
-  const cameraControlRef = useRef();
+  //   const cameraControlRef = useRef();
 
   //Orbital controls
   const [speed, setSpeed] = useState();
@@ -107,11 +108,11 @@ export function Scene() {
     const { maxDist, minDist, speed, maxAngle, minAngle } =
       cameraControls[currentView];
 
-    cameraControlRef.current.smoothTime = 0.3;
-    cameraControlRef.current.fitToSphere(
-      cameraControls[currentView].mesh.ref.current,
-      true
-    );
+    // cameraControlRef.current.smoothTime = 0.3;
+    // cameraControlRef.current.fitToSphere(
+    //   cameraControls[currentView].mesh.ref.current,
+    //   true
+    // );
 
     setDistMax(maxDist);
     setDistMin(minDist);
@@ -122,16 +123,15 @@ export function Scene() {
     if (firstFit) {
       console.log("FirstFit");
       const { currentDist } = cameraControls[currentView];
-      cameraControlRef.current.distance = currentDist;
+      //   cameraControlRef.current.distance = currentDist;
       firstFit = false;
     }
   };
 
   useEffect(() => {
     initialConfig();
-    console.log(cameraControlRef.current);
+    // console.log(cameraControlRef.current);
   }, []);
-
 
   useEffect(() => {
     if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
@@ -144,6 +144,7 @@ export function Scene() {
     }
 
     fitCamera();
+
     window.addEventListener("resize", fitCamera);
     return () => window.removeEventListener("resize", fitCamera);
   }, [currentView]);
@@ -151,17 +152,17 @@ export function Scene() {
   function movCameraToObject() {
     const currentCoordCamera = cameraControls[currentView].coordCamera;
     const currentMesh = cameraControls[currentView].mesh.ref.current.position;
-    // const { currentDist } = cameraControls[currentView];
+    const { currentDist } = cameraControls[currentView];
 
-    cameraControlRef.current.setLookAt(
-      currentCoordCamera.x,
-      currentCoordCamera.y,
-      currentCoordCamera.z,
-      currentMesh.x,
-      currentMesh.y,
-      currentMesh.z,
-      true
-    );
+    // cameraControlRef.current.setLookAt(
+    //   currentCoordCamera.x,
+    //   currentCoordCamera.y,
+    //   currentCoordCamera.z,
+    //   currentMesh.x,
+    //   currentMesh.y,
+    //   currentMesh.z,
+    //   true
+    // );
 
     // cameraControlRef.current.distance = currentDist;
     fitCamera();
@@ -208,8 +209,31 @@ export function Scene() {
 
   return (
     <>
+      {/* <Html
+        transform
+        occlude="blending"
+        style={{
+          backgroundColor: "red",
+          width: "200px",
+          height: "100px",
+          overflowY: "auto",
+        }}
+      >
+        <h1>HOLA</h1>
+        <h1>HOLA</h1>
+        <h1>HOLA</h1>
+        <h1>HOLA</h1>
+        <h1>HOLA</h1>
+        <h1>HOLA</h1>
+      </Html> */}
       {/* Camera configuration */}
-      <CameraControls
+      {/* <OrbitControls
+        target={[0, 0, 0]}
+        maxDistance={10}
+        minDistance={8}
+      ></OrbitControls> */}
+
+      {/* <CameraControls
         ref={cameraControlRef}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
@@ -221,8 +245,7 @@ export function Scene() {
         polarRotateSpeed={speed ? speed : 0}
         azimuthRotateSpeed={speed ? speed : 0}
         // enabled={false}
-        // zoom={false}
-      ></CameraControls>
+      ></CameraControls> */}
 
       {/* Scene configuration */}
       <SceneConf></SceneConf>
@@ -237,7 +260,7 @@ export function Scene() {
         </mesh> */}
       </group>
 
-      {showFloatButtons && !showButtonStart && (
+      {/* {showFloatButtons && !showButtonStart && (
         <>
           <FloatButton
             view={views.CONTACT}
@@ -254,7 +277,7 @@ export function Scene() {
             scale={0.9}
           />
         </>
-      )}
+      )} */}
     </>
   );
 }

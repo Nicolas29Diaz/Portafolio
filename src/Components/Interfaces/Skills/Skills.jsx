@@ -3,6 +3,10 @@ import HtmlBase from "../HtmlBase";
 import { Html } from "@react-three/drei";
 import useStore from "../../../Store/Store";
 import "./Skills.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import SkillContainer from "../SVGItems/SkillContainer";
 // import { views, useStore } from "../../../Store/Store.js";
 function Skills() {
   const { cameraFocus } = useStore();
@@ -10,63 +14,74 @@ function Skills() {
     console.log(cameraFocus);
   }, [cameraFocus]);
 
-  const [isActive, setIsActive] = useState(false);
-  const toggleSVG = () => {
-    setIsActive(!isActive);
+  const [active, setActive] = useState(0);
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   return (
     <HtmlBase
-      backgroundColor="#ffffff"
-      sizeScreen={["1000px", "480px"]}
+      backgroundColor="#003275"
+      sizeScreen={["980px", "480px"]}
       borderRadius="0px"
       position={[0, 0.08, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          flexDirection: "column",
-          width: "90%",
-          height: "90%",
-          margin: "auto",
-        }}
-      >
-        <button onClick={toggleSVG}>
-          {isActive ? "Desactivar SVG" : "Activar SVG"}
-        </button>
-        {/* {cameraFocus === "SKILLS" && ( */}
-        {isActive && (
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient
-                id="skillname-gradient"
-                // gradientTransform="rotate(90)"
-              >
-                <stop offset="0%" stopColor="rgba(255,0,0)"></stop>
-                <stop offset="90%" stopColor="rgba(0,0,0)"></stop>
-              </linearGradient>
-            </defs>
-            {/* <rect
-              x="10"
-              y="10"
-              width="100px"
-              height="100px"
-              fill="url(#skillname-gradient)"
-            /> */}
-            <mask></mask>
-            {/* <g transform="translate(20 20)">
-              <polyline
-                className="about-box-line"
-                points="0,0 100,0 120,10 390,10 400,15 400,50"
-              />
-              <polyline
-                className="about-box-line"
-                points="0,100 70,100 80,90 390,90 400,85 400,50"
-              />
-            </g> */}
-            <g>
+      <div className="general-container">
+        <div
+          style={{
+            flex: "2",
+            width: "100px",
+            height: "100%",
+            alignContent: "center",
+            padding: "20px",
+          }}
+        >
+          <Slider
+            {...settings}
+            beforeChange={(current, next) => {
+              setActive(next);
+            }}
+          >
+            <div>
+              {cameraFocus === "SKILLS" && active === 0 && (
+                <div className="skills-container">
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                </div>
+              )}
+            </div>
+
+            <div>
+              {active === 1 && (
+                <div className="skills-container">
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                  <SkillContainer></SkillContainer>
+                </div>
+              )}
+            </div>
+          </Slider>
+        </div>
+        <div style={{ flex: "1", padding: "20px", height: "100%" }}>
+          <div>MODELO 3D</div>
+        </div>
+      </div>
+    </HtmlBase>
+  );
+}
+
+export default Skills;
+{
+  /*  <g>
               <mask id="heart-mask">
                 <rect className="heart-rect-mask" height="200px" fill="white" />
                 <rect className="heart-rect-mask" height="200px" fill="black" />
@@ -78,16 +93,10 @@ function Skills() {
                 mask="url(#heart-mask)"
               />
             </g>
-          </svg>
-        )}
-      </div>
-    </HtmlBase>
-  );
-}
-
-export default Skills;
-{
-  /* <g transform="translate(170 118)" fill="#34bfff" font-weight="bold">
+  
+  
+  
+  <g transform="translate(170 118)" fill="#34bfff" font-weight="bold">
              <text x="0" y="0" font-size="12" class="about-header-upper-text">
                Name :
              </text>
