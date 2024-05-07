@@ -6,7 +6,7 @@ import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Escena } from "./3D_Components/Escena.jsx";
-import { max } from "three/examples/jsm/nodes/Nodes.js";
+
 
 export function Scene() {
   const cameraControls = {

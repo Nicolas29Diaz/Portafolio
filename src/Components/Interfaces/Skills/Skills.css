@@ -8,23 +8,29 @@
   gap: 20px;
 }
 .container-1 {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 75%;
 }
 .container-2 {
-  width: 25%;
+  position: relative;
+  /* width: 25%;
+  height: 100%;
+
+  align-items: center; */
 }
 .title-container {
   flex: 1;
   margin: auto;
+  color: white;
+  font-size: 30px;
 }
 .slider-container {
   margin: auto;
   width: 90%;
   flex: 5;
-  border: 1px solid black;
   align-items: end;
   align-content: center;
 }
@@ -33,4 +39,3 @@
   grid-template-columns: 1fr 1fr;
   justify-items: center;
 }
-
