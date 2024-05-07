@@ -10,6 +10,7 @@ import { Scene3D } from "./3D_Components/Scene3D.jsx";
 import { Escena } from "./3D_Components/Escena.jsx";
 import { OrbitControls } from "@react-three/drei";
 import { Html } from "@react-three/drei";
+
 export function SceneOrbits() {
   const [enableControls, setEnableControls] = useState();
   const cameraControls = {
@@ -24,10 +25,10 @@ export function SceneOrbits() {
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-9.2, 3.6, 6], //Mesh fit position
-        size: [1, 1.8, 1], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        rotation: [0, Math.PI / 5, 0],
+        position: [-9.7, 3.6, 6.4], //Mesh fit position
+        size: [0.1, 0.5, 1.8], //Mesh fit size
+        layer: 0, //Mesh fit layer
+        rotation: [0, Math.PI / 5.5, 0],
       },
     },
     CHARACTER: {
@@ -209,6 +210,7 @@ export function SceneOrbits() {
 
   return (
     <>
+    <OrbitControls></OrbitControls>
       {/* <Html
         transform
         occlude="blending"

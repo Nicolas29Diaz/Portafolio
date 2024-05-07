@@ -20,10 +20,9 @@ function App() {
     const getGPUInfo = async () => {
       const gpuInfo = await getGPUTier();
       setGpuTier(gpuInfo.tier);
+      console.log(gpuInfo.tier);
     };
     getGPUInfo();
-
-    console.log(cameraControlsRef.current);
   }, [cameraControlsRef]);
 
   return (

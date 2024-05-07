@@ -1,32 +1,33 @@
 import { CameraControls } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
-
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-import { Scene3D } from "./3D_Components/Scene3D.jsx";
 import { Escena } from "./3D_Components/Escena.jsx";
+import { max } from "three/examples/jsm/nodes/Nodes.js";
 
 export function Scene() {
-  const [enableControls, setEnableControls] = useState();
   const cameraControls = {
     SKILLS: {
-      maxDist: 7, //Max distance dolly to the object focused
+      maxDist: 6, //Max distance dolly to the object focused
       minDist: 1, //Min distance dolly to the object focused
       currentDist: 1,
       currentDistMobile: 6,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: -4.5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
-      speed: 0.05, //Enable/Disable (1 or 0) orbits controls
+      minAzimuthAngle: -Math.PI / 2,
+      maxAzimuthAngle: Math.PI / 2,
+      coordCamera: { x: 0, y: 3.5, z: 0 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-9, 3.5, 6], //Mesh fit position
-        size: [1, 0.5, 1.5], //Mesh fit size
-        layer: 0, //Mesh fit layer
-        rotation: [0, Math.PI / 6, 0],
+        position: [-9.7, 3.6, 6.4], //Mesh fit position
+        size: [0.1, 0.5, 2], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        rotation: [0, Math.PI / 5.5, 0],
       },
     },
     CHARACTER: {
@@ -88,10 +89,14 @@ export function Scene() {
 
   const [minPolarAngle, setMinPolarAngle] = useState();
   const [maxPolarAngle, setMaxPolarAngle] = useState();
+
+  const [minAzimuthAngle, setMinAzimuthAngle] = useState();
+  const [maxAzimuthAngle, setMaxAzimuthAngle] = useState();
   const cameraControlRef = useRef();
 
-  //Orbital controls
+  //Controls
   const [speed, setSpeed] = useState();
+  const [dollySpeed, setDollySpeed] = useState();
   const [distMax, setDistMax] = useState();
   const [distMin, setDistMin] = useState();
 
@@ -104,8 +109,16 @@ export function Scene() {
   }
 
   const fitCamera = () => {
-    const { maxDist, minDist, speed, maxAngle, minAngle } =
-      cameraControls[currentView];
+    const {
+      maxDist,
+      minDist,
+      speed,
+      maxAngle,
+      minAngle,
+      dollySpeed,
+      maxAzimuthAngle,
+      minAzimuthAngle,
+    } = cameraControls[currentView];
 
     cameraControlRef.current.smoothTime = 0.3;
     cameraControlRef.current.fitToSphere(
@@ -117,7 +130,10 @@ export function Scene() {
     setDistMin(minDist);
     setMaxPolarAngle(maxAngle);
     setMinPolarAngle(minAngle);
+    setMaxAzimuthAngle(maxAzimuthAngle);
+    setMinAzimuthAngle(minAzimuthAngle);
     setSpeed(speed);
+    setDollySpeed(dollySpeed);
 
     if (firstFit) {
       console.log("FirstFit");
@@ -131,7 +147,6 @@ export function Scene() {
     initialConfig();
     console.log(cameraControlRef.current);
   }, []);
-
 
   useEffect(() => {
     if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
@@ -213,11 +228,13 @@ export function Scene() {
         ref={cameraControlRef}
         minPolarAngle={minPolarAngle}
         maxPolarAngle={maxPolarAngle}
+        // minAzimuthAngle={minAzimuthAngle ? minAzimuthAngle : -Infinity}
+        // maxAzimuthAngle={maxAzimuthAngle ? maxAzimuthAngle : Infinity}
         maxDistance={distMax}
         minDistance={distMin}
         // infinityDolly={false}
         truckSpeed={0}
-        dollySpeed={speed ? speed : 0}
+        dollySpeed={dollySpeed ? dollySpeed : speed}
         polarRotateSpeed={speed ? speed : 0}
         azimuthRotateSpeed={speed ? speed : 0}
         // enabled={false}

@@ -1,6 +1,7 @@
 import React from "react";
 import "./SVG.css";
-function SkillContainer({ position = "10 15", scale = "1" }) {
+import SKillPoints from "../SVGItems/SkillPoints";
+function SkillContainer({ position = "10 15", scale = "1", skillPoints = 5 }) {
   return (
     <svg width="300px" height="160" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -19,6 +20,8 @@ function SkillContainer({ position = "10 15", scale = "1" }) {
           className="about-box-line"
           points="0,70 0,120 65,120 100,100 100,80"
         />
+        {/* SKILLPOINTS */}
+        <SKillPoints skillPoints={skillPoints}></SKillPoints>
       </g>
     </svg>
   );

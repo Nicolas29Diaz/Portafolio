@@ -1,7 +1,7 @@
 .about-box-line {
   fill: none;
-  stroke: #00b7ff;
-  stroke-width: 2;
+  stroke: #1e6794;
+  stroke-width: 3;
   stroke-dasharray: 0 1000;
   animation: drawLine 5s ease forwards;
 }
@@ -10,4 +10,14 @@
   to {
     stroke-dasharray: 1000 0;
   }
+}
+
+.skillPoints {
+  fill: none;
+  stroke: #08bee1;
+  stroke-width: 1;
+}
+
+.skillPoints.filled {
+  fill: #08bee1;
 }
