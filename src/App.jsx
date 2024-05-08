@@ -37,6 +37,8 @@ function App() {
           </Suspense>
         </Canvas>
         <Loader></Loader>
+
+        
         {/* <LoadingScreen /> */}
       </div>
       {showButton && (

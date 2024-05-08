@@ -1,8 +1,10 @@
 // Importing necessary libraries and components
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useStore from "../../../Store/Store";
 import Slider from "react-slick";
 import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 // Importing styles
 import "slick-carousel/slick/slick.css";
@@ -15,6 +17,7 @@ import SkillContainer from "../SVGItems/SkillContainer";
 import BackGround from "./BackGround";
 function Skills() {
   const { cameraFocus } = useStore();
+  const canvas = useRef();
   useEffect(() => {
     console.log(cameraFocus);
   }, [cameraFocus]);
@@ -100,45 +103,27 @@ function Skills() {
         </div>
         <div className="container-2"></div>
       </div>
+
+      <div
+        style={{
+          width: "500px",
+          height: "400px",
+          position: "absolute",
+          top: 0,
+        }}
+      >
+        {/* <Canvas ref={canvas}>
+            <color attach="background" args={["#ffffff"]}></color>
+            <mesh position={[20, 20, 20]}>
+              <boxGeometry args={[10, 10, 10]}></boxGeometry>
+              <meshStandardMaterial color={"orange"}></meshStandardMaterial>
+            </mesh>
+            <ambientLight></ambientLight>
+            <OrbitControls target={[20, 20, 20]}></OrbitControls>
+          </Canvas> */}
+      </div>
     </HtmlBase>
   );
 }
 
 export default Skills;
-{
-  /*  <g>
-              <mask id="heart-mask">
-                <rect className="heart-rect-mask" height="200px" fill="white" />
-                <rect className="heart-rect-mask" height="200px" fill="black" />
-              </mask>
-
-              <polyline
-                className="heart-line"
-                points="0,100 70,100 80,120 90,100 120,40 150,170 180,100 250,100"
-                mask="url(#heart-mask)"
-              />
-            </g>
-  
-  
-  
-  <g transform="translate(170 118)" fill="#34bfff" font-weight="bold">
-             <text x="0" y="0" font-size="12" class="about-header-upper-text">
-               Name :
-             </text>
-             <text x="0" y="20" font-size="18" class="about-header-lower-text">
-               David
-             </text>
-             <text x="110" y="0" font-size="12" class="about-header-upper-text">
-               Age :
-             </text>
-             <text x="110" y="20" font-size="18" class="about-header-lower-text">
-               23
-             </text>
-             <text x="200" y="0" font-size="12" class="about-header-upper-text">
-               From :
-             </text>
-             <text x="200" y="20" font-size="18" class="about-header-lower-text">
-               Germany
-             </text>
-           </g> */
-}
