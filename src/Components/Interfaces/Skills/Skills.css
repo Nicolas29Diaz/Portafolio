@@ -15,7 +15,7 @@
   width: 75%;
 }
 .container-2 {
-  /* position: relative;   */
+  position: relative;  
   /* width: 250px;
   height: 10px; */
 
@@ -41,12 +41,12 @@
 }
 
 .canvas-skills-container {
-  /* position: absolute; */
-  /* top: 20px; */
-  /* left: 696px; */
+  position: fixed;
+  top: 20px;
+  left: 696px;
   width: 320px;
   height: 500px;
-  /* clip-path: polygon(
+  clip-path: polygon(
     1.9% 9.1%,
     12.5% 0.5%,
     73% 0.5%,
@@ -56,5 +56,5 @@
     3.8% 80%,
     11.15% 75%,
     11.15% 15%
-  ); */
+  );
 }

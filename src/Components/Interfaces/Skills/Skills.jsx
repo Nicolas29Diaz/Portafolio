@@ -13,8 +13,8 @@ import "./Skills.css";
 
 // Importing components
 import HtmlBase from "../HtmlBase";
-import SkillContainer from "../SVGItems/SkillContainer";
-import BackGround from "./BackGround";
+import SkillContainer from "./SvgItems/SkillContainer";
+import BackGround from "./SvgItems/BackGround";
 function Skills() {
   const { cameraFocus } = useStore();
   const canvas = useRef();
@@ -101,26 +101,17 @@ function Skills() {
             </Slider>
           </div>
         </div>
-        <div className="container-2"></div>
-      </div>
-
-      <div
-        style={{
-          width: "500px",
-          height: "400px",
-          position: "absolute",
-          top: 0,
-        }}
-      >
-        {/* <Canvas ref={canvas}>
-            <color attach="background" args={["#ffffff"]}></color>
-            <mesh position={[20, 20, 20]}>
-              <boxGeometry args={[10, 10, 10]}></boxGeometry>
-              <meshStandardMaterial color={"orange"}></meshStandardMaterial>
-            </mesh>
-            <ambientLight></ambientLight>
-            <OrbitControls target={[20, 20, 20]}></OrbitControls>
-          </Canvas> */}
+        <div className="container-2">
+          <div className="canvas-skills-container">
+            <img
+              src="public/Images/1200px-computer-screen-code-glitch-animation-gif-background-free.gif"
+              alt="Gift background"
+            />
+            PONER UNA MASCARA QUE VAYA DE ABAJO HACIA ARRIBA PARA MOSTRAR EL
+            MODELO 3D
+            <svg></svg>
+          </div>
+        </div>
       </div>
     </HtmlBase>
   );
