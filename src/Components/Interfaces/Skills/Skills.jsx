@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 
 // Importing styles
 import "slick-carousel/slick/slick.css";
@@ -15,40 +16,34 @@ import "./Skills.css";
 import HtmlBase from "../HtmlBase";
 import SkillContainer from "./SvgItems/SkillContainer";
 import BackGround from "./SvgItems/BackGround";
+
+// Importing constants
+import { skillsConfig, sliderConf } from "./Constants.js";
+
 function Skills() {
   const { cameraFocus } = useStore();
-  const canvas = useRef();
-  useEffect(() => {
-    console.log(cameraFocus);
-  }, [cameraFocus]);
-
   const [active, setActive] = useState(0);
-  const [change, setChange] = useState(false);
-  var settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    dots: true,
-    autoplay: true,
-    autoplaySpeed: 6000,
-  };
+  // useEffect(() => {
+  //   console.log(cameraFocus);
+  // }, [cameraFocus]);
 
   return (
-    <HtmlBase
-      backgroundColor="#031732"
-      sizeScreen={["980px", "480px"]}
-      borderRadius="0px"
+    <Html
+      className="background"
+      distanceFactor={1}
+      transform
+      occlude="blending"
+      tabIndex={0}
       position={[0, 0.08, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
       <div className="general-container">
-        {cameraFocus === "SKILLS" && <BackGround></BackGround>}
+        {cameraFocus === "SKILLS" && <BackGround active={active}></BackGround>}
 
         <div className="container-1">
           <div className="slider-container">
             <Slider
-              {...settings}
+              {...sliderConf}
               afterChange={(current, next) => {
                 setActive(current);
               }}
@@ -57,11 +52,16 @@ function Skills() {
                 <div className="slider-item">
                   {cameraFocus === "SKILLS" && (
                     <>
-                      {[4, 4, 2, 1].map((skillPoints, index) => (
+                      {skillsConfig[0].map((skill, index) => (
                         <SkillContainer
                           key={index}
-                          skillPoints={skillPoints}
+                          skillPoints={skill.points}
+                          skillText={skill.text}
+                          x={skill.x}
+                          y={skill.y}
                           activeSkillPoints={active === 0 ? true : false}
+                          srcImg={skill.srcImg}
+                          altImg={skill.altImg}
                         />
                       ))}
                     </>
@@ -72,11 +72,16 @@ function Skills() {
                 <div className="slider-item">
                   {cameraFocus === "SKILLS" && (
                     <>
-                      {[4, 2, 2, 2].map((skillPoints, index) => (
+                      {skillsConfig[1].map((skill, index) => (
                         <SkillContainer
                           key={index}
-                          skillPoints={skillPoints}
+                          skillPoints={skill.points}
+                          skillText={skill.text}
+                          x={skill.x}
+                          y={skill.y}
                           activeSkillPoints={active === 1 ? true : false}
+                          srcImg={skill.srcImg}
+                          altImg={skill.altImg}
                         />
                       ))}
                     </>
@@ -87,11 +92,16 @@ function Skills() {
                 <div className="slider-item">
                   {cameraFocus === "SKILLS" && (
                     <>
-                      {[3, 3, 2, 1].map((skillPoints, index) => (
+                      {skillsConfig[2].map((skill, index) => (
                         <SkillContainer
                           key={index}
-                          skillPoints={skillPoints}
+                          skillPoints={skill.points}
+                          skillText={skill.text}
+                          x={skill.x}
+                          y={skill.y}
                           activeSkillPoints={active === 2 ? true : false}
+                          srcImg={skill.srcImg}
+                          altImg={skill.altImg}
                         />
                       ))}
                     </>
@@ -104,7 +114,7 @@ function Skills() {
         <div className="container-2">
           <div className="canvas-skills-container">
             <img
-              src="public/Images/1200px-computer-screen-code-glitch-animation-gif-background-free.gif"
+              src="Images/SkillsLogos/JS.png"
               alt="Gift background"
             />
             PONER UNA MASCARA QUE VAYA DE ABAJO HACIA ARRIBA PARA MOSTRAR EL
@@ -113,7 +123,7 @@ function Skills() {
           </div>
         </div>
       </div>
-    </HtmlBase>
+    </Html>
   );
 }
 

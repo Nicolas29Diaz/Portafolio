@@ -8,6 +8,7 @@ function HtmlBase({
   backgroundColor,
   children,
   rotation,
+  ...props
 }) {
   const htmlRef = useRef();
   const handleWheel = () => {
@@ -20,17 +21,12 @@ function HtmlBase({
       distanceFactor={1}
       transform
       occlude="blending"
-      style={{
-        backgroundColor: backgroundColor ? backgroundColor : "",
-        width: sizeScreen[0],
-        height: sizeScreen[1],
-        borderRadius: borderRadius,
-        alignContent: "center",
-      }}
+      // style={props.style}
       position={position}
       rotation={rotation}
       tabIndex={0}
       ref={htmlRef}
+      {...props}
     >
       {children}
     </Html>

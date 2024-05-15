@@ -6,38 +6,52 @@ function SkillContainer({
   scale = "1",
   skillPoints = 5,
   activeSkillPoints = false,
+  skillText = "Skill Name",
+  x = 0,
+  y = 0,
+  srcImg = "",
+  altImg = "Image",
 }) {
   return (
-    <svg width="300px" height="160" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skillname-gradient">
-          <stop offset="0%" stopColor="rgba(255,0,0)"></stop>
-          <stop offset="90%" stopColor="rgba(0,0,0)"></stop>
-        </linearGradient>
-      </defs>
+    <>
+      <div className="skill-container">
+        <svg width="300px" height="160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skillname-gradient">
+              <stop offset="0%" stopColor="rgba(255,0,0)"></stop>
+              <stop offset="90%" stopColor="rgba(0,0,0)"></stop>
+            </linearGradient>
+          </defs>
+          <g transform={`translate(${position}) scale(${scale})`}>
+            {/* Skill container */}
+            <g>
+              <polyline
+                className="border-line"
+                points="0,70 0,20 30,0 100,0 100,80 130,80 140,90 250,90 270,75"
+              />
+              <polyline
+                className="border-line"
+                points="0,70 0,120 65,120 100,100 100,80"
+              />
+            </g>
 
-      <g transform={`translate(${position}) scale(${scale})`}>
-        <polyline
-          className="border-line"
-          points="0,70 0,20 30,0 100,0 100,80 130,80 140,90 250,90 270,75"
-        />
+            {/* TEXT */}
+            <text className="text-skills" x={x} y={y}>
+              {skillText}
+            </text>
 
-        <polyline
-          className="border-line"
-          points="0,70 0,120 65,120 100,100 100,80"
-        />
-        {/* TEXT */}
-        <text className="text-skills" x="145" y="60">
-          Skill Name
-        </text>
-        {/* SKILLPOINTS */}
-
-        <SKillPoints
-          skillPoints={skillPoints}
-          activeSkillPoints={activeSkillPoints}
-        ></SKillPoints>
-      </g>
-    </svg>
+            {/* SKILLPOINTS */}
+            <SKillPoints
+              skillPoints={skillPoints}
+              activeSkillPoints={activeSkillPoints}
+            ></SKillPoints>
+          </g>
+        </svg>
+        <div className="img-container">
+          <img src={srcImg} alt={altImg} />
+        </div>
+      </div>
+    </>
   );
 }
 

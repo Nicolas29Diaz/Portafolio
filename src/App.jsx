@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <div className="canvas-container">
-        <Canvas shadows camera={{ position: [5, 20, 80], fov: 50 }}>
+        <Canvas shadows camera={{ position: [5, 20, 80], fov: 40 }}>
           <Suspense fallback={null}>
             <Scene></Scene>
             {/* <SceneOrbits></SceneOrbits> */}
@@ -38,7 +38,6 @@ function App() {
         </Canvas>
         <Loader></Loader>
 
-        
         {/* <LoadingScreen /> */}
       </div>
       {showButton && (
