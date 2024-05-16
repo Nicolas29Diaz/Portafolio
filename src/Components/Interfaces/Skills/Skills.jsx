@@ -37,8 +37,9 @@ function Skills() {
       position={[0, 0.08, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <div className="general-container">
-        {cameraFocus === "SKILLS" && <BackGround active={active}></BackGround>}
+      {/* {cameraFocus === "SKILLS" ? (  */}
+      <div className="general-container" key={cameraFocus}>
+        <BackGround active={active}></BackGround>
 
         <div className="container-1">
           <div className="slider-container">
@@ -50,62 +51,56 @@ function Skills() {
             >
               <div>
                 <div className="slider-item">
-                  {cameraFocus === "SKILLS" && (
-                    <>
-                      {skillsConfig[0].map((skill, index) => (
-                        <SkillContainer
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 0 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
-                  )}
+                  <>
+                    {skillsConfig[0].map((skill, index) => (
+                      <SkillContainer
+                        key={index}
+                        skillPoints={skill.points}
+                        skillText={skill.text}
+                        x={skill.x}
+                        y={skill.y}
+                        activeSkillPoints={active === 0 ? true : false}
+                        srcImg={skill.srcImg}
+                        altImg={skill.altImg}
+                      />
+                    ))}
+                  </>
                 </div>
               </div>
               <div>
                 <div className="slider-item">
-                  {cameraFocus === "SKILLS" && (
-                    <>
-                      {skillsConfig[1].map((skill, index) => (
-                        <SkillContainer
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 1 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
-                  )}
+                  <>
+                    {skillsConfig[1].map((skill, index) => (
+                      <SkillContainer
+                        key={index}
+                        skillPoints={skill.points}
+                        skillText={skill.text}
+                        x={skill.x}
+                        y={skill.y}
+                        activeSkillPoints={active === 1 ? true : false}
+                        srcImg={skill.srcImg}
+                        altImg={skill.altImg}
+                      />
+                    ))}
+                  </>
                 </div>
               </div>
               <div>
                 <div className="slider-item">
-                  {cameraFocus === "SKILLS" && (
-                    <>
-                      {skillsConfig[2].map((skill, index) => (
-                        <SkillContainer
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 2 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
-                  )}
+                  <>
+                    {skillsConfig[2].map((skill, index) => (
+                      <SkillContainer
+                        key={index}
+                        skillPoints={skill.points}
+                        skillText={skill.text}
+                        x={skill.x}
+                        y={skill.y}
+                        activeSkillPoints={active === 2 ? true : false}
+                        srcImg={skill.srcImg}
+                        altImg={skill.altImg}
+                      />
+                    ))}
+                  </>
                 </div>
               </div>
             </Slider>
@@ -113,16 +108,14 @@ function Skills() {
         </div>
         <div className="container-2">
           <div className="canvas-skills-container">
-            <img
-              src="Images/SkillsLogos/JS.png"
-              alt="Gift background"
-            />
+            <img src="Images/SkillsLogos/JS.png" alt="Gift background" />
             PONER UNA MASCARA QUE VAYA DE ABAJO HACIA ARRIBA PARA MOSTRAR EL
             MODELO 3D
             <svg></svg>
           </div>
         </div>
       </div>
+      {/* // ) : ("")} */}
     </Html>
   );
 }

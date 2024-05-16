@@ -4,7 +4,7 @@ import { subTitleConf } from "../Constants";
 
 function BackGround({ active }) {
   const [subTitleOptions, setSubTitleOptions] = useState("Programming");
-
+  const [option, setOption] = useState(false);
   //When the active changes, the subtitle changes after 500ms
   useEffect(() => {
     setTimeout(() => {
@@ -14,6 +14,14 @@ function BackGround({ active }) {
 
   return (
     <>
+      {/* <button
+        style={{ position: "absolute", zIndex: 5 }}
+        onClick={() => {
+          setOption(!option);
+        }}
+      >
+        CHANGE
+      </button> */}
       <svg
         width="100%"
         height="100%"
@@ -26,37 +34,75 @@ function BackGround({ active }) {
           zIndex: "0",
         }}
       >
-        {/* Sldier rect gradients */}
+        {/* Def */}
         <defs>
           <linearGradient id="text-gradient-slideIn">
-            <stop offset="5%" stopColor="#60CAFF"></stop>
-            <stop offset="100%  " stopColor="rgba(0, 0, 0, 0)"></stop>
+            <stop offset="5%" stopColor="rgba(96, 202, 255, 1)"></stop>
+            <stop offset="100%  " stopColor="rgba(255, 255, 255, 0)"></stop>
           </linearGradient>
           <linearGradient id="text-gradient-slideOut">
-            <stop offset="5%  " stopColor="rgba(0, 0, 0, 0)"></stop>
-            <stop offset="100%" stopColor="#60CAFF"></stop>
+            <stop offset="5%  " stopColor="rgba(255, 255, 255, 0)"></stop>
+            <stop offset="100%" stopColor="rgba(96, 202, 255, 1)"></stop>
+          </linearGradient>
+          <linearGradient
+            id="content-gradient-title"
+            gradientTransform="rotate(90)"
+          >
+            <stop offset="0%  " stopColor="#399ab5"></stop>
+            <stop offset="100%" stopColor="#399ab5"></stop>
+          </linearGradient>
+          <linearGradient
+            id="content-gradient-subtitle"
+            gradientTransform="rotate(90)"
+          >
+            <stop offset="0%" stopColor="rgb(0, 64, 124)"></stop>
+            <stop offset="100%  " stopColor="rgb(0, 64, 124)"></stop>
           </linearGradient>
         </defs>
 
         {/* Borders setup */}
         <g transform={`translate(20 20) scale(1)`}>
           {/* Skills Border */}
-          <g>
-            <polyline
-              className="border-line"
-              points="0,200 0,20 30,0 270,0 300,20 300,50 670,50 700,80 700,200"
-            />
-            <polyline
-              className="border-line"
-              points="0,200 0,370 30,400 670,400 700,370 700,200"
-            />
-          </g>
+          {option ? (
+            <g>
+              <polyline
+                className="border-line"
+                points="0,200 0,20 30,0 270,0 300,20 300,50 670,50 700,80 700,200"
+              />
+              <polyline
+                className="border-line title-content"
+                points="0,51.2 0,20 30,0 270,0 300,20 300,51.2 670"
+              />
+              <polyline
+                className="border-line"
+                points="0,200 0,390 30,420 670,420 700,390 700,200"
+              />
+            </g>
+          ) : (
+            <g>
+              <polyline
+                className="border-line"
+                points="0,200 0,50 40,50 55,70 245,70 260,50 670,50 700,80 700,200"
+              />
+              <polyline
+                className="border-line title-content"
+                points="35,0 300,0 300,20 300,40 255,40 240,60 60,60 45,40 0,40 0,20 35,0"
+              />
+              <polyline
+                className="border-line"
+                points="0,200 0,390 30,420 670,420 700,390 700,200"
+              />
+              <text x={105} y={45} className="text-title">
+                SKILLS
+              </text>
+            </g>
+          )}
 
           {/* Subtitle border */}
           <g>
             <polyline
-              className="border-line"
-              points="310,20 310,40 670,40 700,0 340,0 310,20"
+              className="border-line subtitle-content"
+              points="310,20 310,40 670,40 700,0 310,0 310,20"
             />
           </g>
 
@@ -64,7 +110,7 @@ function BackGround({ active }) {
           <g>
             <polyline
               className="border-line"
-              points="680,45 715,0 910,0 940,30 940,370 910,400 685,400 710,375 710,75 680,45"
+              points="680,45 715,0 910,0 940,30 940,390 910,420 685,420 710,395 710,75 680,45"
             />
           </g>
 
@@ -90,7 +136,7 @@ function BackGround({ active }) {
             <rect
               className="rect-title-change"
               height={35}
-              width={20}
+              width={10}
               x={"415px"}
               y="3px"
             ></rect>

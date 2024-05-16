@@ -29,6 +29,7 @@
 }
 .slider-container {
   margin: auto;
+  margin-top: 40px;
   width: 90%;
   flex: 5;
   align-items: end;
@@ -64,8 +65,8 @@
   object-fit: contain;
 }
 .background {
-  background: linear-gradient(rgb(0, 38, 95), rgb(0, 72, 156));
-  width: 980px;
+  background: linear-gradient(rgb(0, 22, 54), rgb(0, 52, 112));
+  background: radial-gradient(ellipse 700px 400px at center , rgb(0, 52, 112) 40%, rgb(0, 16, 39) 100%);  width: 980px;
   height: 480px;
   align-content: center;
 }

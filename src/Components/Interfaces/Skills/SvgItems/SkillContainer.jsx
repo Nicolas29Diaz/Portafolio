@@ -31,7 +31,14 @@ function SkillContainer({
               />
               <polyline
                 className="border-line"
-                points="0,70 0,120 65,120 100,100 100,80"
+                points="0,70 0,120 65,120 100,100 100,80 100,85"
+              />
+            </g>
+            {/* Skill container Decoration */}
+            <g transform="translate(0 0)">
+              <polyline
+                className="border-line-2"
+                points="100,80 130,80 140,90 150,90"
               />
             </g>
 

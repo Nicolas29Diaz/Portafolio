@@ -12,8 +12,15 @@
 }
 .border-line {
   fill: none;
-  stroke: #1e6794;
-  stroke-width: 3;
+  stroke: #399ab5;
+  stroke-width: 2;
+  stroke-dasharray: 0 1000;
+  animation: drawLine 5s ease forwards;
+}
+.border-line-2 {
+  fill: none;
+  stroke: #08bee1;
+  stroke-width: 5;
   stroke-dasharray: 0 1000;
   animation: drawLine 5s ease forwards;
 }
@@ -49,8 +56,8 @@
 /* Title text */
 .text-title {
   font-size: 2rem;
-  font-weight: 650;
-  fill: #08bee1;
+  font-weight: 850;
+  fill: #002f67;
   font-family: "Electrolize-Regular";
 }
 
@@ -61,6 +68,14 @@
   fill: #08bee1;
   font-family: "Electrolize-Regular";
 }
+/* Subtitle container */
+.subtitle-content {
+  fill: url(#content-gradient-subtitle);
+}
+.title-content {
+  fill: #08bee1;
+}
+
 
 /* Rect slide text */
 @keyframes slideOutRect {
@@ -119,11 +134,11 @@
   }
 }
 .rect-title-change {
-  animation: slideInRect 0.5s forwards, slideOutRect 0.7s 0.7s forwards;
+  animation: slideInRect 0.7s forwards, slideOutRect 0.7s 0.7s forwards;
   /* fill: url(#text-gradient-slideIn); */
 }
 .mask-subtitle {
-  animation: slideOutMask 0.5s forwards, slideInMask 0.7s 0.7s forwards;
+  animation: slideOutMask 0.7s forwards, slideInMask 0.7s 0.7s forwards;
 }
 
 /* Div skill container */
@@ -140,11 +155,9 @@
   top: 36px;
   left: 15px;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 41% 100%, 41% 46%, 0 46%);
- 
 }
 .img-container img {
   height: 100%;
   width: 100%;
-  /* CAMBIAR a contain */
   object-fit: contain;
 }
