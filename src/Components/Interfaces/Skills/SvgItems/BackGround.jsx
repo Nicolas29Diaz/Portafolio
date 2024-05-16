@@ -36,6 +36,7 @@ function BackGround({ active }) {
       >
         {/* Def */}
         <defs>
+
           <linearGradient id="text-gradient-slideIn">
             <stop offset="5%" stopColor="rgba(96, 202, 255, 1)"></stop>
             <stop offset="100%  " stopColor="rgba(255, 255, 255, 0)"></stop>
@@ -122,15 +123,24 @@ function BackGround({ active }) {
                 width={160}
                 height="30px"
                 fill="white"
-                transform="translate(580 36) rotate(180) "
+                transform="translate(580 36) rotate(180)" 
               />
               <rect
                 className="mask-subtitle"
                 height="30px"
                 fill="black"
-                transform="translate(580 36) rotate(180) "
+                transform="translate(580 36) rotate(180)"
               />
             </mask>
+            {/* Rect que me sirve como guia para mostrar la mascara, esta está cubriendo perfctamente todo el texto verticalmente, incluso sobra espacio */}
+            <g transform="translate(580 36) rotate(180)">
+              <rect
+                width={160}
+                height="40px"
+                fill="white"
+                stroke="red"
+              />
+            </g>
 
             {/* Slide rect */}
             <rect

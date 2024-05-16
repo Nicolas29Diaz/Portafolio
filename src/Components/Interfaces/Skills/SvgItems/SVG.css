@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Jersey+15&family=Play:wght@400;700&display=swap");
+
 @font-face {
   font-family: "Electrolize-Regular";
   src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
@@ -10,6 +11,7 @@
     stroke-dasharray: 2000 0;
   }
 }
+
 .border-line {
   fill: none;
   stroke: #399ab5;
@@ -17,6 +19,7 @@
   stroke-dasharray: 0 1000;
   animation: drawLine 5s ease forwards;
 }
+
 .border-line-2 {
   fill: none;
   stroke: #08bee1;
@@ -40,6 +43,7 @@
   height: 0px;
   animation: skillPointsMask 2.5s ease forwards;
 }
+
 @keyframes skillPointsMask {
   to {
     height: 55px;
@@ -53,6 +57,7 @@
   fill: #08bee1;
   font-family: "Electrolize-Regular";
 }
+
 /* Title text */
 .text-title {
   font-size: 2rem;
@@ -68,10 +73,12 @@
   fill: #08bee1;
   font-family: "Electrolize-Regular";
 }
+
 /* Subtitle container */
 .subtitle-content {
   fill: url(#content-gradient-subtitle);
 }
+
 .title-content {
   fill: #08bee1;
 }
@@ -87,56 +94,69 @@
   10% {
     opacity: 1;
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(150px);
     fill: url(#text-gradient-slideOut);
     opacity: 0;
   }
 }
+
 @keyframes slideInRect {
   0% {
     transform: translateX(150px);
     fill: url(#text-gradient-slideIn);
     opacity: 0;
   }
+
   10% {
     opacity: 0.5;
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(0);
     fill: url(#text-gradient-slideIn);
     opacity: 0;
   }
 }
+
 @keyframes slideOutMask {
   0% {
     width: 0px;
   }
+
   80% {
     opacity: 1;
   }
+
   100% {
     width: 160px;
   }
 }
+
 @keyframes slideInMask {
   0% {
     width: 160px;
   }
+
   100% {
     width: 0px;
   }
 }
+
 .rect-title-change {
   animation: slideInRect 0.7s forwards, slideOutRect 0.7s 0.7s forwards;
   /* fill: url(#text-gradient-slideIn); */
 }
+
 .mask-subtitle {
   animation: slideOutMask 0.7s forwards, slideInMask 0.7s 0.7s forwards;
 }
@@ -145,6 +165,7 @@
 .skill-container {
   position: relative;
 }
+
 /* Image skill container */
 
 .img-container {
@@ -156,6 +177,7 @@
   left: 15px;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 41% 100%, 41% 46%, 0 46%);
 }
+
 .img-container img {
   height: 100%;
   width: 100%;

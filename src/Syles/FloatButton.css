@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Electrolize-Regular";
+  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
+}
 :root {
   --button-border-color: rgb(255, 255, 255);
   --button-hover-color: rgb(0, 159, 203);
@@ -36,10 +40,15 @@
 
 .contentButton div {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
   transform: rotate(45deg);
   font-size: 35px;
-  font-weight: 800;
+  /* font-weight: 100; */
+  line-height: 30px; /* Asegura que el texto esté centrado verticalmente */
+  font-family: "Electrolize-Regular";
 }
 
 .contentButton i {
