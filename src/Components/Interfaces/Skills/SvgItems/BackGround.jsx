@@ -36,7 +36,6 @@ function BackGround({ active }) {
       >
         {/* Def */}
         <defs>
-
           <linearGradient id="text-gradient-slideIn">
             <stop offset="5%" stopColor="rgba(96, 202, 255, 1)"></stop>
             <stop offset="100%  " stopColor="rgba(255, 255, 255, 0)"></stop>
@@ -114,8 +113,23 @@ function BackGround({ active }) {
               points="680,45 715,0 910,0 940,30 940,390 910,420 685,420 710,395 710,75 680,45"
             />
           </g>
-
-          {/* Subtitle Text */}
+        </g>
+      </svg>
+      {/* Tocó poner en otro svg el texto porque en mac se bugeaba la mascara, la forma de solucionarlo era con el viewBox en el svg pero eso me cambiaba todo el background, entonces lo separé en otro svg por ahora */}
+      <svg
+        width="100%"
+        height="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1000 500"
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          margin: "auto",
+          zIndex: "0",
+        }}
+      >
+        <g transform={`translate(20 20) scale(1)`}>
           <g key={active}>
             {/* Subtitle mask */}
             <mask id="mask-subtitle">
@@ -123,24 +137,15 @@ function BackGround({ active }) {
                 width={160}
                 height="30px"
                 fill="white"
-                transform="translate(580 36) rotate(180)" 
+                transform="translate(580 36) rotate(180) "
               />
               <rect
                 className="mask-subtitle"
                 height="30px"
                 fill="black"
-                transform="translate(580 36) rotate(180)"
+                transform="translate(580 36) rotate(180) "
               />
             </mask>
-            {/* Rect que me sirve como guia para mostrar la mascara, esta está cubriendo perfctamente todo el texto verticalmente, incluso sobra espacio */}
-            <g transform="translate(580 36) rotate(180)">
-              <rect
-                width={160}
-                height="40px"
-                fill="white"
-                stroke="red"
-              />
-            </g>
 
             {/* Slide rect */}
             <rect
