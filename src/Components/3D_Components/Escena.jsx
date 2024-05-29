@@ -15,14 +15,19 @@ export function Escena(props) {
   );
   const { actions, names } = useAnimations(animations, group);
 
-  const { showButtonStart } = useStore();
+  const { showButtonStart, cameraFocus } = useStore();
 
   useEffect(() => {
-    console.log(names);
-    if (showButtonStart) {
-      actions[names[1]].reset().fadeIn(0.5).play();
-    } else {
-      actions[names[3]].reset().fadeIn(0.5).play();
+    if (cameraFocus === "CHARACTER") {
+      console.log(names);
+      if (showButtonStart) {
+        actions[names[1]].reset().fadeIn(0.5).play();
+      } else {
+        actions[names[3]].reset().fadeIn(0.5).play();
+      }
+      return () => {
+        actions[names[1]].fadeOut(0.5);
+      };
     }
 
     // if (showButtonStart) {
@@ -41,165 +46,169 @@ export function Escena(props) {
     // } else {
     //   actions[names[3]].reset().fadeIn(0.5).play();
     // }
-    return () => {
-      actions[names[1]].fadeOut(0.5);
-    };
   }, [showButtonStart]);
+
+  useEffect(() => {
+    console.log("cameraFocus", cameraFocus);
+  }, [cameraFocus]);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group
-          name="Armature001"
-          position={[0, 0, 0.786]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={0.01}
-        >
-          <group name="Brazo1002">
+        {cameraFocus === "CHARACTER" && (
+          <group
+            name="Armature001"
+            position={[0, 0, 0.786]}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          >
+            <group name="Brazo1002">
+              <skinnedMesh
+                name="Cube012"
+                geometry={nodes.Cube012.geometry}
+                material={materials["Piel.001"]}
+                skeleton={nodes.Cube012.skeleton}
+              />
+              <skinnedMesh
+                name="Cube012_1"
+                geometry={nodes.Cube012_1.geometry}
+                material={materials["Shirt.001"]}
+                skeleton={nodes.Cube012_1.skeleton}
+              />
+              <skinnedMesh
+                name="Cube012_2"
+                geometry={nodes.Cube012_2.geometry}
+                material={materials["Manga.001"]}
+                skeleton={nodes.Cube012_2.skeleton}
+              />
+            </group>
+            <group name="Brazo2002">
+              <skinnedMesh
+                name="Cube016"
+                geometry={nodes.Cube016.geometry}
+                material={materials["Piel.001"]}
+                skeleton={nodes.Cube016.skeleton}
+              />
+              <skinnedMesh
+                name="Cube016_1"
+                geometry={nodes.Cube016_1.geometry}
+                material={materials["Shirt.001"]}
+                skeleton={nodes.Cube016_1.skeleton}
+              />
+              <skinnedMesh
+                name="Cube016_2"
+                geometry={nodes.Cube016_2.geometry}
+                material={materials["Manga.001"]}
+                skeleton={nodes.Cube016_2.skeleton}
+              />
+            </group>
             <skinnedMesh
-              name="Cube012"
-              geometry={nodes.Cube012.geometry}
+              name="Cabeza002"
+              geometry={nodes.Cabeza002.geometry}
               material={materials["Piel.001"]}
-              skeleton={nodes.Cube012.skeleton}
+              skeleton={nodes.Cabeza002.skeleton}
             />
             <skinnedMesh
-              name="Cube012_1"
-              geometry={nodes.Cube012_1.geometry}
-              material={materials["Shirt.001"]}
-              skeleton={nodes.Cube012_1.skeleton}
-            />
-            <skinnedMesh
-              name="Cube012_2"
-              geometry={nodes.Cube012_2.geometry}
-              material={materials["Manga.001"]}
-              skeleton={nodes.Cube012_2.skeleton}
-            />
-          </group>
-          <group name="Brazo2002">
-            <skinnedMesh
-              name="Cube016"
-              geometry={nodes.Cube016.geometry}
-              material={materials["Piel.001"]}
-              skeleton={nodes.Cube016.skeleton}
-            />
-            <skinnedMesh
-              name="Cube016_1"
-              geometry={nodes.Cube016_1.geometry}
-              material={materials["Shirt.001"]}
-              skeleton={nodes.Cube016_1.skeleton}
-            />
-            <skinnedMesh
-              name="Cube016_2"
-              geometry={nodes.Cube016_2.geometry}
-              material={materials["Manga.001"]}
-              skeleton={nodes.Cube016_2.skeleton}
-            />
-          </group>
-          <skinnedMesh
-            name="Cabeza002"
-            geometry={nodes.Cabeza002.geometry}
-            material={materials["Piel.001"]}
-            skeleton={nodes.Cabeza002.skeleton}
-          />
-          <skinnedMesh
-            name="Cejas002"
-            geometry={nodes.Cejas002.geometry}
-            material={materials["Fade2.001"]}
-            skeleton={nodes.Cejas002.skeleton}
-          />
-          <skinnedMesh
-            name="Ojos002"
-            geometry={nodes.Ojos002.geometry}
-            material={materials["Fade2.001"]}
-            skeleton={nodes.Ojos002.skeleton}
-          />
-          <group name="Pelo002">
-            <skinnedMesh
-              name="Sphere014"
-              geometry={nodes.Sphere014.geometry}
-              material={materials["Fade1.001"]}
-              skeleton={nodes.Sphere014.skeleton}
-            />
-            <skinnedMesh
-              name="Sphere014_1"
-              geometry={nodes.Sphere014_1.geometry}
+              name="Cejas002"
+              geometry={nodes.Cejas002.geometry}
               material={materials["Fade2.001"]}
-              skeleton={nodes.Sphere014_1.skeleton}
+              skeleton={nodes.Cejas002.skeleton}
             />
             <skinnedMesh
-              name="Sphere014_2"
-              geometry={nodes.Sphere014_2.geometry}
-              material={materials["Fade3.001"]}
-              skeleton={nodes.Sphere014_2.skeleton}
+              name="Ojos002"
+              geometry={nodes.Ojos002.geometry}
+              material={materials["Fade2.001"]}
+              skeleton={nodes.Ojos002.skeleton}
             />
+            <group name="Pelo002">
+              <skinnedMesh
+                name="Sphere014"
+                geometry={nodes.Sphere014.geometry}
+                material={materials["Fade1.001"]}
+                skeleton={nodes.Sphere014.skeleton}
+              />
+              <skinnedMesh
+                name="Sphere014_1"
+                geometry={nodes.Sphere014_1.geometry}
+                material={materials["Fade2.001"]}
+                skeleton={nodes.Sphere014_1.skeleton}
+              />
+              <skinnedMesh
+                name="Sphere014_2"
+                geometry={nodes.Sphere014_2.geometry}
+                material={materials["Fade3.001"]}
+                skeleton={nodes.Sphere014_2.skeleton}
+              />
+            </group>
+            <group name="Piernas002">
+              <skinnedMesh
+                name="Cube015"
+                geometry={nodes.Cube015.geometry}
+                material={materials["Piel.001"]}
+                skeleton={nodes.Cube015.skeleton}
+              />
+              <skinnedMesh
+                name="Cube015_1"
+                geometry={nodes.Cube015_1.geometry}
+                material={materials["jean.001"]}
+                skeleton={nodes.Cube015_1.skeleton}
+              />
+              <skinnedMesh
+                name="Cube015_2"
+                geometry={nodes.Cube015_2.geometry}
+                material={materials["Medias.001"]}
+                skeleton={nodes.Cube015_2.skeleton}
+              />
+            </group>
+            <group name="Tenis002">
+              <skinnedMesh
+                name="Cube017"
+                geometry={nodes.Cube017.geometry}
+                material={materials["jean.001"]}
+                skeleton={nodes.Cube017.skeleton}
+              />
+              <skinnedMesh
+                name="Cube017_1"
+                geometry={nodes.Cube017_1.geometry}
+                material={materials["Cordones.001"]}
+                skeleton={nodes.Cube017_1.skeleton}
+              />
+              <skinnedMesh
+                name="Cube017_2"
+                geometry={nodes.Cube017_2.geometry}
+                material={materials["TenisBase.001"]}
+                skeleton={nodes.Cube017_2.skeleton}
+              />
+              <skinnedMesh
+                name="Cube017_3"
+                geometry={nodes.Cube017_3.geometry}
+                material={materials["Tenis2.001"]}
+                skeleton={nodes.Cube017_3.skeleton}
+              />
+              <skinnedMesh
+                name="Cube017_4"
+                geometry={nodes.Cube017_4.geometry}
+                material={materials["Tenis3.001"]}
+                skeleton={nodes.Cube017_4.skeleton}
+              />
+            </group>
+            <group name="Torzo2001">
+              <skinnedMesh
+                name="Cube018"
+                geometry={nodes.Cube018.geometry}
+                material={materials["Shirt.001"]}
+                skeleton={nodes.Cube018.skeleton}
+              />
+              <skinnedMesh
+                name="Cube018_1"
+                geometry={nodes.Cube018_1.geometry}
+                material={materials["jean.001"]}
+                skeleton={nodes.Cube018_1.skeleton}
+              />
+            </group>
+            <primitive object={nodes.mixamorigHips} />
           </group>
-          <group name="Piernas002">
-            <skinnedMesh
-              name="Cube015"
-              geometry={nodes.Cube015.geometry}
-              material={materials["Piel.001"]}
-              skeleton={nodes.Cube015.skeleton}
-            />
-            <skinnedMesh
-              name="Cube015_1"
-              geometry={nodes.Cube015_1.geometry}
-              material={materials["jean.001"]}
-              skeleton={nodes.Cube015_1.skeleton}
-            />
-            <skinnedMesh
-              name="Cube015_2"
-              geometry={nodes.Cube015_2.geometry}
-              material={materials["Medias.001"]}
-              skeleton={nodes.Cube015_2.skeleton}
-            />
-          </group>
-          <group name="Tenis002">
-            <skinnedMesh
-              name="Cube017"
-              geometry={nodes.Cube017.geometry}
-              material={materials["jean.001"]}
-              skeleton={nodes.Cube017.skeleton}
-            />
-            <skinnedMesh
-              name="Cube017_1"
-              geometry={nodes.Cube017_1.geometry}
-              material={materials["Cordones.001"]}
-              skeleton={nodes.Cube017_1.skeleton}
-            />
-            <skinnedMesh
-              name="Cube017_2"
-              geometry={nodes.Cube017_2.geometry}
-              material={materials["TenisBase.001"]}
-              skeleton={nodes.Cube017_2.skeleton}
-            />
-            <skinnedMesh
-              name="Cube017_3"
-              geometry={nodes.Cube017_3.geometry}
-              material={materials["Tenis2.001"]}
-              skeleton={nodes.Cube017_3.skeleton}
-            />
-            <skinnedMesh
-              name="Cube017_4"
-              geometry={nodes.Cube017_4.geometry}
-              material={materials["Tenis3.001"]}
-              skeleton={nodes.Cube017_4.skeleton}
-            />
-          </group>
-          <group name="Torzo2001">
-            <skinnedMesh
-              name="Cube018"
-              geometry={nodes.Cube018.geometry}
-              material={materials["Shirt.001"]}
-              skeleton={nodes.Cube018.skeleton}
-            />
-            <skinnedMesh
-              name="Cube018_1"
-              geometry={nodes.Cube018_1.geometry}
-              material={materials["jean.001"]}
-              skeleton={nodes.Cube018_1.skeleton}
-            />
-          </group>
-          <primitive object={nodes.mixamorigHips} />
-        </group>
+        )}
+
         <mesh
           name="Cable2_Skills"
           castShadow
@@ -229,35 +238,37 @@ export function Escena(props) {
             scale={[0.034, 0.028, 0.034]}
           />
         </mesh>
-        <mesh
-          name="Cable1_Skills"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable1_Skills.geometry}
-          material={materials.Cable1}
-          position={[-6.898, 0.055, 4.316]}
-        >
+        {cameraFocus === "CHARACTER" && (
           <mesh
-            name="Cylinder002"
+            name="Cable1_Skills"
             castShadow
             receiveShadow
-            geometry={nodes.Cylinder002.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-2.117, 0.332, 0.619]}
-            rotation={[Math.PI / 2, 0, -2.138]}
-            scale={[0.065, 0.029, 0.065]}
-          />
-          <mesh
-            name="Cylinder005"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder005.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[6.649, 1.024, -4.97]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.071, 0.059, 0.071]}
-          />
-        </mesh>
+            geometry={nodes.Cable1_Skills.geometry}
+            material={materials.Cable1}
+            position={[-6.898, 0.055, 4.316]}
+          >
+            <mesh
+              name="Cylinder002"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cylinder002.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[-2.117, 0.332, 0.619]}
+              rotation={[Math.PI / 2, 0, -2.138]}
+              scale={[0.065, 0.029, 0.065]}
+            />
+            <mesh
+              name="Cylinder005"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cylinder005.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[6.649, 1.024, -4.97]}
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={[0.071, 0.059, 0.071]}
+            />
+          </mesh>
+        )}
         {/* <mesh
           name="Floor"
           castShadow
@@ -267,139 +278,143 @@ export function Escena(props) {
           position={[-0.048, -1, -0.124]}
           scale={[22.003, 1, 22.003]}
         /> */}
-        <group
-          name="Menu"
-          position={[1.502, 0.344, -0.009]}
-          scale={[0.489, 0.325, 0.429]}
-        >
-          <mesh
-            name="Cube032"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cube032.geometry}
-            material={materials["SkillsBase2.001"]}
-          />
-          <mesh
-            name="Cube032_1"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cube032_1.geometry}
-            material={materials.SkillsBase2}
-          />
-        </group>
-        <mesh
-          name="Silla"
-          castShadow
-          receiveShadow
-          geometry={nodes.Silla.geometry}
-          material={materials["Silla2.001"]}
-          position={[0, 0.344, -0.009]}
-          scale={[0.758, 0.751, 0.489]}
-        >
-          <mesh
-            name="Plane"
-            castShadow
-            receiveShadow
-            geometry={nodes.Plane.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[0, -0.088, -0.065]}
-            scale={[0.468, 0.606, 0.931]}
-          />
+        {cameraFocus === "CHARACTER" && (
           <group
-            name="Plane002"
-            position={[0.002, 1.261, -1.161]}
-            rotation={[1.485, 0, 0]}
-            scale={[1.058, 0.921, 0.864]}
+            name="Menu"
+            position={[1.502, 0.344, -0.009]}
+            scale={[0.489, 0.325, 0.429]}
           >
             <mesh
-              name="Mesh001"
+              name="Cube032"
               castShadow
               receiveShadow
-              geometry={nodes.Mesh001.geometry}
-              material={materials["Silla2.001"]}
+              geometry={nodes.Cube032.geometry}
+              material={materials["SkillsBase2.001"]}
             />
             <mesh
-              name="Mesh001_1"
+              name="Cube032_1"
               castShadow
               receiveShadow
-              geometry={nodes.Mesh001_1.geometry}
-              material={materials["Silla1.001"]}
+              geometry={nodes.Cube032_1.geometry}
+              material={materials.SkillsBase2}
             />
+          </group>
+        )}
+        {cameraFocus === "CHARACTER" && (
+          <mesh
+            name="Silla"
+            castShadow
+            receiveShadow
+            geometry={nodes.Silla.geometry}
+            material={materials["Silla2.001"]}
+            position={[0, 0.344, -0.009]}
+            scale={[0.758, 0.751, 0.489]}
+          >
             <mesh
-              name="Almohada"
+              name="Plane"
               castShadow
               receiveShadow
-              geometry={nodes.Almohada.geometry}
-              material={materials["Silla2.001"]}
-              position={[0, -0.145, -0.543]}
-              rotation={[-1.468, 0, 0]}
-              scale={[0.669, 0.203, 0.353]}
+              geometry={nodes.Plane.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[0, -0.088, -0.065]}
+              scale={[0.468, 0.606, 0.931]}
             />
-            <mesh
-              name="SoporteCasco"
-              castShadow
-              receiveShadow
-              geometry={nodes.SoporteCasco.geometry}
-              material={materials["Casco1.001"]}
-              position={[0.015, 1.367, -1.346]}
-              rotation={[-1.403, 0, 0]}
-              scale={[0.862, 1.082, 1.522]}
+            <group
+              name="Plane002"
+              position={[0.002, 1.261, -1.161]}
+              rotation={[1.485, 0, 0]}
+              scale={[1.058, 0.921, 0.864]}
             >
               <mesh
-                name="CilindroCasco"
+                name="Mesh001"
                 castShadow
                 receiveShadow
-                geometry={nodes.CilindroCasco.geometry}
-                material={nodes.CilindroCasco.material}
-                position={[0, -0.161, -0.909]}
-                rotation={[-1.391, 0, -Math.PI / 2]}
-                scale={[0.102, 0.409, 0.102]}
+                geometry={nodes.Mesh001.geometry}
+                material={materials["Silla2.001"]}
+              />
+              <mesh
+                name="Mesh001_1"
+                castShadow
+                receiveShadow
+                geometry={nodes.Mesh001_1.geometry}
+                material={materials["Silla1.001"]}
+              />
+              <mesh
+                name="Almohada"
+                castShadow
+                receiveShadow
+                geometry={nodes.Almohada.geometry}
+                material={materials["Silla2.001"]}
+                position={[0, -0.145, -0.543]}
+                rotation={[-1.468, 0, 0]}
+                scale={[0.669, 0.203, 0.353]}
+              />
+              <mesh
+                name="SoporteCasco"
+                castShadow
+                receiveShadow
+                geometry={nodes.SoporteCasco.geometry}
+                material={materials["Casco1.001"]}
+                position={[0.015, 1.367, -1.346]}
+                rotation={[-1.403, 0, 0]}
+                scale={[0.862, 1.082, 1.522]}
               >
-                <group
-                  name="Sphere"
-                  position={[-1.6, 0, 8.932]}
-                  rotation={[0, 0, Math.PI / 2]}
-                  scale={[2.448, 9.774, 9.774]}
+                <mesh
+                  name="CilindroCasco"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.CilindroCasco.geometry}
+                  material={nodes.CilindroCasco.material}
+                  position={[0, -0.161, -0.909]}
+                  rotation={[-1.391, 0, -Math.PI / 2]}
+                  scale={[0.102, 0.409, 0.102]}
                 >
-                  <mesh
-                    name="Sphere019"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Sphere019.geometry}
-                    material={materials["Casco1.001"]}
-                  />
-                  <mesh
-                    name="Sphere019_1"
-                    castShadow
-                    receiveShadow
-                    geometry={nodes.Sphere019_1.geometry}
-                    material={materials["Casco2.001"]}
-                  />
-                </group>
+                  <group
+                    name="Sphere"
+                    position={[-1.6, 0, 8.932]}
+                    rotation={[0, 0, Math.PI / 2]}
+                    scale={[2.448, 9.774, 9.774]}
+                  >
+                    <mesh
+                      name="Sphere019"
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.Sphere019.geometry}
+                      material={materials["Casco1.001"]}
+                    />
+                    <mesh
+                      name="Sphere019_1"
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.Sphere019_1.geometry}
+                      material={materials["Casco2.001"]}
+                    />
+                  </group>
+                </mesh>
               </mesh>
-            </mesh>
-          </group>
-          <group
-            name="Silla002"
-            position={[-0.993, 0.308, 0]}
-            scale={[0.136, 1, 1]}
-          >
-            <mesh
-              name="Plane005"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane005.geometry}
-              material={materials["Silla2.001"]}
-            />
-            <mesh
-              name="Plane005_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane005_1.geometry}
-              material={materials["Silla1.001"]}
-            />
-          </group>
-        </mesh>
+            </group>
+            <group
+              name="Silla002"
+              position={[-0.993, 0.308, 0]}
+              scale={[0.136, 1, 1]}
+            >
+              <mesh
+                name="Plane005"
+                castShadow
+                receiveShadow
+                geometry={nodes.Plane005.geometry}
+                material={materials["Silla2.001"]}
+              />
+              <mesh
+                name="Plane005_1"
+                castShadow
+                receiveShadow
+                geometry={nodes.Plane005_1.geometry}
+                material={materials["Silla1.001"]}
+              />
+            </group>
+          </mesh>
+        )}
         <group
           name="PantallaProjects"
           position={[10.806, 2.478, 3.039]}
@@ -800,44 +815,49 @@ export function Escena(props) {
             />
           </group>
         </group>
-        <mesh
-          name="Cable1_Projects"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable1_Projects.geometry}
-          material={materials.Cable1}
-          position={[1.192, 1.091, -0.584]}
-        >
-          <mesh
-            name="Cylinder006"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder006.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-0.961, -0.006, -0.07]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.065, 0.054, 0.065]}
-          />
-        </mesh>
-        <mesh
-          name="Cable2_Projects"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable2_Projects.geometry}
-          material={materials.Cable2}
-          position={[1.192, 0.886, -0.584]}
-        >
-          <mesh
-            name="Cylinder009"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder009.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-1.214, -0.632, 0.241]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.034, 0.028, 0.034]}
-          />
-        </mesh>
+        {cameraFocus === "CHARACTER" && (
+          <>
+            {" "}
+            <mesh
+              name="Cable1_Projects"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cable1_Projects.geometry}
+              material={materials.Cable1}
+              position={[1.192, 1.091, -0.584]}
+            >
+              <mesh
+                name="Cylinder006"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder006.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-0.961, -0.006, -0.07]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[0.065, 0.054, 0.065]}
+              />
+            </mesh>
+            <mesh
+              name="Cable2_Projects"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cable2_Projects.geometry}
+              material={materials.Cable2}
+              position={[1.192, 0.886, -0.584]}
+            >
+              <mesh
+                name="Cylinder009"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder009.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-1.214, -0.632, 0.241]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[0.034, 0.028, 0.034]}
+              />
+            </mesh>
+          </>
+        )}
         <group
           name="Cube005"
           position={[-9.158, 0.423, 6.052]}
@@ -894,7 +914,7 @@ export function Escena(props) {
                 geometry={nodes.Plane034_1.geometry}
                 material={materials["SkillsBase.001"]}
               >
-               <Skills></Skills>
+                <Skills></Skills>
               </mesh>
             </group>
           </mesh>
@@ -940,84 +960,89 @@ export function Escena(props) {
             />
           </mesh>
         </group>
-        <mesh
-          name="Cable1_About"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable1_About.geometry}
-          material={materials.Cable1}
-          position={[0, 0.32, -1.914]}
-        >
-          <mesh
-            name="Cylinder004"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder004.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-0.013, 0.765, 1.26]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.065, 0.054, 0.065]}
-          />
-          <mesh
-            name="Cylinder010"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder010.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-9.072, 1.01, -2.239]}
-            rotation={[Math.PI / 2, 0, -0.833]}
-            scale={[0.065, 0.054, 0.065]}
-          />
-          <mesh
-            name="Cylinder012"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder012.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[11.6, 0.613, 1.493]}
-            rotation={[Math.PI / 2, 0, 0.231]}
-            scale={[0.065, 0.054, 0.065]}
-          />
-          <mesh
-            name="Cylinder013"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder013.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[11.6, 0.407, 1.493]}
-            rotation={[Math.PI / 2, 0, 0.231]}
-            scale={[0.038, 0.032, 0.038]}
-          />
-        </mesh>
-        <mesh
-          name="Cable2_About"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable2_About.geometry}
-          material={materials.Cable2}
-          position={[0, -0.357, -1.914]}
-        >
-          <mesh
-            name="Cylinder008"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder008.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-0.162, 0.611, 1.57]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.034, 0.028, 0.034]}
-          />
-          <mesh
-            name="Cylinder011"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder011.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-9.152, 1.687, -2.151]}
-            rotation={[Math.PI / 2, 0, -0.833]}
-            scale={[0.036, 0.029, 0.036]}
-          />
-        </mesh>
+        {cameraFocus === "CHARACTER" && (
+          <>
+            {" "}
+            <mesh
+              name="Cable1_About"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cable1_About.geometry}
+              material={materials.Cable1}
+              position={[0, 0.32, -1.914]}
+            >
+              <mesh
+                name="Cylinder004"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder004.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-0.013, 0.765, 1.26]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[0.065, 0.054, 0.065]}
+              />
+              <mesh
+                name="Cylinder010"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder010.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-9.072, 1.01, -2.239]}
+                rotation={[Math.PI / 2, 0, -0.833]}
+                scale={[0.065, 0.054, 0.065]}
+              />
+              <mesh
+                name="Cylinder012"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder012.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[11.6, 0.613, 1.493]}
+                rotation={[Math.PI / 2, 0, 0.231]}
+                scale={[0.065, 0.054, 0.065]}
+              />
+              <mesh
+                name="Cylinder013"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder013.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[11.6, 0.407, 1.493]}
+                rotation={[Math.PI / 2, 0, 0.231]}
+                scale={[0.038, 0.032, 0.038]}
+              />
+            </mesh>
+            <mesh
+              name="Cable2_About"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cable2_About.geometry}
+              material={materials.Cable2}
+              position={[0, -0.357, -1.914]}
+            >
+              <mesh
+                name="Cylinder008"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder008.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-0.162, 0.611, 1.57]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[0.034, 0.028, 0.034]}
+              />
+              <mesh
+                name="Cylinder011"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder011.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-9.152, 1.687, -2.151]}
+                rotation={[Math.PI / 2, 0, -0.833]}
+                scale={[0.036, 0.029, 0.036]}
+              />
+            </mesh>
+          </>
+        )}
       </group>
     </group>
   );

@@ -7,6 +7,8 @@ export const views = {
   INITIAL: "INITIAL",
   SKILLS: "SKILLS",
   CONTACT: "CONTACT",
+  ABOUT: "ABOUT",
+  PROJECTS: "PROJECTS",
 };
 
 const useStore = create((set) => ({

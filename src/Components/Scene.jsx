@@ -7,7 +7,6 @@ import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Escena } from "./3D_Components/Escena.jsx";
 
-
 export function Scene() {
   const cameraControls = {
     SKILLS: {
@@ -77,9 +76,32 @@ export function Scene() {
         rotation: [0, 0, 0],
       },
     },
+    PROJECTS: {
+      maxDist: 16, //Max distance dolly to the object focused
+      minDist: 1, //Min distance dolly to the object focused
+      currentDist: 3,
+      currentDistMobile: 6,
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
+      coordCamera: { x: 0, y: 2, z: 0 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      dollySpeed: 0.5,
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [11.5, 2.53, 3], //Mesh fit position
+        size: [1, 4, 7], //Mesh fit size
+        layer: 0, //Mesh fit layer
+        rotation: [0, -(14 * Math.PI) / 180, 0],
+      },
+    },
   };
-  const { showButton, setShowButton, showButtonStart, setCameraFocus } =
-    useStore();
+  const {
+    showButton,
+    setShowButton,
+    showButtonStart,
+    setCameraFocus,
+    setShowButtonStart,
+  } = useStore();
 
   const [showFloatButtons, setShowFloatButtons] = useState(false);
 
@@ -144,6 +166,7 @@ export function Scene() {
   };
 
   useEffect(() => {
+    // setShowButtonStart(true);
     initialConfig();
     console.log(cameraControlRef.current);
   }, []);
@@ -259,7 +282,7 @@ export function Scene() {
           <FloatButton
             view={views.CONTACT}
             changeView={changeView}
-            position={[5, 1.802, -7.668]}
+            position={[5, 2.53, -7.668]}
             rotation={[0, -Math.PI / 5, Math.PI / 4]}
             scale={1}
           />
@@ -268,6 +291,13 @@ export function Scene() {
             changeView={changeView}
             position={[-8, 3.5, 5.5]}
             rotation={[-Math.PI, 1.004, Math.PI / 4]}
+            scale={0.9}
+          />
+          <FloatButton
+            view={views.PROJECTS}
+            changeView={changeView}
+            position={[10.5, 2.53, 3]}
+            rotation={[0, Math.PI / 2, Math.PI / 4]}
             scale={0.9}
           />
         </>

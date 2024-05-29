@@ -19,6 +19,7 @@
   background: var(--button-border-color);
   color: var(--button-border-color);
   transition: 0.5s;
+  cursor: pointer;
   /* transform: rotate(-45deg); */
 }
 

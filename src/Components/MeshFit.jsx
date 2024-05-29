@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { PivotControls } from "@react-three/drei";
 export const MeshFit = React.forwardRef(
   (
     { position = [0, 0, 0], rotation = [0, 0, 0], size = [1, 1, 1], layer = 0 },
