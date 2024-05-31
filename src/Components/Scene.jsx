@@ -5,13 +5,15 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
+
 import { Escena } from "./3D_Components/Escena.jsx";
+import { Scene3D } from "./3D_Components/3DScene.jsx";
 
 export function Scene() {
   const cameraControls = {
     SKILLS: {
-      maxDist: 6, //Max distance dolly to the object focused
-      minDist: 1, //Min distance dolly to the object focused
+      maxDist: 8, //Max distance dolly to the object focused
+      minDist: 2, //Min distance dolly to the object focused
       currentDist: 1,
       currentDistMobile: 6,
       minAngle: Math.PI / 4,
@@ -23,8 +25,8 @@ export function Scene() {
       dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-9.7, 3.6, 6.4], //Mesh fit position
-        size: [0.1, 0.5, 2], //Mesh fit size
+        position: [-9.7, 3.5, 6.4], //Mesh fit position
+        size: [0.1, 2, 2], //Mesh fit size
         layer: 1, //Mesh fit layer
         rotation: [0, Math.PI / 5.5, 0],
       },
@@ -77,19 +79,19 @@ export function Scene() {
       },
     },
     PROJECTS: {
-      maxDist: 16, //Max distance dolly to the object focused
-      minDist: 1, //Min distance dolly to the object focused
+      maxDist: 22, //Max distance dolly to the object focused
+      minDist: 8, //Min distance dolly to the object focused
       currentDist: 3,
       currentDistMobile: 6,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 2, z: 0 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: -5, y: 2.5, z: -1 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
         position: [11.5, 2.53, 3], //Mesh fit position
-        size: [1, 4, 7], //Mesh fit size
+        size: [1, 3, 5.5], //Mesh fit size
         layer: 0, //Mesh fit layer
         rotation: [0, -(14 * Math.PI) / 180, 0],
       },
@@ -158,7 +160,7 @@ export function Scene() {
     setDollySpeed(dollySpeed);
 
     if (firstFit) {
-      console.log("FirstFit");
+      // console.log("FirstFit");
       const { currentDist } = cameraControls[currentView];
       cameraControlRef.current.distance = currentDist;
       firstFit = false;
@@ -168,12 +170,12 @@ export function Scene() {
   useEffect(() => {
     // setShowButtonStart(true);
     initialConfig();
-    console.log(cameraControlRef.current);
+    // console.log(cameraControlRef.current);
   }, []);
 
   useEffect(() => {
     if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
-      console.log("CHARACTER");
+      // console.log("CHARACTER");
       const intervalId = setInterval(movCameraToObject, 1);
       setTimeout(() => {
         clearInterval(intervalId);
@@ -206,7 +208,7 @@ export function Scene() {
   }
 
   useEffect(() => {
-    console.log(showButton);
+    // console.log(showButton);
     if (!showButton) {
       setCameraFocus(views.CHARACTER);
       setCurrentView(views.CHARACTER);
@@ -253,8 +255,8 @@ export function Scene() {
         maxPolarAngle={maxPolarAngle}
         // minAzimuthAngle={minAzimuthAngle ? minAzimuthAngle : -Infinity}
         // maxAzimuthAngle={maxAzimuthAngle ? maxAzimuthAngle : Infinity}
-        maxDistance={distMax}
-        minDistance={distMin}
+        maxDistance={distMax ? distMax : 200}
+        minDistance={distMin ? distMin : 0.1}
         // infinityDolly={false}
         truckSpeed={0}
         dollySpeed={dollySpeed ? dollySpeed : speed}
@@ -271,7 +273,8 @@ export function Scene() {
       <>{meshFitComponents}</>
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <Escena></Escena>
+        {/* <Escena></Escena> */}
+        <Scene3D></Scene3D>
         {/* <mesh>
           <boxGeometry args={[1, 1, 1]}></boxGeometry>
         </mesh> */}

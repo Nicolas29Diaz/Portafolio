@@ -1,4 +1,4 @@
-.general-container {
+.general-container-skills {
   padding: 20px;
   height: 100%;
   display: flex;
@@ -7,14 +7,14 @@
   align-items: center;
   gap: 20px;
 }
-.container-1 {
+.container-1-skills {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 75%;
 }
-.container-2 {
+.container-2-skills {
   position: relative;
   /* width: 250px;
   height: 10px; */
@@ -27,7 +27,7 @@
   color: white;
   font-size: 30px;
 }
-.slider-container {
+.slider-container-skills {
   margin: auto;
   margin-top: 40px;
   width: 90%;
@@ -35,13 +35,12 @@
   align-items: end;
   align-content: center;
 }
-.slider-item {
+.slider-item-skills {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
 }
-
-.canvas-skills-container {
+.canvas-container-skills {
   position: fixed;
   top: 20px;
   left: 696px;
@@ -59,14 +58,19 @@
     11.15% 15%
   );
 }
-.canvas-skills-container img {
+.canvas-container-skills img {
   width: 50%;
   height: 50%;
   object-fit: contain;
 }
-.background {
+.background-skills {
   background: linear-gradient(rgb(0, 22, 54), rgb(0, 52, 112));
-  background: radial-gradient(ellipse 700px 400px at center , rgb(0, 52, 112) 40%, rgb(0, 16, 39) 100%);  width: 980px;
+  background: radial-gradient(
+    ellipse 700px 400px at center,
+    rgb(0, 52, 112) 40%,
+    rgb(0, 16, 39) 100%
+  );
+  width: 980px;
   height: 480px;
   align-content: center;
 }

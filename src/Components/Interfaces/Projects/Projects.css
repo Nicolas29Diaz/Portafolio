@@ -1,0 +1,90 @@
+@font-face {
+  font-family: "Electrolize-Regular";
+  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
+}
+
+.background-projects {
+  /* background: linear-gradient(rgb(0, 122, 54), rgb(0, 152, 112)); */
+  /* background: radial-gradient(
+    ellipse 700px 400px at center,
+    rgb(0, 87, 51) 40%,
+    rgb(0, 66, 39) 100%
+  ); */
+  background: rgb(0, 66, 39) 100%;
+  width: 1480px;
+  height: 1490px;
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  /* padding: 50px; */
+}
+
+.slider-container-projects {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 50px;
+}
+
+.text {
+  font-family: "Electrolize-Regular";
+  font-size: 50px;
+  font-weight: 1000;
+}
+
+.slider-item-container-project {
+  height: 1100px;
+  background-color: aliceblue;
+  margin: 0 10px;
+  padding: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  gap: 10px;
+
+  /* display: flex;
+  flex-direction: column;
+   */
+  position: relative;
+  overflow: hidden;
+}
+.slider-item-container-project img {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.slider-item-container-project div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: left;
+  padding: 20px;
+  background-color: aquamarine;
+  font-family: "Electrolize-Regular";
+
+  /* flex: 1;
+  font-size: 30px;
+  width: 100%;
+  font-family: "Electrolize-Regular";
+  font-weight: 1000; */
+}
+.slider-item-container-project div h1 {
+  font-size: 50px;
+  font-weight: 1000;
+}
+.slider-item-container-project div p {
+  width: 90%;
+  font-size: 30px;
+  font-weight: 400;
+}
+.slider-item-container-project:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
+}

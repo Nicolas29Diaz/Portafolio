@@ -29,7 +29,7 @@ function Skills() {
 
   return (
     <Html
-      className="background"
+      className="background-skills"
       distanceFactor={1}
       transform
       occlude="blending"
@@ -38,11 +38,11 @@ function Skills() {
       rotation={[-Math.PI / 2, 0, 0]}
     >
       {/* {cameraFocus === "SKILLS" ? (  */}
-      <div className="general-container" key={cameraFocus}>
+      <div className="general-container-skills" key={cameraFocus}>
         <BackGround active={active}></BackGround>
 
-        <div className="container-1">
-          <div className="slider-container">
+        <div className="container-1-skills">
+          <div className="slider-container-skills">
             <Slider
               {...sliderConf}
               afterChange={(current, next) => {
@@ -50,7 +50,7 @@ function Skills() {
               }}
             >
               <div>
-                <div className="slider-item">
+                <div className="slider-item-skills">
                   <>
                     {skillsConfig[0].map((skill, index) => (
                       <SkillContainer
@@ -68,7 +68,7 @@ function Skills() {
                 </div>
               </div>
               <div>
-                <div className="slider-item">
+                <div className="slider-item-skills">
                   <>
                     {skillsConfig[1].map((skill, index) => (
                       <SkillContainer
@@ -86,7 +86,7 @@ function Skills() {
                 </div>
               </div>
               <div>
-                <div className="slider-item">
+                <div className="slider-item-skills">
                   <>
                     {skillsConfig[2].map((skill, index) => (
                       <SkillContainer
@@ -106,8 +106,8 @@ function Skills() {
             </Slider>
           </div>
         </div>
-        <div className="container-2">
-          <div className="canvas-skills-container">
+        <div className="container-2-skills">
+          <div className="canvas-container-skills">
             <img src="Images/SkillsLogos/JS.png" alt="Gift background" />
             PONER UNA MASCARA QUE VAYA DE ABAJO HACIA ARRIBA PARA MOSTRAR EL
             MODELO 3D
