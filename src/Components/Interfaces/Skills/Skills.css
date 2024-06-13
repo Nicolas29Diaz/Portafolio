@@ -1,3 +1,14 @@
+.background-skills {
+  /* background: linear-gradient(rgb(0, 22, 54), rgb(0, 52, 112)); */
+  background: radial-gradient(
+    ellipse 700px 400px at center,
+    rgb(0, 52, 112) 40%,
+    rgb(0, 16, 39) 100%
+  );
+  width: 980px;
+  height: 480px;
+  align-content: center;
+}
 .general-container-skills {
   padding: 20px;
   height: 100%;
@@ -62,15 +73,4 @@
   width: 50%;
   height: 50%;
   object-fit: contain;
-}
-.background-skills {
-  background: linear-gradient(rgb(0, 22, 54), rgb(0, 52, 112));
-  background: radial-gradient(
-    ellipse 700px 400px at center,
-    rgb(0, 52, 112) 40%,
-    rgb(0, 16, 39) 100%
-  );
-  width: 980px;
-  height: 480px;
-  align-content: center;
 }

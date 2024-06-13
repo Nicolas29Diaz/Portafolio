@@ -1,14 +1,21 @@
 import React from "react";
 import "./Projects.css";
-function Project({ project }) {
+import ItemBackGround from "./SvgItems/ItemBackGround";
+
+function Project({ project, animate}) {
   return (
     <div className="slider-item-container-project">
-      <img src={project.img} alt={project.alt} />
-      <div>
+      {/* <img src={project.img} alt={project.alt} /> */}
+
+      <div className="slider-item-container-project-img">
+        {/* <img src={project.img} alt={project.alt} /> */}
+      </div>
+      {/* <div className="slider-item-container-project-info">
         <h1>{project.title}</h1>
         <p>{project.description}</p>
         <a href="#"></a>
-      </div>
+      </div> */}
+      <ItemBackGround project={project} animate={animate}></ItemBackGround>
     </div>
   );
 }

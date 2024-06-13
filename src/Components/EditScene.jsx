@@ -6,6 +6,7 @@ import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Escena } from "./3D_Components/Escena.jsx";
+import { Scene3D } from "./3D_Components/3DScene.jsx";
 import { AxesHelper } from "three";
 import { Html } from "@react-three/drei";
 import {
@@ -129,7 +130,8 @@ export function EditScene() {
       <SceneConf></SceneConf>
       <>{meshFitComponents}</>
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        <Escena></Escena>
+        {/* <Escena></Escena> */}
+        <Scene3D></Scene3D>
       </group>
 
       {/* <Grid></Grid> */}

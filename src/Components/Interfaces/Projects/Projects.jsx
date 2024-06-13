@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Projects.css";
 
 import { Html } from "@react-three/drei";
@@ -8,64 +8,70 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Project from "./Project";
+import useStore from "../../../Store/Store";
 function Projects() {
   const projectsData = [
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Prueba.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Prueba.png",
     },
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Prueba.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Prueba.png",
     },
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Shewhart.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Shewhart.png",
     },
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Shewhart.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Shewhart.png",
     },
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Shewhart.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Shewhart.png",
     },
     {
       title: "Title",
       description:
         " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt exaspernatur vero adipisci praesentium nam quas quo libero, minima adharum laboriosam consequatur ducimus dolore provident accusantium iurenisi asperiores?",
-      img: "Images/SkillsLogos/JS.png",
+      img: "Images/Projects/Shewhart.png",
       alt: "Project",
-      link: "Images/SkillsLogos/JS.png",
+      link: "Images/Projects/Shewhart.png",
     },
   ];
   const settings = {
+    className: "center",
+    centerMode: true,
     dots: false,
     infinite: true,
-    speed: 300,
+    speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
+    focusOnSelect: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     // responsive: [
     //   {
     //     breakpoint: 1024,
@@ -94,27 +100,59 @@ function Projects() {
     // ],
   };
 
+  const [animate, setAnimate] = useState(false);
+  const { cameraFocus } = useStore();
+
+  useEffect(() => {
+    if (cameraFocus === "PROJECTS") {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }, [cameraFocus]);
+
   const sliderProjects = projectsData.map((project, i) => (
-    <Project project={project} key={i} />
+    <Project project={project} key={i} animate={animate} />
   ));
   return (
     <Html
       //   pixelRatio={window.devicePixelRatio}
       className="background-projects"
-      distanceFactor={0.5}
+      distanceFactor={1}
       transform
       occlude="blending"
-      //   tabIndex={0}
-      position={[0, 0.08, 0]}
+      position={[0, 0.095, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
       <div className="slider-container-projects">
         <Slider {...settings}>{sliderProjects}</Slider>
       </div>
-      {/* <BackGround /> */}
-      {/* <div className="text">HOLA PROBANDO DISTANCE FACTOR</div> */}
+
+      <BackGround animate={animate}></BackGround>
     </Html>
   );
 }
 
 export default Projects;
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "none", background: "red" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "none", background: "green" }}
+      onClick={onClick}
+    />
+  );
+}

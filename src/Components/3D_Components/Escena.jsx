@@ -5,11 +5,14 @@ Command: npx gltfjsx@6.2.16 public/Models/Escena.glb
 
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import useStore from "../../Store/Store";
-import * as THREE from "three"; // Importa Three.js
 
+
+import useStore from "../../Store/Store";
+import * as THREE from "three";
 import Skills from "../Interfaces/Skills/Skills";
 import Projects from "../Interfaces/Projects/Projects";
+
+
 export function Escena(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
