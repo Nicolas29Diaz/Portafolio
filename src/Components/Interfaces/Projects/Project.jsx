@@ -2,9 +2,13 @@ import React from "react";
 import "./Projects.css";
 import ItemBackGround from "./SvgItems/ItemBackGround";
 
-function Project({ project, animate}) {
+function Project({ project, animate }) {
   return (
-    <div className="slider-item-container-project">
+    <div
+      className={`slider-item-container-project ${
+        animate ? "projects-interaction" : "projects-no-interaction"
+      } `}
+    >
       {/* <img src={project.img} alt={project.alt} /> */}
 
       <div className="slider-item-container-project-img">

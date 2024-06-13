@@ -102,6 +102,7 @@ export const sliderConf = {
   // autoplay: true,
   // autoplaySpeed: 6000,
   speed: 1000,
+  touchThreshold: 20,
 };
 // export const sliderConf = {
 //   infinite: true,

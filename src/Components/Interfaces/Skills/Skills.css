@@ -45,6 +45,7 @@
   flex: 5;
   align-items: end;
   align-content: center;
+  cursor: grab;
 }
 .slider-item-skills {
   display: grid;

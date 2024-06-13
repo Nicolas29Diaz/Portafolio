@@ -72,6 +72,7 @@ function Projects() {
     focusOnSelect: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    touchThreshold: 100,
     // responsive: [
     //   {
     //     breakpoint: 1024,
@@ -124,7 +125,11 @@ function Projects() {
       position={[0, 0.095, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
     >
-      <div className="slider-container-projects">
+      <div
+        className={`slider-container-projects ${
+          animate ? "projects-interaction" : "projects-no-interaction"
+        }`}
+      >
         <Slider {...settings}>{sliderProjects}</Slider>
       </div>
 

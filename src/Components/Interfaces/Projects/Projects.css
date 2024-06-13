@@ -27,6 +27,13 @@
   z-index: 1;
 }
 
+.projects-no-interaction {
+  pointer-events: none;
+}
+.projects-interaction {
+  pointer-events: all;
+}
+
 .text {
   font-family: "Electrolize-Regular";
   font-size: 50px;
@@ -88,7 +95,6 @@
 .center .slick-center .slider-item-container-project {
   transform: scale(1.2);
   transition: all 0.5s ease-in-out;
-  pointer-events: all;
   opacity: 1;
 }
 .center .slick-center .slider-item-container-project:hover {

@@ -32,7 +32,7 @@ function App() {
   return (
     <>
       <div className="canvas-container">
-        <Canvas shadows camera={{ position: [5, 20, 80], fov: 40 }}>
+        <Canvas shadows camera={{ position: [5, 20, 80], fov: 60 }}>
           <Suspense fallback={null}>
             {editMode ? <EditScene></EditScene> : <Scene></Scene>}
           </Suspense>

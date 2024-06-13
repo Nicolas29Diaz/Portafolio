@@ -8,7 +8,7 @@ import { views } from "../Store/Store.js";
 
 import { Escena } from "./3D_Components/Escena.jsx";
 import { Scene3D } from "./3D_Components/3DScene.jsx";
-
+import { Scene3D_2 } from "./3D_Components/3DScene_2.jsx";
 export function Scene() {
   const cameraControls = {
     SKILLS: {
@@ -32,12 +32,12 @@ export function Scene() {
       },
     },
     CHARACTER: {
-      maxDist: 9, //Max distance dolly to the object focused
-      minDist: 7, //Min distance dolly to the object focused
-      currentDist: 9,
+      maxDist: 6, //Max distance dolly to the object focused
+      minDist: 6, //Min distance dolly to the object focused
+      currentDist: 6,
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: 0, y: 0, z: 5 }, //Coordinates to posisionate the camera view
       speed: 0.7, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
@@ -274,7 +274,8 @@ export function Scene() {
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
-        <Scene3D></Scene3D>
+        {/* <Scene3D></Scene3D> */}
+        <Scene3D_2></Scene3D_2>
         {/* <mesh>
           <boxGeometry args={[1, 1, 1]}></boxGeometry>
         </mesh> */}
