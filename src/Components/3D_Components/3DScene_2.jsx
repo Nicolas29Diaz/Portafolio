@@ -10,6 +10,7 @@ import * as THREE from "three";
 
 import Skills from "../Interfaces/Skills/Skills";
 import Projects from "../Interfaces/Projects/Projects";
+import About from "../Interfaces/About/About";
 
 export function Scene3D_2(props) {
   const group = useRef();
@@ -554,6 +555,7 @@ export function Scene3D_2(props) {
             />
           </mesh>
         </group>
+        
         <group
           name="MesaAbout001"
           position={[8.164, 1.465, 0.573]}
@@ -664,7 +666,9 @@ export function Scene3D_2(props) {
               receiveShadow
               geometry={nodes.Plane021_1.geometry}
               material={materials.ScreenPC}
-            />
+            >
+              <About></About>
+            </mesh>
             <mesh
               name="BezierCurve001"
               castShadow

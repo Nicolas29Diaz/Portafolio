@@ -1,0 +1,10 @@
+.about-background {
+  background: radial-gradient(
+    ellipse 700px 400px at center,
+    rgb(0, 52, 112) 40%,
+    rgb(0, 16, 39) 100%
+  );
+  width: 1000px;
+  height: 480px;
+  align-content: center;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import "./SVG.css";
 import SKillPoints from "./SkillPoints";
 function SkillContainer({
+  animate,
   position = "10 15",
   scale = "1",
   skillPoints = 5,
@@ -26,18 +27,24 @@ function SkillContainer({
             {/* Skill container */}
             <g>
               <polyline
-                className="border-line"
+                className={`border-line ${
+                  animate ? "animation-border-line" : ""
+                }`}
                 points="0,70 0,20 30,0 100,0 100,80 130,80 140,90 250,90 270,75"
               />
               <polyline
-                className="border-line"
+                className={`border-line ${
+                  animate ? "animation-border-line" : ""
+                }`}
                 points="0,70 0,120 65,120 100,100 100,80 100,85"
               />
             </g>
             {/* Skill container Decoration */}
             <g transform="translate(0 0)">
               <polyline
-                className="border-line-2"
+                className={`border-line-2 ${
+                  animate ? "animation-border-line-3" : ""
+                }`}
                 points="100,80 130,80 140,90 150,90"
               />
             </g>

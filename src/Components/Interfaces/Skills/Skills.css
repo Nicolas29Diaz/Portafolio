@@ -9,6 +9,9 @@
   height: 480px;
   align-content: center;
 }
+.skills-no-pointer {
+  pointer-events: none;
+}
 .general-container-skills {
   padding: 20px;
   height: 100%;

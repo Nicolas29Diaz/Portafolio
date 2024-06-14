@@ -1,10 +1,7 @@
 // Importing necessary libraries and components
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "../../../Store/Store";
 import Slider from "react-slick";
-import { Canvas } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
-import { OrbitControls } from "@react-three/drei";
 import { Html } from "@react-three/drei";
 
 // Importing styles
@@ -13,7 +10,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Skills.css";
 
 // Importing components
-import HtmlBase from "../HtmlBase";
 import SkillContainer from "./SvgItems/SkillContainer";
 import BackGround from "./SvgItems/BackGround";
 
@@ -35,14 +31,14 @@ function Skills() {
 
   return (
     <Html
-      className="background-skills"
+      className={`background-skills ${animate ? "" : "skills-no-pointer"}`}
       distanceFactor={1}
       transform
       occlude="blending"
       tabIndex={0}
-      position={[0, 0.2, 0]}
+      position={[0, 0.15, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
-      scale={[1.75, 1.75, 1.75]}
+      scale={[1.72, 1.72, 1.72]}
     >
       {/* {cameraFocus === "SKILLS" ? (  */}
       <div className="general-container-skills">
@@ -61,6 +57,7 @@ function Skills() {
                   <>
                     {skillsConfig[0].map((skill, index) => (
                       <SkillContainer
+                        animate={animate}
                         key={index}
                         skillPoints={skill.points}
                         skillText={skill.text}
@@ -79,6 +76,7 @@ function Skills() {
                   <>
                     {skillsConfig[1].map((skill, index) => (
                       <SkillContainer
+                        animate={animate}
                         key={index}
                         skillPoints={skill.points}
                         skillText={skill.text}
@@ -97,6 +95,7 @@ function Skills() {
                   <>
                     {skillsConfig[2].map((skill, index) => (
                       <SkillContainer
+                        animate={animate}
                         key={index}
                         skillPoints={skill.points}
                         skillText={skill.text}

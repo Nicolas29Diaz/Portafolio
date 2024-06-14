@@ -20,7 +20,7 @@ export function Scene() {
       maxAngle: Math.PI / 2,
       minAzimuthAngle: -Math.PI / 2,
       maxAzimuthAngle: Math.PI / 2,
-      coordCamera: { x: -5, y: 3.96, z: -1.5 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: -5, y: 3.96, z: -1.6 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       dollySpeed: 0.5,
       mesh: {
