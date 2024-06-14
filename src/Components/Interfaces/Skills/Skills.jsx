@@ -23,9 +23,15 @@ import { skillsConfig, sliderConf } from "./Constants.js";
 function Skills() {
   const { cameraFocus } = useStore();
   const [active, setActive] = useState(0);
-  // useEffect(() => {
-  //   console.log(cameraFocus);
-  // }, [cameraFocus]);
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => {
+    // console.log(cameraFocus);
+    if (cameraFocus === "SKILLS") {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }, [cameraFocus]);
 
   return (
     <Html
@@ -34,19 +40,20 @@ function Skills() {
       transform
       occlude="blending"
       tabIndex={0}
-      position={[0, 0.08, 0]}
+      position={[0, 0.2, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
+      scale={[1.75, 1.75, 1.75]}
     >
       {/* {cameraFocus === "SKILLS" ? (  */}
-      <div className="general-container-skills" key={cameraFocus}>
-        <BackGround active={active}></BackGround>
+      <div className="general-container-skills">
+        <BackGround animate={animate} active={active}></BackGround>
 
         <div className="container-1-skills">
           <div className="slider-container-skills">
             <Slider
               {...sliderConf}
-              afterChange={(current, next) => {
-                setActive(current);
+              beforeChange={(current, next) => {
+                setActive(next);
               }}
             >
               <div>

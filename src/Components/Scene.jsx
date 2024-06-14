@@ -20,15 +20,15 @@ export function Scene() {
       maxAngle: Math.PI / 2,
       minAzimuthAngle: -Math.PI / 2,
       maxAzimuthAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 3.5, z: 0 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: -5, y: 3.96, z: -1.5 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [-9.7, 3.5, 6.4], //Mesh fit position
-        size: [0.1, 2, 2], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        rotation: [0, Math.PI / 5.5, 0],
+        position: [-7.87, 3.96, -2.85], //Mesh fit position
+        size: [1, 2, 4], //Mesh fit size
+        layer: 0, //Mesh fit layer
+        rotation: [0, (-24 * Math.PI) / 180, 0],
       },
     },
     CHARACTER: {
@@ -52,7 +52,7 @@ export function Scene() {
       currentDist: 7,
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 0, z: 20 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: 0, y: 0, z: 10 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       mesh: {
         ref: useRef(), //Mesh to center the camera view
@@ -79,33 +79,35 @@ export function Scene() {
       },
     },
     PROJECTS: {
-      maxDist: 22, //Max distance dolly to the object focused
-      minDist: 8, //Min distance dolly to the object focused
-      currentDist: 3,
-      currentDistMobile: 6,
+      maxDist: 11, //Max distance dolly to the object focused
+      minDist: 4, //Min distance dolly to the object focused
+      currentDist: 0,
+      currentDistMobile: 4,
       minAngle: Math.PI / 4,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: -5, y: 2.5, z: -1 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: 0.7, y: 2.55, z: 3 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
       dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [11.5, 2.53, 3], //Mesh fit position
-        size: [1, 3, 5.5], //Mesh fit size
-        layer: 0, //Mesh fit layer
-        rotation: [0, -(14 * Math.PI) / 180, 0],
+        position: [0.7, 2.55, 7.86], //Mesh fit position
+        size: [5.5, 4, 1], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        rotation: [0, 0, 0],
       },
     },
   };
   const {
-    showButton,
-    setShowButton,
+    showCancelButton,
+    setShowCancelButton,
     showButtonStart,
     setCameraFocus,
     setShowButtonStart,
+    showFloatButtons,
+    setShowFloatButtons,
   } = useStore();
 
-  const [showFloatButtons, setShowFloatButtons] = useState(false);
+  // const [showFloatButtons, setShowFloatButtons] = useState(false);
 
   const [currentView, setCurrentView] = useState(views.INITIAL);
 
@@ -179,7 +181,7 @@ export function Scene() {
       const intervalId = setInterval(movCameraToObject, 1);
       setTimeout(() => {
         clearInterval(intervalId);
-        setShowButton(true);
+        setShowCancelButton(true);
       }, 1500);
     }
 
@@ -208,27 +210,31 @@ export function Scene() {
   }
 
   useEffect(() => {
-    // console.log(showButton);
-    if (!showButton) {
+    if (!showCancelButton && !showButtonStart) {
       setCameraFocus(views.CHARACTER);
       setCurrentView(views.CHARACTER);
       setShowFloatButtons(true);
     }
-  }, [showButton]);
+  }, [showCancelButton]);
 
   useEffect(() => {
     if (showButtonStart) {
+      setCameraFocus(views.INITIAL);
       setCurrentView(views.INITIAL);
       fitCamera();
     } else {
+      setCameraFocus(views.CHARACTER);
       setCurrentView(views.CHARACTER);
-      setShowFloatButtons(true);
+      setTimeout(() => {
+        setShowFloatButtons(true);
+      }, 1000);
     }
   }, [showButtonStart]);
 
   const changeView = (view) => {
     setCameraFocus(view);
     setCurrentView(view);
+
     setShowFloatButtons(false);
   };
 
@@ -281,31 +287,28 @@ export function Scene() {
         </mesh> */}
       </group>
 
-      {showFloatButtons && !showButtonStart && (
-        <>
-          <FloatButton
-            view={views.CONTACT}
-            changeView={changeView}
-            position={[5, 2.53, -7.668]}
-            rotation={[0, -Math.PI / 5, Math.PI / 4]}
-            scale={1}
-          />
-          <FloatButton
-            view={views.SKILLS}
-            changeView={changeView}
-            position={[-8, 3.5, 5.5]}
-            rotation={[-Math.PI, 1.004, Math.PI / 4]}
-            scale={0.9}
-          />
-          <FloatButton
-            view={views.PROJECTS}
-            changeView={changeView}
-            position={[10.5, 2.53, 3]}
-            rotation={[0, Math.PI / 2, Math.PI / 4]}
-            scale={0.9}
-          />
-        </>
-      )}
+      {/* {!showButtonStart && ( */}
+      <>
+        <FloatButton
+          view={views.CONTACT}
+          changeView={changeView}
+          position={[5, 2.53, -7.668]}
+          rotation={[0, -Math.PI / 5, Math.PI / 4]}
+        />
+        <FloatButton
+          view={views.SKILLS}
+          changeView={changeView}
+          position={[-6.85, 4, -2.37]}
+          rotation={[0, 1, Math.PI / 4]}
+        />
+        <FloatButton
+          view={views.PROJECTS}
+          changeView={changeView}
+          position={[0.5, 2.53, 6]}
+          rotation={[0, 0, Math.PI / 4]}
+        />
+      </>
+      {/* )} */}
     </>
   );
 }

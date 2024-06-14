@@ -6,7 +6,7 @@
 }
 
 /* General Border lines */
-@keyframes drawLine {
+@keyframes skillsDrawLine {
   to {
     stroke-dasharray: 2000 0;
   }
@@ -16,8 +16,14 @@
   fill: none;
   stroke: #399ab5;
   stroke-width: 2;
+}
+.animation-border-line {
   stroke-dasharray: 0 1000;
-  animation: drawLine 5s ease forwards;
+  animation: skillsDrawLine 8s ease forwards;
+}
+.animation-border-line-2{
+  stroke-dasharray: 0 1000;
+  animation: skillsDrawLine 5s ease forwards;
 }
 
 .border-line-2 {
@@ -25,7 +31,7 @@
   stroke: #08bee1;
   stroke-width: 5;
   stroke-dasharray: 0 1000;
-  animation: drawLine 5s ease forwards;
+  animation: skillsDrawLine 5s ease forwards;
 }
 
 /* Skill points */
@@ -82,7 +88,6 @@
 .title-content {
   fill: #08bee1;
 }
-
 
 /* Rect slide text */
 @keyframes slideOutRect {
@@ -153,12 +158,12 @@
 }
 
 .rect-title-change {
-  animation: slideInRect 0.7s forwards, slideOutRect 0.7s 0.7s forwards;
+  animation: slideInRect 0.5s forwards, slideOutRect 0.5s 0.5s forwards;
   /* fill: url(#text-gradient-slideIn); */
 }
 
 .mask-subtitle {
-  animation: slideOutMask 0.7s forwards, slideInMask 0.7s 0.7s forwards;
+  animation: slideOutMask 0.5s forwards, slideInMask 0.5s 0.5s forwards;
 }
 
 /* Div skill container */

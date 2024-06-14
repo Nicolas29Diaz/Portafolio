@@ -8,22 +8,22 @@
   --button-bg-color: rgb(71, 71, 71);
   --button-animation: 0.3s;
 }
-.contentButton {
+.contentFloatButton {
   margin: 0px;
   text-align: center;
   align-content: center;
-  display: block;
+  /* display: block; */
   width: 30px;
   height: 30px;
   position: relative;
   background: var(--button-border-color);
   color: var(--button-border-color);
-  transition: 0.5s;
+  transition: all 1s;
   cursor: pointer;
   /* transform: rotate(-45deg); */
 }
 
-.contentButton:hover {
+.contentFloatButton:hover {
   background-color: var(--button-hover-color);
   box-shadow: 0 0 30px 10px var(--button-hover-color);
   color: var(--button-hover-color);
@@ -32,14 +32,14 @@
   /* transform: rotate(45deg); */
 }
 
-.contentButton::before {
+.contentFloatButton::before {
   content: "";
   position: absolute;
   inset: 3px;
   background: var(--button-bg-color);
 }
 
-.contentButton div {
+.contentFloatButton div {
   position: relative;
   display: flex;
   align-items: center;
@@ -52,13 +52,13 @@
   font-family: "Electrolize-Regular";
 }
 
-.contentButton i {
+.contentFloatButton i {
   position: absolute;
   inset: 0;
   display: block;
 }
 
-.contentButton i:nth-child(2)::before {
+.contentFloatButton i:nth-child(2)::before {
   content: "";
   position: absolute;
   top: 0;
@@ -69,13 +69,13 @@
   transform: skewX(45deg);
   transition: var(--button-animation);
 }
-.contentButton:hover i:nth-child(2)::before {
+.contentFloatButton:hover i:nth-child(2)::before {
   transform: skewX(-45deg);
   width: 47%;
   left: 50%;
 }
 
-.contentButton i:nth-child(2)::after {
+.contentFloatButton i:nth-child(2)::after {
   content: "";
   position: absolute;
   top: 3.2%;
@@ -86,13 +86,13 @@
   transform: skewY(45deg);
   transition: var(--button-animation);
 }
-.contentButton:hover i:nth-child(2)::after {
+.contentFloatButton:hover i:nth-child(2)::after {
   transform: skewY(-45deg);
   height: 50%;
   top: 47%;
 }
 
-.contentButton i:nth-child(3)::before {
+.contentFloatButton i:nth-child(3)::before {
   content: "";
   position: absolute;
   top: 47%;
@@ -103,12 +103,12 @@
   transform: skewY(45deg);
   transition: var(--button-animation);
 }
-.contentButton:hover i:nth-child(3)::before {
+.contentFloatButton:hover i:nth-child(3)::before {
   transform: skewY(-45deg);
   top: 3%;
 }
 
-.contentButton i:nth-child(3)::after {
+.contentFloatButton i:nth-child(3)::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -119,7 +119,7 @@
   transform: skewX(45deg);
   transition: var(--button-animation);
 }
-.contentButton:hover i:nth-child(3)::after {
+.contentFloatButton:hover i:nth-child(3)::after {
   transform: skewX(-45deg);
   left: 3.2%;
 }

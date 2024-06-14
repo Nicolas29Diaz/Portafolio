@@ -12,16 +12,18 @@ export const views = {
 };
 
 const useStore = create((set) => ({
-  showButton: false,
+  showCancelButton: false,
   showButtonStart: true,
+  showFloatButtons: false,
 
   cameraFocus: views.INITIAL,
   gpuTier: 1,
 
   setGpuTier: (value) => set({ gpuTier: value }),
-  setShowButton: (value) => set({ showButton: value }),
+  setShowCancelButton: (value) => set({ showCancelButton: value }),
   setShowButtonStart: (value) => set({ showButtonStart: value }),
   setCameraFocus: (focus) => set({ cameraFocus: focus }),
+  setShowFloatButtons: (value) => set({ showFloatButtons: value }),
 }));
 
 export default useStore;

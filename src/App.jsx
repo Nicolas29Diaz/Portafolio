@@ -13,8 +13,13 @@ import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
 
 function App() {
-  const { showButton, setShowButton } = useStore();
-  const { showButtonStart, setShowButtonStart, setGpuTier } = useStore();
+  const {
+    showCancelButton,
+    setShowCancelButton,
+    showButtonStart,
+    setShowButtonStart,
+    setGpuTier,
+  } = useStore();
   const { progress } = useProgress();
 
   const editMode = false;
@@ -40,9 +45,9 @@ function App() {
         <Loader></Loader>
         {/* <LoadingScreen /> */}
       </div>
-      {showButton && (
+      {showCancelButton && (
         <div className="contentCancelButton">
-          <div onClick={() => setShowButton(false)}>+</div>
+          <div onClick={() => setShowCancelButton(false)}>+</div>
           <i></i>
           <i></i>
         </div>

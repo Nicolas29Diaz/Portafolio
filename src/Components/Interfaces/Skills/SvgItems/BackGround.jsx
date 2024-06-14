@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./SVG.css";
 import { subTitleConf } from "../Constants";
 
-function BackGround({ active }) {
+function BackGround({ animate, active }) {
   const [subTitleOptions, setSubTitleOptions] = useState("Programming");
   const [option, setOption] = useState(false);
   //When the active changes, the subtitle changes after 500ms
   useEffect(() => {
     setTimeout(() => {
       setSubTitleOptions(subTitleConf[active]);
-    }, 500);
+    }, 400);
   }, [active]);
 
   return (
@@ -64,45 +64,53 @@ function BackGround({ active }) {
         {/* Borders setup */}
         <g transform={`translate(20 20) scale(1)`}>
           {/* Skills Border */}
-          {option ? (
+          {/* {option ? (
             <g>
               <polyline
-                className="border-line"
+                className={`border-line ${animate ? "animation-border-line" : ""}`}
                 points="0,200 0,20 30,0 270,0 300,20 300,50 670,50 700,80 700,200"
               />
               <polyline
-                className="border-line title-content"
+                className={`border-line title-content ${animate ? "animation-border-line" : ""}`}
                 points="0,51.2 0,20 30,0 270,0 300,20 300,51.2 670"
               />
               <polyline
-                className="border-line"
+                className={`border-line ${animate ? "animation-border-line" : ""}`}
                 points="0,200 0,390 30,420 670,420 700,390 700,200"
               />
             </g>
-          ) : (
-            <g>
-              <polyline
-                className="border-line"
-                points="0,200 0,50 40,50 55,70 245,70 260,50 670,50 700,80 700,200"
-              />
-              <polyline
-                className="border-line title-content"
-                points="35,0 300,0 300,20 300,40 255,40 240,60 60,60 45,40 0,40 0,20 35,0"
-              />
-              <polyline
-                className="border-line"
-                points="0,200 0,390 30,420 670,420 700,390 700,200"
-              />
-              <text x={105} y={45} className="text-title">
-                SKILLS
-              </text>
-            </g>
-          )}
+          ) : ( */}
+          <g>
+            <polyline
+              className={`border-line ${
+                animate ? "animation-border-line-2" : ""
+              }`}
+              points="0,200 0,50 40,50 55,70 245,70 260,50 670,50 700,80 700,200"
+            />
+            <polyline
+              className={`border-line title-content ${
+                animate ? "animation-border-line-2" : ""
+              }`}
+              points="35,0 300,0 300,20 300,40 255,40 240,60 60,60 45,40 0,40 0,20 35,0"
+            />
+            <polyline
+              className={`border-line ${
+                animate ? "animation-border-line-2" : ""
+              }`}
+              points="0,200 0,390 30,420 670,420 700,390 700,200"
+            />
+            <text x={105} y={45} className="text-title">
+              SKILLS
+            </text>
+          </g>
+          {/* )} */}
 
           {/* Subtitle border */}
           <g>
             <polyline
-              className="border-line subtitle-content"
+              className={`border-line subtitle-content ${
+                animate ? "animation-border-line" : ""
+              }`}
               points="310,20 310,40 670,40 700,0 310,0 310,20"
             />
           </g>
@@ -110,7 +118,9 @@ function BackGround({ active }) {
           {/* 3D model border */}
           <g>
             <polyline
-              className="border-line"
+              className={`border-line ${
+                animate ? "animation-border-line-2" : ""
+              }`}
               points="680,45 715,0 910,0 940,30 940,390 910,420 685,420 710,395 710,75 680,45"
             />
           </g>

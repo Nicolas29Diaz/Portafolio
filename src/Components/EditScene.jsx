@@ -10,6 +10,7 @@ import { Escena } from "./3D_Components/Escena.jsx";
 import { AxesHelper } from "three";
 import { Html } from "@react-three/drei";
 import { Scene3D } from "./3D_Components/3DScene.jsx";
+import { Scene3D_2 } from "./3D_Components/3DScene_2.jsx";
 import {
   GizmoHelper,
   GizmoViewport,
@@ -132,20 +133,22 @@ export function EditScene() {
       <>{meshFitComponents}</>
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
-        <Scene3D></Scene3D>
+        {/* <Scene3D></Scene3D> */}
+        <Scene3D_2></Scene3D_2>
       </group>
 
       {/* <Grid></Grid> */}
       <PivotControls
+        scale={5}
         disableScaling={false}
         annotations={true}
-        depthTest={false}
+        // depthTest={false}
         onDragEnd={() => {
           console.log("refMesh.current");
         }}
       >
         <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
-          <boxGeometry args={[1, 4, 7]}></boxGeometry>
+          <boxGeometry args={[1, 2, 4]}></boxGeometry>
           <meshStandardMaterial
             color="red"
             transparent
@@ -167,7 +170,7 @@ export function EditScene() {
       <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
         <GizmoViewport labelColor="white" axisHeadScale={1} />
       </GizmoHelper>
-      <OrbitControls makeDefault />
+      <OrbitControls makeDefault enableDamping={false}/>
     </>
   );
 }

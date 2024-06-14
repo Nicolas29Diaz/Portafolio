@@ -118,7 +118,9 @@ function Projects() {
   return (
     <Html
       //   pixelRatio={window.devicePixelRatio}
-      className="background-projects"
+      className={`background-projects ${
+        animate ? "projects-interaction" : "projects-no-interaction"
+      }`}
       distanceFactor={1}
       transform
       occlude="blending"
