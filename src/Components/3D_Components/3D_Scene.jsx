@@ -12,15 +12,16 @@ import Skills from "../Interfaces/Skills/Skills";
 import Projects from "../Interfaces/Projects/Projects";
 import About from "../Interfaces/About/About";
 
-export function Scene3D_2(props) {
+export function Scene3D(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
-    "../public/Models/Scene3D_2.glb"
+    "../public/Models/3D_Scene.glb"
   );
+
   const { actions, names } = useAnimations(animations, group);
   const { showButtonStart, cameraFocus } = useStore();
   const [showGroup, setShowGroup] = useState(false);
-  
+
   useEffect(() => {
     console.log(names);
     if (showButtonStart) {
@@ -42,44 +43,30 @@ export function Scene3D_2(props) {
   };
 
   const introAnimation = () => {
-    actions[names[1]].reset().fadeIn(0.5).play();
+    actions[names[1]].reset().fadeIn(0).play();
   };
 
   const sitAnimation = () => {
     const sit = actions[names[0]];
+
+    const helmet = actions[names[2]];
+
     sit.reset().fadeIn(0.5).play();
     sit.setLoop(THREE.LoopOnce);
     sit.clampWhenFinished = true;
+
+    setTimeout(() => {
+      helmet.reset().fadeIn(0.5).play();
+      helmet.setLoop(THREE.LoopOnce);
+      helmet.clampWhenFinished = true;
+    }, 1500);
   };
 
-  // }
-
-  // if (showButtonStart) {
-  //   const sit = actions[names[1]];
-  //   const helmet = actions[names[2]];
-
-  //   sit.reset().fadeIn(0.5).play();
-  //   sit.time = 2;
-
-  //   helmet.reset().fadeIn(0.5).play();
-
-  //   helmet.setLoop(THREE.LoopOnce);
-  //   sit.setLoop(THREE.LoopOnce);
-  //   helmet.clampWhenFinished = true;
-  //   sit.clampWhenFinished = true;
-  // } else {
-  //   actions[names[3]].reset().fadeIn(0.5).play();
-  // }
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <group
-          visible={
-            cameraFocus === "CHARACTER" || cameraFocus === "INITIAL"
-              ? true
-              : false
-          }
-          name="Armature002"
+          name="Character"
           position={[0, 0, 0.786]}
           rotation={[Math.PI / 2, 0, 0]}
           scale={0.01}
@@ -230,10 +217,9 @@ export function Scene3D_2(props) {
           </group>
           <primitive object={nodes.mixamorigHips} />
         </group>
-
         <group
-          name="Menu001"
-          position={[1.502, 0.344, -0.009]}
+          name="MenuScreen"
+          position={[1.502, 0.344, 0.157]}
           scale={[0.489, 0.325, 0.429]}
         >
           <mesh
@@ -241,7 +227,7 @@ export function Scene3D_2(props) {
             castShadow
             receiveShadow
             geometry={nodes.Cube034.geometry}
-            material={materials.SkillsBase2}
+            material={materials.Screen}
           />
           <mesh
             name="Cube034_1"
@@ -252,12 +238,12 @@ export function Scene3D_2(props) {
           />
         </group>
         <mesh
-          name="Silla003"
+          name="Silla"
           castShadow
           receiveShadow
-          geometry={nodes.Silla003.geometry}
+          geometry={nodes.Silla.geometry}
           material={materials["Silla2.001"]}
-          position={[0, 0.344, -0.009]}
+          position={[0, 0.344, 0.157]}
           scale={[0.758, 0.751, 0.489]}
         >
           <mesh
@@ -270,6 +256,16 @@ export function Scene3D_2(props) {
             rotation={[-0.032, 0, 0]}
             scale={[0.468, 0.769, 0.931]}
           >
+            <mesh
+              name="Cylinder025"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cylinder025.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[-0.878, 0.066, -0.664]}
+              rotation={[1.603, 0, 0]}
+              scale={[0.096, 0.062, 0.059]}
+            />
             <mesh
               name="Cylinder026"
               castShadow
@@ -289,7 +285,18 @@ export function Scene3D_2(props) {
                 position={[4.749, -55.455, 17.875]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={[29.248, 29.248, 35.317]}
-              />
+              >
+                <mesh
+                  name="Cylinder021"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.Cylinder021.geometry}
+                  material={materials["MetalSilla.001"]}
+                  position={[-5.9, 0.591, -1.257]}
+                  rotation={[Math.PI / 2, 0, -1.171]}
+                  scale={[0.032, 0.014, 0.032]}
+                />
+              </mesh>
               <mesh
                 name="Cable2_About002"
                 castShadow
@@ -297,6 +304,38 @@ export function Scene3D_2(props) {
                 geometry={nodes.Cable2_About002.geometry}
                 material={materials.Cable2Projects}
                 position={[0.309, -55.455, 17.875]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={[29.248, 29.248, 35.317]}
+              >
+                <mesh
+                  name="Cylinder031"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.Cylinder031.geometry}
+                  material={materials["MetalSilla.001"]}
+                  position={[-2.832, 0.987, 9.088]}
+                  rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+                  scale={[0.038, 0.032, 0.038]}
+                />
+              </mesh>
+            </mesh>
+            <mesh
+              name="Cylinder027"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cylinder027.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[-0.061, 0.066, -0.664]}
+              rotation={[1.603, 0, 0]}
+              scale={[0.096, 0.062, 0.059]}
+            >
+              <mesh
+                name="Cable2_Projects001"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cable2_Projects001.geometry}
+                material={materials.Cable2About}
+                position={[35.504, -8.5, -18.477]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={[29.248, 29.248, 35.317]}
               />
@@ -333,6 +372,27 @@ export function Scene3D_2(props) {
               scale={[0.669, 0.203, 0.353]}
             />
             <mesh
+              name="Cable1_Projects001"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cable1_Projects001.geometry}
+              material={materials.Cable1About}
+              position={[1.486, -0.042, 0.307]}
+              rotation={[-1.484, 0, 0]}
+              scale={[1.248, 1.54, 2.222]}
+            >
+              <mesh
+                name="Cylinder024"
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder024.geometry}
+                material={materials["MetalSilla.001"]}
+                position={[-0.961, -0.006, -0.07]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[0.065, 0.054, 0.065]}
+              />
+            </mesh>
+            <mesh
               name="Cylinder022"
               castShadow
               receiveShadow
@@ -351,7 +411,18 @@ export function Scene3D_2(props) {
                 position={[0.197, -23.322, 11.728]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={[15.331, 15.331, 18.513]}
-              />
+              >
+                <mesh
+                  name="Cylinder020"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.Cylinder020.geometry}
+                  material={materials["MetalSilla.001"]}
+                  position={[-5.866, -0.091, -1.364]}
+                  rotation={[Math.PI / 2, 0, -1.171]}
+                  scale={[0.065, 0.029, 0.065]}
+                />
+              </mesh>
               <mesh
                 name="Cable1_About002"
                 castShadow
@@ -361,8 +432,29 @@ export function Scene3D_2(props) {
                 position={[-3.436, -23.322, 11.728]}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={[15.331, 15.331, 18.513]}
-              />
+              >
+                <mesh
+                  name="Cylinder030"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.Cylinder030.geometry}
+                  material={materials["MetalSilla.001"]}
+                  position={[-2.726, 0.516, 9.088]}
+                  rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+                  scale={[0.065, 0.054, 0.065]}
+                />
+              </mesh>
             </mesh>
+            <mesh
+              name="Cylinder023"
+              castShadow
+              receiveShadow
+              geometry={nodes.Cylinder023.geometry}
+              material={materials["MetalSilla.001"]}
+              position={[-0.312, -0.198, 0.312]}
+              rotation={[0.086, 0, 0]}
+              scale={[0.088, 0.13, 0.109]}
+            />
             <mesh
               name="SoporteCasco001"
               castShadow
@@ -380,14 +472,14 @@ export function Scene3D_2(props) {
                 geometry={nodes.CilindroCasco001.geometry}
                 material={nodes.CilindroCasco001.material}
                 position={[0, -0.161, -0.909]}
-                rotation={[-0.078, 0, -Math.PI / 2]}
+                rotation={[-1.638, 0, -Math.PI / 2]}
                 scale={[0.102, 0.409, 0.102]}
               >
                 <group
                   name="Sphere003"
-                  position={[-1.6, 0, 8.932]}
+                  position={[-1.629, 0, 9.951]}
                   rotation={[0, 0, Math.PI / 2]}
-                  scale={[2.448, 9.774, 9.774]}
+                  scale={[2.36, 9.774, 10.79]}
                 >
                   <mesh
                     name="Sphere015"
@@ -429,10 +521,10 @@ export function Scene3D_2(props) {
           </group>
         </mesh>
         <mesh
-          name="Palanca001"
+          name="Palanca"
           castShadow
           receiveShadow
-          geometry={nodes.Palanca001.geometry}
+          geometry={nodes.Palanca.geometry}
           material={materials.Button}
           position={[-6.334, 2.538, -3.157]}
           rotation={[1.071, 0.848, -2.512]}
@@ -449,7 +541,7 @@ export function Scene3D_2(props) {
           />
         </mesh>
         <group
-          name="Tv001"
+          name="SkillsScreen"
           position={[-7.46, 3.935, -2.716]}
           rotation={[Math.PI / 2, 0, -1.171]}
         >
@@ -465,21 +557,61 @@ export function Scene3D_2(props) {
             castShadow
             receiveShadow
             geometry={nodes.Plane014_1.geometry}
-            material={materials["SkillsBase.001"]}
-          >
-            <Skills></Skills>
-          </mesh>
+            material={materials.TV_Projects}
+          />
           <mesh
             name="Plane014_2"
             castShadow
             receiveShadow
             geometry={nodes.Plane014_2.geometry}
-            material={materials.TV_Projects}
+            material={materials.Screen}
+          >
+            <Skills></Skills>
+          </mesh>
+        </group>
+        <group
+          name="AboutScreen"
+          position={[8.168, 2.832, 0.58]}
+          rotation={[0, 0, 0]}
+        >
+          <mesh
+            name="Plane015"
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane015.geometry}
+            material={materials.PC}
           />
+          <mesh
+            name="Plane015_1"
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane015_1.geometry}
+            material={materials.Screen}
+          >
+            <About></About>
+          </mesh>
+          <mesh
+            name="BasePC"
+            castShadow
+            receiveShadow
+            geometry={nodes.BasePC.geometry}
+            material={materials["MetalSilla.001"]}
+            position={[0.819, -1.367, -0.012]}
+            rotation={[Math.PI, -0.78, Math.PI]}
+          >
+            <mesh
+              name="BasePC2"
+              castShadow
+              receiveShadow
+              geometry={nodes.BasePC2.geometry}
+              material={materials["MetalSilla.001"]}
+              rotation={[Math.PI, -0.862, Math.PI]}
+            />
+          </mesh>
         </group>
         {showGroup && (
           <group
-            name="PantallaProjects001"
+            name="ProjectsScreen"
             position={[0.58, 2.478, 7.26]}
             rotation={[Math.PI / 2, 0, -3.138]}
           >
@@ -495,17 +627,17 @@ export function Scene3D_2(props) {
               castShadow
               receiveShadow
               geometry={nodes.Plane016_1.geometry}
-              material={materials.SkillsBase2}
-            >
-              <Projects></Projects>
-            </mesh>
+              material={materials.TV_Projects}
+            />
             <mesh
               name="Plane016_2"
               castShadow
               receiveShadow
               geometry={nodes.Plane016_2.geometry}
-              material={materials.TV_Projects}
-            />
+              material={materials.Screen}
+            >
+              <Projects></Projects>
+            </mesh>
             <mesh
               name="Cube006"
               castShadow
@@ -517,9 +649,8 @@ export function Scene3D_2(props) {
             />
           </group>
         )}
-
         <group
-          name="MesaProjects001"
+          name="MesaProjects"
           position={[-4.579, 1.474, 5.334]}
           rotation={[0.029, -1.534, 0.029]}
         >
@@ -585,12 +716,10 @@ export function Scene3D_2(props) {
             />
           </mesh>
         </group>
-
         <group
-          name="MesaAbout001"
+          name="MesaAbout"
           position={[8.164, 1.465, 0.573]}
           rotation={[0, -1.564, 0]}
-          scale={[1.314, 1, 1]}
         >
           <mesh
             name="Plane024"
@@ -612,9 +741,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.BezierCurve010.geometry}
             material={materials.Cable1}
-            position={[-3.103, -0.961, -0.976]}
-            rotation={[0, -0.793, 0]}
-            scale={[0.892, 1, 0.886]}
+            position={[-4.077, -0.961, -0.976]}
+            rotation={[0, -0.797, 0]}
           />
           <mesh
             name="BezierCurve011"
@@ -622,9 +750,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.BezierCurve011.geometry}
             material={materials.Cable2}
-            position={[-3.172, -0.961, -0.975]}
-            rotation={[0, -0.793, 0]}
-            scale={[0.892, 1, 0.886]}
+            position={[-4.167, -0.961, -0.975]}
+            rotation={[0, -0.797, 0]}
           />
           <mesh
             name="Cylinder028"
@@ -632,9 +759,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.Cylinder028.geometry}
             material={materials["MetalSilla.001"]}
-            position={[-2.595, -0.187, 1.391]}
-            rotation={[1.57, -0.01, -0.037]}
-            scale={[0.05, 0.054, 0.065]}
+            position={[-3.408, -0.187, 1.391]}
+            rotation={[Math.PI / 2, 0, -0.036]}
           />
           <mesh
             name="Cylinder029"
@@ -642,9 +768,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.Cylinder029.geometry}
             material={materials["MetalSilla.001"]}
-            position={[-2.685, -0.187, 1.395]}
-            rotation={[1.57, -0.01, -0.037]}
-            scale={[0.027, 0.029, 0.036]}
+            position={[-3.527, -0.187, 1.395]}
+            rotation={[Math.PI / 2, 0, -0.036]}
           />
           <mesh
             name="MouseAbout002"
@@ -652,9 +777,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.MouseAbout002.geometry}
             material={materials.White}
-            position={[1.109, 0.025, 0.627]}
-            rotation={[0, 0.476, 0]}
-            scale={[0.117, 0.184, 0.138]}
+            position={[1.456, 0.025, 0.627]}
+            rotation={[0, 0.469, 0]}
           >
             <mesh
               name="Cylinder018"
@@ -662,9 +786,8 @@ export function Scene3D_2(props) {
               receiveShadow
               geometry={nodes.Cylinder018.geometry}
               material={materials.Teclas}
-              position={[0.074, 0.129, -1.152]}
+              position={[0.011, 0.024, -0.166]}
               rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-              scale={[0.209, 0.065, 0.163]}
             />
             <mesh
               name="Plane010"
@@ -672,127 +795,10 @@ export function Scene3D_2(props) {
               receiveShadow
               geometry={nodes.Plane010.geometry}
               material={materials["Fade1.001"]}
-              position={[0, -0.19, 0]}
+              position={[0, -0.035, 0]}
               rotation={[0, -0.492, 0]}
-              scale={[3.045, 2.007, 3.045]}
             />
           </mesh>
-          <group
-            name="PantallaAbout1001"
-            position={[-0.013, 1.406, -0.395]}
-            rotation={[0, -0.793, 0]}
-            scale={[0.892, 1, 0.886]}
-          >
-            <mesh
-              name="Plane021"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane021.geometry}
-              material={materials.PC}
-            />
-            <mesh
-              name="Plane021_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.Plane021_1.geometry}
-              material={materials.ScreenPC}
-            >
-              <About></About>
-            </mesh>
-            <mesh
-              name="BezierCurve001"
-              castShadow
-              receiveShadow
-              geometry={nodes.BezierCurve001.geometry}
-              material={materials.Cable1}
-              position={[0.295, -1.406, 0.264]}
-            >
-              <mesh
-                name="Cylinder035"
-                castShadow
-                receiveShadow
-                geometry={nodes.Cylinder035.geometry}
-                material={materials["MetalSilla.001"]}
-                position={[-1.35, 0.005, 0.19]}
-                rotation={[-Math.PI, -0.833, 0]}
-                scale={[0.04, 0.033, 0.04]}
-              />
-            </mesh>
-            <mesh
-              name="BezierCurve008"
-              castShadow
-              receiveShadow
-              geometry={nodes.BezierCurve008.geometry}
-              material={materials.Cable2}
-              position={[0.244, -1.406, 0.358]}
-            >
-              <mesh
-                name="Cylinder034"
-                castShadow
-                receiveShadow
-                geometry={nodes.Cylinder034.geometry}
-                material={materials["MetalSilla.001"]}
-                position={[-1.377, 0.005, 0.191]}
-                rotation={[-Math.PI, -0.833, 0]}
-                scale={[0.04, 0.033, 0.04]}
-              />
-            </mesh>
-            <mesh
-              name="BezierCurve009"
-              castShadow
-              receiveShadow
-              geometry={nodes.BezierCurve009.geometry}
-              material={materials["Material.001"]}
-              position={[0.189, -1.406, 0.453]}
-            >
-              <mesh
-                name="Cylinder033"
-                castShadow
-                receiveShadow
-                geometry={nodes.Cylinder033.geometry}
-                material={materials["MetalSilla.001"]}
-                position={[-1.402, 0.005, 0.202]}
-                rotation={[-Math.PI, -0.833, 0]}
-                scale={[0.04, 0.033, 0.04]}
-              />
-            </mesh>
-            <mesh
-              name="BezierCurve012"
-              castShadow
-              receiveShadow
-              geometry={nodes.BezierCurve012.geometry}
-              material={materials.Material}
-              position={[-0.036, -1.406, 0.89]}
-            >
-              <mesh
-                name="Cylinder032"
-                castShadow
-                receiveShadow
-                geometry={nodes.Cylinder032.geometry}
-                material={materials["MetalSilla.001"]}
-                position={[-1.383, 0.017, 0.209]}
-                rotation={[-Math.PI, -0.833, 0]}
-                scale={[0.051, 0.043, 0.051]}
-              />
-            </mesh>
-            <mesh
-              name="Circle004"
-              castShadow
-              receiveShadow
-              geometry={nodes.Circle004.geometry}
-              material={materials["MetalSilla.001"]}
-              position={[-0.295, -1.406, -0.311]}
-            />
-            <mesh
-              name="Cube007"
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube007.geometry}
-              material={materials["MetalSilla.001"]}
-              position={[-0.295, -1.406, -0.311]}
-              rotation={[Math.PI, -0.862, Math.PI]}
-            />
-          </group>
           <mesh
             name="PatasMesaAbout001"
             castShadow
@@ -800,13 +806,11 @@ export function Scene3D_2(props) {
             geometry={nodes.PatasMesaAbout001.geometry}
             material={materials["Medias.001"]}
             position={[0, -1.465, 0]}
-            scale={[0.112, 0.147, 0.147]}
           />
           <group
             name="PcAbout001"
-            position={[-3.495, -0.468, 0.222]}
-            rotation={[0, 0.058, 0]}
-            scale={[0.352, 1, 0.999]}
+            position={[-4.591, -0.468, 0.222]}
+            rotation={[0, 0.056, 0]}
           >
             <mesh
               name="Cube042"
@@ -829,9 +833,8 @@ export function Scene3D_2(props) {
             receiveShadow
             geometry={nodes.TecladoAbout001.geometry}
             material={materials.Teclado}
-            position={[-0.214, 0.051, 0.639]}
-            rotation={[0.049, -0.171, 0.007]}
-            scale={[0.769, 1, 0.994]}
+            position={[-0.281, 0.051, 0.639]}
+            rotation={[0.049, -0.165, 0.008]}
           >
             <mesh
               name="Plane008"
@@ -840,12 +843,11 @@ export function Scene3D_2(props) {
               geometry={nodes.Plane008.geometry}
               material={materials.Teclas}
               position={[0.001, 0.004, -0.009]}
-              scale={0.039}
             />
           </mesh>
         </group>
         <group
-          name="Cube009"
+          name="Pared"
           position={[0.152, 2.349, -8.535]}
           rotation={[0.005, 0.019, -0.001]}
         >
@@ -863,73 +865,9 @@ export function Scene3D_2(props) {
             geometry={nodes.Cube044_1.geometry}
             material={materials.Puerta}
           />
-          <group name="Cube008" position={[-2.559, 0.663, 1.116]}>
-            <mesh
-              name="Cube043"
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube043.geometry}
-              material={materials["SkillsBase.001"]}
-            />
-            <mesh
-              name="Cube043_1"
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube043_1.geometry}
-              material={materials.SkillsBase2}
-            />
-            <mesh
-              name="Telephone1001"
-              castShadow
-              receiveShadow
-              geometry={nodes.Telephone1001.geometry}
-              material={materials.SkillsBaseBorder}
-              position={[-0.609, -0.006, 0.245]}
-              rotation={[Math.PI / 2, 0, 0]}
-              scale={[0.205, 0.171, 0.166]}
-            />
-          </group>
         </group>
-        <mesh
-          name="Cable1_Projects001"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable1_Projects001.geometry}
-          material={materials.Cable1About}
-          position={[1.192, 1.091, -0.584]}
-        >
-          <mesh
-            name="Cylinder024"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder024.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-0.961, -0.006, -0.07]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.065, 0.054, 0.065]}
-          />
-        </mesh>
-        <mesh
-          name="Cable2_Projects001"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cable2_Projects001.geometry}
-          material={materials.Cable2About}
-          position={[1.192, 0.886, -0.584]}
-        >
-          <mesh
-            name="Cylinder027"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cylinder027.geometry}
-            material={materials["MetalSilla.001"]}
-            position={[-1.214, -0.632, 0.241]}
-            rotation={[Math.PI / 2, 0, 0]}
-            scale={[0.034, 0.028, 0.034]}
-          />
-        </mesh>
         <group
-          name="Cube010"
+          name="SkillsBase"
           position={[-6.957, 0.423, -2.503]}
           rotation={[0, 1.171, 0]}
           scale={[1.044, 0.981, 0.709]}
@@ -977,78 +915,56 @@ export function Scene3D_2(props) {
           </mesh>
         </group>
         <mesh
-          name="Cylinder020"
+          name="TvSkillsBase"
           castShadow
           receiveShadow
-          geometry={nodes.Cylinder020.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-5.866, 0.229, -3.278]}
-          rotation={[Math.PI / 2, 0, -1.171]}
-          scale={[0.065, 0.029, 0.065]}
-        />
-        <mesh
-          name="Cylinder021"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder021.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-5.9, 0.234, -3.17]}
-          rotation={[Math.PI / 2, 0, -1.171]}
-          scale={[0.032, 0.014, 0.032]}
-        />
-        <mesh
-          name="Cylinder023"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder023.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-0.249, 1.079, -0.654]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={[0.071, 0.059, 0.071]}
-        />
-        <mesh
-          name="Cylinder025"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder025.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-0.311, 0.254, -0.343]}
-          rotation={[Math.PI / 2, 0, 0]}
-          scale={[0.034, 0.028, 0.034]}
-        />
-        <mesh
-          name="Cylinder030"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder030.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-2.963, 0.835, 7.175]}
-          rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-          scale={[0.065, 0.054, 0.065]}
-        />
-        <mesh
-          name="Cylinder031"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder031.geometry}
-          material={materials["MetalSilla.001"]}
-          position={[-2.983, 0.63, 7.175]}
-          rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-          scale={[0.038, 0.032, 0.038]}
-        />
-        <mesh
-          name="Cube011"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cube011.geometry}
+          geometry={nodes.TvSkillsBase.geometry}
           material={materials["MetalSilla.001"]}
           position={[-6.957, 0.423, -2.503]}
           rotation={[0, 1.171, 0]}
           scale={[1.044, 0.981, 0.709]}
         />
+        <group
+          name="ScreenContact"
+          position={[-2.385, 3.008, -7.367]}
+          rotation={[0.005, 0.019, -0.001]}
+        >
+          <mesh
+            name="Cube019"
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube019.geometry}
+            material={materials["SkillsBase.001"]}
+          />
+          <mesh
+            name="Cube019_1"
+            castShadow
+            receiveShadow
+            geometry={nodes.Cube019_1.geometry}
+            material={materials.Screen}
+          />
+          <mesh
+            name="Telefono"
+            castShadow
+            receiveShadow
+            geometry={nodes.Telefono.geometry}
+            material={materials["SkillsBase.001"]}
+          >
+            <mesh
+              name="Telephone1001"
+              castShadow
+              receiveShadow
+              geometry={nodes.Telephone1001.geometry}
+              material={materials.SkillsBaseBorder}
+              position={[-0.609, -0.006, 0.245]}
+              rotation={[Math.PI / 2, 0, 0]}
+              scale={[0.205, 0.171, 0.166]}
+            />
+          </mesh>
+        </group>
       </group>
     </group>
   );
 }
 
-useGLTF.preload("../public/Models/Scene3D_2.glb");
+useGLTF.preload("../public/Models/3D_Scene.glb");

@@ -5,12 +5,10 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-import { Escena } from "./3D_Components/Escena.jsx";
-
 import { AxesHelper } from "three";
 import { Html } from "@react-three/drei";
-import { Scene3D } from "./3D_Components/3DScene.jsx";
 import { Scene3D_2 } from "./3D_Components/3DScene_2.jsx";
+import { Scene3D } from "./3D_Components/3D_Scene.jsx";
 import {
   GizmoHelper,
   GizmoViewport,
@@ -133,8 +131,8 @@ export function EditScene() {
       <>{meshFitComponents}</>
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
-        {/* <Scene3D></Scene3D> */}
-        <Scene3D_2></Scene3D_2>
+        <Scene3D></Scene3D>
+        {/* <Scene3D_2></Scene3D_2> */}
       </group>
 
       {/* <Grid></Grid> */}

@@ -25,7 +25,7 @@ export function FloatButton({ view, changeView, ...props }) {
       isMounted.current = true;
       return;
     }
-    console.log("show: ", showFloatButtons);
+    // console.log("show: ", showFloatButtons);
     let animationFrame;
     const duration = 200; // Duración de la animación en milisegundos
     const startTime = performance.now();

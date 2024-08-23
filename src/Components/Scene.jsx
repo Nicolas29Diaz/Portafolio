@@ -5,11 +5,12 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-
-import { Escena } from "./3D_Components/Escena.jsx";
-import { Scene3D } from "./3D_Components/3DScene.jsx";
-import { Scene3D_2 } from "./3D_Components/3DScene_2.jsx";
+import { Scene3D } from "./3D_Components/3D_Scene.jsx";
 export function Scene() {
+  const [characterDist, setCharacterDist] = useState(
+    window.innerWidth <= 768 ? 6 : 4
+  );
+
   const cameraControls = {
     SKILLS: {
       maxDist: 8, //Max distance dolly to the object focused
@@ -32,13 +33,14 @@ export function Scene() {
       },
     },
     CHARACTER: {
-      maxDist: 6, //Max distance dolly to the object focused
-      minDist: 6, //Min distance dolly to the object focused
-      currentDist: 6,
+      maxDist: characterDist, //Max distance dolly to the object focused
+      minDist: characterDist, //Min distance dolly to the object focused
+      currentDist: characterDist,
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
       coordCamera: { x: 0, y: 0, z: 5 }, //Coordinates to posisionate the camera view
       speed: 0.7, //Enable/Disable (1 or 0) orbits controls
+      dollySpeed: 0,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
         position: [0.5, 1, 0], //Mesh fit position
@@ -47,17 +49,22 @@ export function Scene() {
       },
     },
     INITIAL: {
-      maxDist: 30, //Max distance dolly to the object focused
+      maxDist: 5000, //Max distance dolly to the object focused
       minDist: 0, //Min distance dolly to the object focused
-      currentDist: 7,
+      currentDist: 80,
       minAngle: Math.PI / 3,
       maxAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 0, z: 10 }, //Coordinates to posisionate the camera view
+      coordCamera:
+        window.innerWidth <= 768
+          ? { x: 0, y: 3.5, z: 7 }
+          : { x: 1, y: 3.5, z: 7 }, //Coordinates to posisionate the camera view
       speed: 0, //Enable/Disable (1 or 0) orbits controls
+      dollySpeed: 0,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [3, 1, 0], //Mesh fit position
-        size: [5, 5, 5], //Mesh fit size
+        position: window.innerWidth <= 768 ? [0, 3, 0] : [3, 0, 0], //Mesh fit position
+        rotation: [0, 0, 0],
+        size: [2, 2, 2], //Mesh fit size
         layer: 1, //Mesh fit layer
       },
     },
@@ -90,8 +97,29 @@ export function Scene() {
       dollySpeed: 0.5,
       mesh: {
         ref: useRef(), //Mesh to center the camera view
-        position: [0.7, 2.55, 7.86], //Mesh fit position
+        position: [0.9, 2.55, 7.86], //Mesh fit position
         size: [5.5, 4, 1], //Mesh fit size
+        layer: 1, //Mesh fit layer
+        rotation: [0, 0, 0],
+      },
+    },
+    ABOUT: {
+      maxDist: 8, //Max distance dolly to the object focused
+      minDist: 3, //Min distance dolly to the object focused
+      currentDist: 5,
+      currentDistMobile: 4,
+      minAngle: Math.PI / 4,
+      maxAngle: Math.PI / 2,
+      coordCamera:
+        window.innerWidth <= 768
+          ? { x: 1, y: 2.78, z: 0.5 }
+          : { x: 6, y: 2.78, z: 0.5 }, //Coordinates to posisionate the camera view
+      speed: 0, //Enable/Disable (1 or 0) orbits controls
+      dollySpeed: 0.5,
+      mesh: {
+        ref: useRef(), //Mesh to center the camera view
+        position: [8.93, 2.78, 0.55], //Mesh fit position
+        size: [1, 2, 4], //Mesh fit size
         layer: 1, //Mesh fit layer
         rotation: [0, 0, 0],
       },
@@ -112,6 +140,7 @@ export function Scene() {
   const [currentView, setCurrentView] = useState(views.INITIAL);
 
   let firstFit = true;
+  const [initialView, setInitialView] = useState(true);
 
   const [minPolarAngle, setMinPolarAngle] = useState();
   const [maxPolarAngle, setMaxPolarAngle] = useState();
@@ -126,15 +155,19 @@ export function Scene() {
   const [distMax, setDistMax] = useState();
   const [distMin, setDistMin] = useState();
 
-  function initialConfig() {
-    setMinPolarAngle(cameraControls.INITIAL.minAngle);
-    setMaxPolarAngle(cameraControls.INITIAL.maxAngle);
-    setDistMax(cameraControls.INITIAL.maxDist);
-    setDistMin(cameraControls.INITIAL.minDist);
-    setSpeed(cameraControls.INITIAL.speed);
-  }
+  // function initialConfig() {
+  //   setMinPolarAngle(cameraControls.INITIAL.minAngle);
+  //   setMaxPolarAngle(cameraControls.INITIAL.maxAngle);
+  //   setDistMax(cameraControls.INITIAL.maxDist);
+  //   setDistMin(cameraControls.INITIAL.minDist);
+  //   setSpeed(cameraControls.INITIAL.speed);
+  //   cameraControlRef.current.distance = cameraControls.INITIAL.currentDist;
+  //   console.log("InitialConfig");
+  //   console.log(cameraControlRef.current.distance);
+  // }
 
   const fitCamera = () => {
+    console.log("FitCamera");
     const {
       maxDist,
       minDist,
@@ -161,33 +194,52 @@ export function Scene() {
     setSpeed(speed);
     setDollySpeed(dollySpeed);
 
-    if (firstFit) {
-      // console.log("FirstFit");
-      const { currentDist } = cameraControls[currentView];
-      cameraControlRef.current.distance = currentDist;
-      firstFit = false;
+    // if (firstFit) {
+    //   // console.log("FirstFit");
+    //   const { currentDist } = cameraControls[currentView];
+    //   cameraControlRef.current.distance = currentDist;
+    //   firstFit = false;
+    // }
+
+    if (window.innerWidth <= 768 && currentView === views.CHARACTER) {
+      cameraControlRef.current.distance = 6;
+    } else {
+      cameraControlRef.current.distance = 4;
     }
   };
 
-  useEffect(() => {
-    // setShowButtonStart(true);
-    initialConfig();
-    // console.log(cameraControlRef.current);
-  }, []);
+  // useEffect(() => {
+  //   // setShowButtonStart(true);
+  //   initialConfig();
+  //   // console.log(cameraControlRef.current);
+  // }, []);
 
   useEffect(() => {
-    if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
-      // console.log("CHARACTER");
-      const intervalId = setInterval(movCameraToObject, 1);
-      setTimeout(() => {
-        clearInterval(intervalId);
-        setShowCancelButton(true);
-      }, 1500);
+    if (!initialView) {
+      if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
+        // console.log("CHARACTER");
+        const intervalId = setInterval(movCameraToObject, 1);
+        setTimeout(() => {
+          clearInterval(intervalId);
+          setShowCancelButton(true);
+        }, 1500);
+      }
+
+      fitCamera();
+      window.addEventListener("resize", fitCamera);
+      return () => window.removeEventListener("resize", fitCamera);
+    } else {
+      movCameraToObject();
+      const move = () => {
+        if (window.innerWidth <= 768) {
+          cameraControlRef.current.setLookAt(0, 3.5, 7, 0, 3, 0, true);
+        } else {
+          cameraControlRef.current.setLookAt(1, 3.5, 7, 3, 0, 0, true);
+        }
+      };
+      window.addEventListener("resize", move);
+      return () => window.removeEventListener("resize", move);
     }
-
-    fitCamera();
-    window.addEventListener("resize", fitCamera);
-    return () => window.removeEventListener("resize", fitCamera);
   }, [currentView]);
 
   function movCameraToObject() {
@@ -206,7 +258,7 @@ export function Scene() {
     );
 
     // cameraControlRef.current.distance = currentDist;
-    fitCamera();
+    !initialView ?? fitCamera();
   }
 
   useEffect(() => {
@@ -219,10 +271,11 @@ export function Scene() {
 
   useEffect(() => {
     if (showButtonStart) {
-      setCameraFocus(views.INITIAL);
-      setCurrentView(views.INITIAL);
-      fitCamera();
+      // setCameraFocus(views.INITIAL);
+      // setCurrentView(views.INITIAL);
+      // fitCamera();
     } else {
+      setInitialView(false);
       setCameraFocus(views.CHARACTER);
       setCurrentView(views.CHARACTER);
       setTimeout(() => {
@@ -265,7 +318,7 @@ export function Scene() {
         minDistance={distMin ? distMin : 0.1}
         // infinityDolly={false}
         truckSpeed={0}
-        dollySpeed={dollySpeed ? dollySpeed : speed}
+        dollySpeed={dollySpeed ? dollySpeed : 0}
         polarRotateSpeed={speed ? speed : 0}
         azimuthRotateSpeed={speed ? speed : 0}
         // enabled={false}
@@ -280,8 +333,8 @@ export function Scene() {
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
-        {/* <Scene3D></Scene3D> */}
-        <Scene3D_2></Scene3D_2>
+        <Scene3D></Scene3D>
+        {/* <Scene3D_2></Scene3D_2> */}
         {/* <mesh>
           <boxGeometry args={[1, 1, 1]}></boxGeometry>
         </mesh> */}
@@ -306,6 +359,12 @@ export function Scene() {
           changeView={changeView}
           position={[0.5, 2.53, 6]}
           rotation={[0, 0, Math.PI / 4]}
+        />
+        <FloatButton
+          view={views.ABOUT}
+          changeView={changeView}
+          position={[8, 2.8, 0.65]}
+          rotation={[0, Math.PI / 2, Math.PI / 4]}
         />
       </>
       {/* )} */}

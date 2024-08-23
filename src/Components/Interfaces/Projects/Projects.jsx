@@ -117,15 +117,14 @@ function Projects() {
   ));
   return (
     <Html
-      //   pixelRatio={window.devicePixelRatio}
-      className={`background-projects ${
-        animate ? "projects-interaction" : "projects-no-interaction"
-      }`}
+      className={`background-projects`}
       distanceFactor={1}
       transform
       occlude="blending"
-      position={[0, 0.095, 0]}
+      tabIndex={0}
+      position={[0, 0.15, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
+      scale={[2, 2, 1]}
     >
       <div
         className={`slider-container-projects ${
