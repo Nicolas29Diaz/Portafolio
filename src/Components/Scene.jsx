@@ -231,7 +231,7 @@ export function Scene() {
     } else {
       movCameraToObject();
       const move = () => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 1000) {
           cameraControlRef.current.setLookAt(0, 3.5, 7, 0, 3, 0, true);
         } else {
           cameraControlRef.current.setLookAt(1, 3.5, 7, 3, 0, 0, true);
@@ -325,8 +325,7 @@ export function Scene() {
         // zoom={false}
       ></CameraControls>
 
-      {/* Scene configuration */}
-      <SceneConf></SceneConf>
+      
 
       {/* Mesh fit camera targets */}
       <>{meshFitComponents}</>

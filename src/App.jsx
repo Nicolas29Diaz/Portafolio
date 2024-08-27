@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { getGPUTier } from "detect-gpu";
-import { Loader, useProgress } from "@react-three/drei";
+import { Loader, Preload, Text, useProgress } from "@react-three/drei";
 
 import useStore from "./Store/Store.js";
 import { Scene } from "./Components/Scene.jsx";
@@ -11,6 +11,7 @@ import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
 import "./Syles/FloatButton.css";
 import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
+import { SceneConf } from "./Components/SceneConf.jsx";
 
 function App() {
   const {
@@ -34,17 +35,57 @@ function App() {
     getGPUInfo();
   }, [cameraControlsRef]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const [isLoaded, setIsLoaded] = useState(false);
   return (
     <>
-      <div className="canvas-container">
-        <Canvas shadows camera={{ position: [5, 20, 80], fov: 60 }}>
-          <Suspense fallback={null}>
+      <div className="canvas-container" style={{ opacity: isLoaded ? 0 : 1 }}>
+        {/* QUITAR SOMBRAS PARA DISPOSITIVOS PAILAS */}
+        <Canvas
+          shadows
+          camera={{ position: [5, 20, 80], fov: 60 }}
+          // frameloop="demand"
+        >
+          <Suspense fallback={<LoadingScreen />}>
+            {/* Scene configuration */}
+            <SceneConf></SceneConf>
+
             {editMode ? <EditScene></EditScene> : <Scene></Scene>}
+            <Preload all onLoad={() => setIsLoaded(true)} />
           </Suspense>
+          {showButtonStart && (
+            <group
+              position={windowWidth > 1000 ? [2, 2, 2] : [-1.5, 5, 0]}
+              rotation={windowWidth > 1000 ? [-0.3, -0.4, -0.1] : [0, 0, 0]}
+            >
+              <Text
+                color="black"
+                anchorX="left"
+                anchorY="middle"
+                fontSize={windowWidth > 1000 ? 0.8 : 0.5}
+                maxWidth={6}
+                font="./Fonts/Electrolize-Regular.ttf"
+              >
+                {`Hi! I'm \nNicolas Diaz`}
+              </Text>
+            </group>
+          )}
         </Canvas>
-        <Loader></Loader>
-        {/* <LoadingScreen /> */}
       </div>
+
       {showCancelButton && (
         <div className="contentCancelButton">
           <div onClick={() => setShowCancelButton(false)}>+</div>

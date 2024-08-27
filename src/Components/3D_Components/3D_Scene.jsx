@@ -564,8 +564,25 @@ export function Scene3D(props) {
             castShadow
             receiveShadow
             geometry={nodes.Plane014_2.geometry}
-            material={materials.Screen}
+            // material={materials.Screen}
           >
+           
+            {/* <pointLight
+              position={[-2, 0, -1]}
+              color="#003470"
+              intensity={500}
+            />
+            <pointLight
+              position={[-2, 0, -1]}
+              color="#003470"
+              intensity={500}
+            />
+            <pointLight position={[2, 0, 1]} color="#003470" intensity={500} />
+            <pointLight position={[2, 0, 1]} color="#003470" intensity={500} /> */}
+            {/* <meshStandardMaterial
+              emissive="blue"
+              emissiveIntensity={2}
+            ></meshStandardMaterial> */}
             <Skills></Skills>
           </mesh>
         </group>

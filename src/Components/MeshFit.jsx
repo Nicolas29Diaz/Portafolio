@@ -18,7 +18,7 @@ export const MeshFit = React.forwardRef(
           <meshStandardMaterial
             color="orange"
             transparent
-            opacity={0.5}
+            opacity={0}
           ></meshStandardMaterial>
         </mesh>
 

@@ -1,24 +1,24 @@
-import React from "react";
-import { useProgress } from "@react-three/drei";
+import React, { useEffect } from "react";
+import { Html, useProgress } from "@react-three/drei";
 import "./Loading.css";
 function LoadingScreen() {
   const { progress } = useProgress();
+  useEffect(() => {
+    console.log("LoadingScreen");
+  }, []);
   return (
-    <div className="loading-container">
-      <p>CARAGANDO: {progress}</p>
-      <div className="progress-bar-container">
-        <div
-          className="progress-bar"
-          style={{
-            backgroundColor: "white",
-            width: `${progress}%`,
-            height: "100%",
-            margin: "0px",
-            
-          }}
-        ></div>
+    <Html center>
+      <div className="flex flex-col items-center justify-center">
+        <div className="text-2xl font-bold mb-4">Loading...</div>
+        <div className="w-64 h-2 bg-gray-200 rounded-full">
+          <div
+            className="h-full bg-blue-600 rounded-full transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <div className="mt-2">{Math.round(progress)}%</div>
       </div>
-    </div>
+    </Html>
   );
 }
 
