@@ -1,4 +1,4 @@
-import { CameraControls } from "@react-three/drei";
+import { CameraControls, Html } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
@@ -6,7 +6,10 @@ import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Scene3D } from "./3D_Components/3D_Scene.jsx";
+import { useThree } from "@react-three/fiber";
 export function Scene() {
+  const camera = useThree().camera;
+
   const [characterDist, setCharacterDist] = useState(
     window.innerWidth <= 768 ? 6 : 4
   );
@@ -271,7 +274,7 @@ export function Scene() {
 
   useEffect(() => {
     if (showButtonStart) {
-      // setCameraFocus(views.INITIAL);
+      setCameraFocus(views.INITIAL);
       // setCurrentView(views.INITIAL);
       // fitCamera();
     } else {
@@ -325,8 +328,6 @@ export function Scene() {
         // zoom={false}
       ></CameraControls>
 
-      
-
       {/* Mesh fit camera targets */}
       <>{meshFitComponents}</>
 
@@ -367,6 +368,8 @@ export function Scene() {
         />
       </>
       {/* )} */}
+
+     
     </>
   );
 }

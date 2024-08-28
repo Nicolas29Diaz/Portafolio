@@ -39,7 +39,7 @@ export function Scene3D(props) {
   const showProjects = () => {
     setTimeout(() => {
       setShowGroup(true);
-    }, 1000);
+    }, 500);
   };
 
   const introAnimation = () => {

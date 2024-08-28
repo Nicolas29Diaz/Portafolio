@@ -13,6 +13,9 @@ import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
 import { SceneConf } from "./Components/SceneConf.jsx";
 
+import SceneCopy from "./Components/SceneCopy.jsx";
+import { Scene2 } from "./Components/Scene2.jsx";
+
 function App() {
   const {
     showCancelButton,
@@ -63,7 +66,7 @@ function App() {
             {/* Scene configuration */}
             <SceneConf></SceneConf>
 
-            {editMode ? <EditScene></EditScene> : <Scene></Scene>}
+            {editMode ? <EditScene></EditScene> : <Scene2></Scene2>}
             <Preload all onLoad={() => setIsLoaded(true)} />
           </Suspense>
           {showButtonStart && (
