@@ -51,6 +51,12 @@ export function Scene2() {
     const camera = cameraControlRef.current;
     const current = cameraControls[currentView];
 
+    if (currentView === views.CHARACTER) {
+      camera.distance = current.dolly.distance;
+    }
+    // camera.distance = current.dolly.distance;
+    // console.log("distanceUpdte", current.dolly.distance);
+
     camera.dollySpeed = current.dolly.speed;
     camera.minDistance = current.dolly.min;
     camera.maxDistance = current.dolly.max;
@@ -124,19 +130,18 @@ export function Scene2() {
         z: camera._camera.position.z,
       };
 
-      console.log("azimuthAngle: ", camera.azimuthAngle);
-      console.log("polarAngle:", camera.polarAngle);
-      console.log("polarAngle:", camera.distance);
+      // console.log("azimuthAngle: ", camera.azimuthAngle);
+      // console.log("polarAngle:", camera.polarAngle);
+      console.log("distance:", camera.distance);
       console.log("Camera position", pos);
+      // camera.distance = 0;
     });
   }, []);
+
   return (
     <>
       {/* Camera configuration */}
-      <CameraControls ref={cameraControlRef} truckSpeed={0} />
-
-      {/* Mesh fit camera targets */}
-      {/* <>{meshFitComponents}</> */}
+      <CameraControls ref={cameraControlRef} truckSpeed={1} />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         <Scene3D></Scene3D>
@@ -158,7 +163,7 @@ export function Scene2() {
         <FloatButton
           view={views.PROJECTS}
           changeView={changeView}
-          position={[0.5, 2.53, 6]}
+          position={[0.5, 2.53, 7]}
           rotation={[0, 0, Math.PI / 4]}
         />
         <FloatButton

@@ -1,24 +1,39 @@
-const relativeWidth = (width, m = 0.004, b = 0) => {
-  const y = width * m + b;
-  return y;
+const relativeDistance = (
+  width,
+  maxDist,
+  minDist,
+  maxWidth = 1440,
+  minWidth = 320
+) => {
+  let m = (maxDist - minDist) / (maxWidth - minWidth);
+
+  let b = -m * minWidth + minDist;
+
+  let y = width * m + b;
+
+  if (maxDist > minDist) {
+    return (y = Math.max(minDist, Math.min(maxDist, y)));
+  } else {
+    return (y = Math.min(minDist, Math.max(maxDist, y)));
+  }
 };
 
 export const getCameraControls = () => {
   const width = window.innerWidth;
 
-  const y = relativeWidth(width);
+  const x_distanceAbout = relativeDistance(width, 6.63, 1.23);
+  const z_positionProjects = relativeDistance(width, 3.013, -4);
 
+  //En skills cambia tanto X como Z entonces se aplica la función relativeDistance a ambas
+  const x_positionSkills = relativeDistance(width, -5.503, -0.507);
+  const z_positionSkills = relativeDistance(width, -1.845, 0.277);
+
+  //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
+  const distanceCharacter = relativeDistance(width, 3.8, 5.57);
+
+  //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
   const isMobileInitial = width <= 1000;
   const isTabletInitial = width <= 1024;
-  const isPCInitial = width <= 1440;
-
-  const isMobileCharacter = width <= 500;
-  const isTabletCharacter = width <= 1024;
-  const isPCCharacter = width <= 1440;
-
-  const isMobileAbout = width <= 768;
-  const isTabletAbout = width <= 1024;
-  const isPCAbout = width <= 1440;
 
   return {
     SKILLS: {
@@ -35,11 +50,11 @@ export const getCameraControls = () => {
         },
       },
       dolly: {
-        speed: 1, //Enable/Disable (1 or 0) dolly
+        speed: 0, //Enable/Disable (1 or 0) dolly
         min: 2,
         max: 8,
       },
-      coordCamera: { x: -5, y: 3.96, z: -1.6 }, //Coordinates to posisionate the camera view
+      coordCamera: { x: x_positionSkills, y: 3.96, z: z_positionSkills }, //Coordinates to posisionate the camera view
       coordLook: { x: -7.87, y: 3.96, z: -2.85 }, //Coordinates to look at
     },
     CHARACTER: {
@@ -58,12 +73,13 @@ export const getCameraControls = () => {
       dolly: {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 0,
-        max: 100,
+        max: 10,
+        distance: distanceCharacter,
       },
       coordCamera: {
         x: 0,
         y: 3,
-        z: isMobileCharacter ? 6 : isTabletCharacter ? 3.5 : 3,
+        z: 4,
       }, //Coordinates to posisionate the camera view
       coordLook: { x: 0.5, y: 1, z: 0 }, //Coordinates to look at
     },
@@ -84,6 +100,7 @@ export const getCameraControls = () => {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 1,
         max: 10,
+        distance: 7,
       },
       coordCamera: isMobileInitial
         ? { x: 1, y: 4, z: 7 }
@@ -120,23 +137,23 @@ export const getCameraControls = () => {
     PROJECTS: {
       rotation: {
         polar: {
-          speed: 1, //Enable/Disable (1 or 0) polar rotation
+          speed: 0, //Enable/Disable (1 or 0) polar rotation
           min: 0,
           max: Math.PI,
         },
         azimuth: {
-          speed: 1, //Enable/Disable (1 or 0) azimuth rotation
+          speed: 0, //Enable/Disable (1 or 0) azimuth rotation
           min: -Infinity,
           max: Infinity,
         },
       },
       dolly: {
         speed: 1, //Enable/Disable (1 or 0) dolly
-        min: 4,
+        min: 0,
         max: 11,
       },
-      coordCamera: { x: 0.7, y: 2.55, z: 3 }, //Coordinates to posisionate the camera view
-      coordLook: { x: 0.9, y: 2.55, z: 7.86 }, //Coordinates to look at
+      coordCamera: { x: 0.6, y: 2.55, z: z_positionProjects }, //Coordinates to posisionate the camera view
+      coordLook: { x: 0.6, y: 2.55, z: 7 }, //Coordinates to look at
     },
     ABOUT: {
       rotation: {
@@ -157,11 +174,37 @@ export const getCameraControls = () => {
         max: 7.7,
       },
       coordCamera: {
-        x: y,
+        x: x_distanceAbout,
         y: 2.78,
         z: 0.5,
       }, //Coordinates to posisionate the camera view
       coordLook: { x: 8.93, y: 2.78, z: 0.55 }, //Coordinates to look at
+    },
+    MENU: {
+      rotation: {
+        polar: {
+          speed: 0.7, //Enable/Disable (1 or 0) polar rotation
+          min: Math.PI / 3,
+          max: Math.PI / 2,
+        },
+        azimuth: {
+          speed: 0.7, //Enable/Disable (1 or 0) azimuth rotation
+          min: -Infinity,
+          max: Infinity,
+        },
+      },
+      dolly: {
+        speed: 0, //Enable/Disable (1 or 0) dolly
+        min: 0,
+        max: 10,
+        distance: distanceCharacter,
+      },
+      coordCamera: {
+        x: 0,
+        y: 3,
+        z: 4,
+      }, //Coordinates to posisionate the camera view
+      coordLook: { x: 0.5, y: 1, z: 0 }, //Coordinates to look at
     },
   };
 };

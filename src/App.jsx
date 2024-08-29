@@ -13,19 +13,21 @@ import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
 import { SceneConf } from "./Components/SceneConf.jsx";
 
-import SceneCopy from "./Components/SceneCopy.jsx";
 import { Scene2 } from "./Components/Scene2.jsx";
 
 /*
 
 TAREAS:
+- En blender hacer otros cables verdes pero que sigan derecho, no hasta la silla, para que cuendo
+  esté en la pantalla de projects se vean los cables abajo pero no tapen la pantalla
+
 - Terminar pantalla Skills ponienido imagenes y el modelo
 - Terminar pantalla About ponienido la foto y el texto, ademas animar las lineas
 - Hacer la pantalla de Contacto
 - Poner los proyectos
 - Pulir código
 - En la vista desde celular se ve el boton de proyects mientras se ve el charact, ajustar ya sea el boton o la camara
-
+- Verificar el tamaño de los botones que sea responsive, no por pixels
 IDEAS:
 - Hacer que el botón de start aparezca cuando el progreso sea 100%
 - Poner un botón menu que mueva la camara hacía el menu (con la opción de cancelar)
@@ -35,6 +37,8 @@ IDEAS:
 - Poner mi foto y poner un texto que diga VirtualSkin o Skin o Game Skin o algo así
 - Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas
 - Para darle vida al personaje al saludar puede alzar las cejas y agrandar los ojos o algo así
+- Poner una lampara arriba mio
+- Poner materas y cosas lowpoly
 */
 
 function App() {
@@ -45,22 +49,22 @@ function App() {
     setShowButtonStart,
     setGpuTier,
   } = useStore();
+
   const { progress } = useProgress();
 
   const editMode = false;
 
-  const cameraControlsRef = useRef();
-  // useEffect(() => {
-  //   const getGPUInfo = async () => {
-  //     const gpuInfo = await getGPUTier();
-  //     setGpuTier(gpuInfo.tier);
-  //     console.log(gpuInfo.tier);
-  //   };
-  //   getGPUInfo();
-  // }, [cameraControlsRef]);
-
   const refCanvas = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const getGPUInfo = async () => {
+      const gpuInfo = await getGPUTier();
+      setGpuTier(gpuInfo.tier);
+      // console.log(gpuInfo.tier);
+    };
+    getGPUInfo();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -132,22 +136,6 @@ function App() {
           GetPos
         </button>
       )}
-
-      <button
-        style={{
-          position: "absolute",
-          top: "0",
-          right: "10px",
-          padding: "5px",
-          background: "rgba(0, 0, 0, 0.5)",
-          color: "white",
-          fontSize: "14px",
-          // zzIndex: 20000,
-        }}
-        onClick={() => console.log(refCanvas.current)}
-      >
-        CameraData
-      </button>
     </>
   );
 }

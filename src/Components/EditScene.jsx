@@ -125,10 +125,29 @@ export function EditScene() {
     )
   );
 
+  const cameraControlRef = useRef();
+  useEffect(() => {
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
+
+      console.log("azimuthAngle: ", camera.azimuthAngle);
+      console.log("polarAngle:", camera.polarAngle);
+      console.log("distance:", camera.distance);
+      console.log("Camera position", pos);
+    });
+  }, []);
+
   return (
     <>
+      <CameraControls ref={cameraControlRef}></CameraControls>
       <SceneConf></SceneConf>
-      <>{meshFitComponents}</>
+
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
         <Scene3D></Scene3D>
@@ -136,6 +155,7 @@ export function EditScene() {
       </group>
 
       {/* <Grid></Grid> */}
+
       <PivotControls
         scale={5}
         disableScaling={false}
@@ -165,10 +185,9 @@ export function EditScene() {
         </mesh>
       </TransformControls> */}
 
-      <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
+      {/* <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
         <GizmoViewport labelColor="white" axisHeadScale={1} />
-      </GizmoHelper>
-      <OrbitControls makeDefault enableDamping={false}/>
+      </GizmoHelper> */}
     </>
   );
 }
