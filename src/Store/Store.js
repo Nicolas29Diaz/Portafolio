@@ -1,3 +1,4 @@
+import { CameraControls } from "@react-three/drei";
 import { create } from "zustand";
 
 export const views = {
@@ -12,6 +13,7 @@ export const views = {
 };
 
 const useStore = create((set) => ({
+  cameraControls2: null,
   showCancelButton: false,
   showButtonStart: true,
   showFloatButtons: false,
@@ -24,6 +26,7 @@ const useStore = create((set) => ({
   setShowButtonStart: (value) => set({ showButtonStart: value }),
   setCameraFocus: (focus) => set({ cameraFocus: focus }),
   setShowFloatButtons: (value) => set({ showFloatButtons: value }),
+  setCameraControls2: (value) => set({ CameraControls: value }),
 }));
 
 export default useStore;

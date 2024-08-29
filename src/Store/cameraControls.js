@@ -1,31 +1,35 @@
+const relativeWidth = (width, m = 0.004, b = 0) => {
+  const y = width * m + b;
+  return y;
+};
+
 export const getCameraControls = () => {
-  const isMobileInitial = window.innerWidth <= 1000;
-  const isTabletInitial = window.innerWidth <= 1024;
-  const isPCInitial = window.innerWidth <= 1440;
+  const width = window.innerWidth;
 
-  const isMobileCharacter = window.innerWidth <= 768;
-  const isTabletCharacter = window.innerWidth <= 1024;
-  const isPCCharacter = window.innerWidth <= 1440;
+  const y = relativeWidth(width);
 
-  // console.log("isMobile: ", isMobile);
-  // Si es mobile, retornar los controles de cámara para mobile
+  const isMobileInitial = width <= 1000;
+  const isTabletInitial = width <= 1024;
+  const isPCInitial = width <= 1440;
 
-  // if (isMobile) {
-  //   return mobileCameraControls;
-  // } else {
-  //   return pcCameraControls;
-  // }
+  const isMobileCharacter = width <= 500;
+  const isTabletCharacter = width <= 1024;
+  const isPCCharacter = width <= 1440;
+
+  const isMobileAbout = width <= 768;
+  const isTabletAbout = width <= 1024;
+  const isPCAbout = width <= 1440;
 
   return {
     SKILLS: {
       rotation: {
         polar: {
-          speed: 1, //Enable/Disable (1 or 0) polar rotation
-          min: 0.1,
+          speed: 0, //Enable/Disable (1 or 0) polar rotation
+          min: 0,
           max: Math.PI,
         },
         azimuth: {
-          speed: 0.1, //Enable/Disable (1 or 0) azimuth rotation
+          speed: 0, //Enable/Disable (1 or 0) azimuth rotation
           min: -Infinity,
           max: Infinity,
         },
@@ -117,13 +121,13 @@ export const getCameraControls = () => {
       rotation: {
         polar: {
           speed: 1, //Enable/Disable (1 or 0) polar rotation
-          min: Math.PI / 4,
-          max: Math.PI / 2,
+          min: 0,
+          max: Math.PI,
         },
         azimuth: {
           speed: 1, //Enable/Disable (1 or 0) azimuth rotation
-          min: Math.PI / 2,
-          max: Math.PI / 2,
+          min: -Infinity,
+          max: Infinity,
         },
       },
       dolly: {
@@ -138,21 +142,25 @@ export const getCameraControls = () => {
       rotation: {
         polar: {
           speed: 1, //Enable/Disable (1 or 0) polar rotation
-          min: 0,
-          max: Math.PI,
+          min: 1.15,
+          max: 1.7,
         },
         azimuth: {
           speed: 1, //Enable/Disable (1 or 0) azimuth rotation
-          min: -Infinity,
-          max: Infinity,
+          min: 3.6,
+          max: 5.6,
         },
       },
       dolly: {
-        speed: 1, //Enable/Disable (1 or 0) dolly
-        min: 1,
-        max: 10,
+        speed: 0.5, //Enable/Disable (1 or 0) dolly
+        min: 2.3,
+        max: 7.7,
       },
-      coordCamera: { x: 1, y: 2.78, z: 0.5 }, //Coordinates to posisionate the camera view
+      coordCamera: {
+        x: y,
+        y: 2.78,
+        z: 0.5,
+      }, //Coordinates to posisionate the camera view
       coordLook: { x: 8.93, y: 2.78, z: 0.55 }, //Coordinates to look at
     },
   };

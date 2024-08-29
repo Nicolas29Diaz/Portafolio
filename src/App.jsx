@@ -16,6 +16,27 @@ import { SceneConf } from "./Components/SceneConf.jsx";
 import SceneCopy from "./Components/SceneCopy.jsx";
 import { Scene2 } from "./Components/Scene2.jsx";
 
+/*
+
+TAREAS:
+- Terminar pantalla Skills ponienido imagenes y el modelo
+- Terminar pantalla About ponienido la foto y el texto, ademas animar las lineas
+- Hacer la pantalla de Contacto
+- Poner los proyectos
+- Pulir código
+- En la vista desde celular se ve el boton de proyects mientras se ve el charact, ajustar ya sea el boton o la camara
+
+IDEAS:
+- Hacer que el botón de start aparezca cuando el progreso sea 100%
+- Poner un botón menu que mueva la camara hacía el menu (con la opción de cancelar)
+- Disolver los ojos del personaje
+- Quitar sombras para dispositivos de gama baja
+- En skills palanca animada o boton animado.
+- Poner mi foto y poner un texto que diga VirtualSkin o Skin o Game Skin o algo así
+- Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas
+- Para darle vida al personaje al saludar puede alzar las cejas y agrandar los ojos o algo así
+*/
+
 function App() {
   const {
     showCancelButton,
@@ -29,15 +50,16 @@ function App() {
   const editMode = false;
 
   const cameraControlsRef = useRef();
-  useEffect(() => {
-    const getGPUInfo = async () => {
-      const gpuInfo = await getGPUTier();
-      setGpuTier(gpuInfo.tier);
-      console.log(gpuInfo.tier);
-    };
-    getGPUInfo();
-  }, [cameraControlsRef]);
+  // useEffect(() => {
+  //   const getGPUInfo = async () => {
+  //     const gpuInfo = await getGPUTier();
+  //     setGpuTier(gpuInfo.tier);
+  //     console.log(gpuInfo.tier);
+  //   };
+  //   getGPUInfo();
+  // }, [cameraControlsRef]);
 
+  const refCanvas = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -56,10 +78,10 @@ function App() {
   return (
     <>
       <div className="canvas-container" style={{ opacity: isLoaded ? 0 : 1 }}>
-        {/* QUITAR SOMBRAS PARA DISPOSITIVOS PAILAS */}
         <Canvas
           shadows
           camera={{ position: [5, 20, 80], fov: 60 }}
+          ref={refCanvas}
           // frameloop="demand"
         >
           <Suspense fallback={<LoadingScreen />}>
@@ -96,6 +118,7 @@ function App() {
           <i></i>
         </div>
       )}
+
       {progress >= 100 && showButtonStart && (
         <button
           className="contentStartButton"
@@ -109,6 +132,22 @@ function App() {
           GetPos
         </button>
       )}
+
+      <button
+        style={{
+          position: "absolute",
+          top: "0",
+          right: "10px",
+          padding: "5px",
+          background: "rgba(0, 0, 0, 0.5)",
+          color: "white",
+          fontSize: "14px",
+          // zzIndex: 20000,
+        }}
+        onClick={() => console.log(refCanvas.current)}
+      >
+        CameraData
+      </button>
     </>
   );
 }

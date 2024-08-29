@@ -11,6 +11,8 @@ import { useThree } from "@react-three/fiber";
 import { getCameraControls } from "../Store/cameraControls.js";
 
 export function Scene2() {
+  const timeToChangeView = 1500;
+
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
   const [currentView, setCurrentView] = useState(views.INITIAL);
@@ -22,6 +24,7 @@ export function Scene2() {
     setShowButtonStart,
     showFloatButtons,
     setShowFloatButtons,
+    setCameraControls2,
   } = useStore();
 
   const moveCameraToObject = () => {
@@ -44,7 +47,7 @@ export function Scene2() {
     setCameraControls(updatedCameraControls);
   };
 
-  const updatedCameraControls = () => {
+  const updateControlsCamera = () => {
     const camera = cameraControlRef.current;
     const current = cameraControls[currentView];
 
@@ -65,21 +68,34 @@ export function Scene2() {
     setCameraFocus(view);
     setCurrentView(view);
     setShowFloatButtons(false);
+  };
 
-    if (view === views.CHARACTER || view === views.INITIAL) {
-      setShowCancelButton(false);
+  //In this function the camera is moved to the object, but
+  //the movemente is repeated until the camera is in the correct position
+  const fixedMoveCameraToObject = () => {
+    if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
+      const intervalId = setInterval(moveCameraToObject, 1);
+      setTimeout(() => {
+        clearInterval(intervalId);
+        setShowCancelButton(true);
+      }, timeToChangeView);
     } else {
-      setShowCancelButton(true);
+      moveCameraToObject();
     }
   };
 
   useEffect(() => {
     moveCameraToObject();
-    updatedCameraControls();
+    updateControlsCamera();
+  }, [cameraControls]);
+
+  useEffect(() => {
+    fixedMoveCameraToObject();
+    updateControlsCamera();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [currentView, cameraControls]);
+  }, [currentView]);
 
   useEffect(() => {
     if (!showButtonStart) {
@@ -98,6 +114,22 @@ export function Scene2() {
     }
   }, [showCancelButton]);
 
+  useEffect(() => {
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
+
+      console.log("azimuthAngle: ", camera.azimuthAngle);
+      console.log("polarAngle:", camera.polarAngle);
+      console.log("polarAngle:", camera.distance);
+      console.log("Camera position", pos);
+    });
+  }, []);
   return (
     <>
       {/* Camera configuration */}

@@ -65,11 +65,11 @@ function About({ animate = false }) {
 
         <g transform="translate(250 0)">
           <text x="0" y="520" className="about-text-description">
-            <tspan x="50" dy="1.2em">
-              Nicolas
+            <tspan x="15" dy="1.2em">
+              Game Skin 
             </tspan>
             <tspan x="0" dy="1.2em">
-              Diaz Santos
+              {/* Skin */}
             </tspan>
           </text>
         </g>
