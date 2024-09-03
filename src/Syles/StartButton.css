@@ -2,32 +2,37 @@
   font-family: "Electrolize-Regular";
   src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
 }
+
 :root {
   --start_button-border-color: rgb(255, 255, 255);
   --start_button-hover-color: rgb(0, 159, 203);
   --start_button-bg-color: rgb(71, 71, 71);
   --start_button-animation: 0.3s;
 }
-.contentStartButton {
+
+.containerStartButton {
   position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
-  align-content: center;
+  z-index: 2;
+}
+
+.containerStartButton button {
   padding: 10px 20px;
   height: 50px;
   cursor: pointer;
   border-radius: 20px;
-  font-family: "Electrolize-Regular";
   font-size: 1.5rem;
+  font-family: "Electrolize-Regular";
+  font-weight: 400;
+  width: 150px;
   background-color: var(--start_button-bg-color);
   color: var(--start_button-border-color);
-  font-weight: 400;
   border: none;
-  width: 150px;
 }
-.contentStartButton:hover {
-    background-color: var(--start_button-hover-color);
-    color: var(--start_button-border-color);
+
+.containerStartButton button:hover {
+  background-color: var(--start_button-hover-color);
+  transition: var(--start_button-animation);
 }

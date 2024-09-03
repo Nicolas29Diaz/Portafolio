@@ -86,14 +86,6 @@
   font-family: "Electrolize-Regular";
 }
 
-/* Subtitle text */
-.text-subtitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  fill: #08bee1;
-  font-family: "Electrolize-Regular";
-}
-
 /* Subtitle container */
 .subtitle-content {
   fill: url(#content-gradient-subtitle);
@@ -101,84 +93,7 @@
 
 .title-content {
   fill: #08bee1;
-}
-
-/* Rect slide text */
-@keyframes slideOutRect {
-  0% {
-    transform: translateX(0);
-    fill: url(#text-gradient-slideOut);
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(150px);
-    fill: url(#text-gradient-slideOut);
-    opacity: 0;
-  }
-}
-
-@keyframes slideInRect {
-  0% {
-    transform: translateX(150px);
-    fill: url(#text-gradient-slideIn);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 0.5;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(0);
-    fill: url(#text-gradient-slideIn);
-    opacity: 0;
-  }
-}
-
-@keyframes slideOutMask {
-  0% {
-    width: 0px;
-  }
-
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    width: 160px;
-  }
-}
-
-@keyframes slideInMask {
-  0% {
-    width: 160px;
-  }
-
-  100% {
-    width: 0px;
-  }
-}
-
-.rect-title-change {
-  animation: slideInRect 0.5s forwards, slideOutRect 0.5s 0.5s forwards;
-  /* fill: url(#text-gradient-slideIn); */
-}
-
-.mask-subtitle {
-  animation: slideOutMask 0.5s forwards, slideInMask 0.5s 0.5s forwards;
-}
+} 
 
 /* Div skill container */
 .skill-container {

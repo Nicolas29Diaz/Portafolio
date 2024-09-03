@@ -66,7 +66,7 @@ function About({ animate = false }) {
         <g transform="translate(250 0)">
           <text x="0" y="520" className="about-text-description">
             <tspan x="15" dy="1.2em">
-              Game Skin 
+              Virtual Skin
             </tspan>
             <tspan x="0" dy="1.2em">
               {/* Skin */}
@@ -87,6 +87,65 @@ function About({ animate = false }) {
             prioritize user needs in every project.
           </div>
         </foreignObject>
+
+        <g transform="translate(700 95)">
+          <g>
+            <image
+              xlinkHref="Images/AboutImages/IconName.png"
+              x="0"
+              y="0"
+              width="110"
+            />
+            <text x="150" y="50" className="about-text-icon-title">
+              Name:
+            </text>
+            <text x="150" y="100" className="about-text-icon">
+              Nicolas Diaz Santos
+            </text>
+          </g>
+          <g transform="translate(0 140)">
+            <image
+              xlinkHref="Images/AboutImages/IconAge.png"
+              x="0"
+              y="0"
+              width="110"
+            />
+            <text x="150" y="50" className="about-text-icon-title">
+              Age:
+            </text>
+            <text x="150" y="100" className="about-text-icon">
+              26
+            </text>
+          </g>
+          <g transform="translate(0 280)">
+            <image
+              xlinkHref="Images/AboutImages/IconFrom.png"
+              x="0"
+              y="0"
+              width="110"
+            />
+            <text x="150" y="50" className="about-text-icon-title">
+              From:
+            </text>
+            <text x="150" y="100" className="about-text-icon">
+              Colombia
+            </text>
+          </g>
+          <g transform="translate(0 420)">
+            <image
+              xlinkHref="Images/AboutImages/IconProfession.png"
+              x="0"
+              y="0"
+              width="110"
+            />
+            <text x="150" y="50" className="about-text-icon-title">
+              Profession:
+            </text>
+            <text x="150" y="100" className="about-text-icon">
+              Multimedia Engineer
+            </text>
+          </g>
+        </g>
       </svg>
     </Html>
   );

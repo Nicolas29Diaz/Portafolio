@@ -21,15 +21,16 @@ const relativeDistance = (
 export const getCameraControls = () => {
   const width = window.innerWidth;
 
-  const x_distanceAbout = relativeDistance(width, 6.63, 1.23);
+  const x_distanceAbout = relativeDistance(width, 6.27, 1.23);
+
   const z_positionProjects = relativeDistance(width, 3.013, -4);
 
   //En skills cambia tanto X como Z entonces se aplica la función relativeDistance a ambas
-  const x_positionSkills = relativeDistance(width, -5.503, -0.507);
-  const z_positionSkills = relativeDistance(width, -1.845, 0.277);
+  const x_positionSkills = relativeDistance(width, -5.29, -0.507);
+  const z_positionSkills = relativeDistance(width, -1.75, 0.277);
 
   //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
-  const distanceCharacter = relativeDistance(width, 3.8, 5.57);
+  const distanceCharacter = relativeDistance(width, 3.8, 5.7);
 
   //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
   const isMobileInitial = width <= 1000;
@@ -50,8 +51,8 @@ export const getCameraControls = () => {
         },
       },
       dolly: {
-        speed: 0, //Enable/Disable (1 or 0) dolly
-        min: 2,
+        speed: 1, //Enable/Disable (1 or 0) dolly
+        min: 2.8,
         max: 8,
       },
       coordCamera: { x: x_positionSkills, y: 3.96, z: z_positionSkills }, //Coordinates to posisionate the camera view
@@ -99,8 +100,7 @@ export const getCameraControls = () => {
       dolly: {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 1,
-        max: 10,
-        distance: 7,
+        max: 15,
       },
       coordCamera: isMobileInitial
         ? { x: 1, y: 4, z: 7 }
@@ -149,7 +149,7 @@ export const getCameraControls = () => {
       },
       dolly: {
         speed: 1, //Enable/Disable (1 or 0) dolly
-        min: 0,
+        min: 3,
         max: 11,
       },
       coordCamera: { x: 0.6, y: 2.55, z: z_positionProjects }, //Coordinates to posisionate the camera view
@@ -170,7 +170,7 @@ export const getCameraControls = () => {
       },
       dolly: {
         speed: 0.5, //Enable/Disable (1 or 0) dolly
-        min: 2.3,
+        min: 2.6,
         max: 7.7,
       },
       coordCamera: {

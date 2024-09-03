@@ -1,5 +1,4 @@
-.background-skills {
-  /* background: linear-gradient(rgb(0, 22, 54), rgb(0, 52, 112)); */
+.skills-html {
   background: radial-gradient(
     ellipse 700px 400px at center,
     rgb(0, 52, 112) 40%,
@@ -7,54 +6,42 @@
   );
   width: 980px;
   height: 480px;
-  align-content: center;
+  position: relative;
 }
+
 .skills-no-pointer {
   pointer-events: none;
 }
-.general-container-skills {
-  padding: 20px;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: center;
-  align-items: center;
-  gap: 20px;
-}
-.container-1-skills {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 75%;
-}
-.container-2-skills {
-  position: relative;
-  /* width: 250px;
-  height: 10px; */
 
-  align-items: center;
+.skills-sectionSlider {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  width: 660px;
+  height: 320px;
+  z-index: 1;
 }
-.title-container {
-  flex: 1;
-  margin: auto;
-  color: white;
-  font-size: 30px;
+.skills-sectionCharacter {
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  width: 220px;
+  height: 360px;
+  z-index: 1;
 }
-.slider-container-skills {
+
+.skills-sliderContainer {
   margin: auto;
-  margin-top: 40px;
-  width: 90%;
-  flex: 5;
-  align-items: end;
-  align-content: center;
+  width: 95%;
   cursor: grab;
 }
-.slider-item-skills {
+.skills-sliderItem {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
 }
+
+/* 
 .canvas-container-skills {
   position: fixed;
   top: 20px;
@@ -77,4 +64,4 @@
   width: 50%;
   height: 50%;
   object-fit: contain;
-}
+} */

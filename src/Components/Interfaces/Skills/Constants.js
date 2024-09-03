@@ -1,97 +1,136 @@
-export const skillsConfig = [
-  [
-    {
-      text: "JavaScript",
-      points: 3,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "JS-Logo",
+export const skillsConf = [
+  {
+    category: {
+      text: "Web Development",
+      x: 80,
+      y: 30,
     },
-    {
-      text: "Java",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Java-Logo",
+    skills: [
+      {
+        text: "JavaScript",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Javascript.png",
+        altImg: "JS-Logo",
+      },
+      {
+        text: "React",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/React.png",
+        altImg: "Java-Logo",
+      },
+      {
+        text: "CSS",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/CSS.png",
+        altImg: "Python-Logo",
+      },
+      {
+        text: "HTML",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/HTML.png",
+        altImg: "C#-Logo",
+      },
+    ],
+  },
+  {
+    category: {
+      text: "Tools",
+      x: 130,
+      y: 30,
     },
-    {
-      text: "Python",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Python-Logo",
+    skills: [
+      {
+        text: "Git",
+        points: 2,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Git.png",
+        altImg: "Git-Logo",
+      },
+      {
+        text: "GitHub",
+        points: 2,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Github.png",
+        altImg: "GitHub-Logo",
+      },
+      {
+        text: "Visual Studio Code",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Visual.png",
+        altImg: "ViseualStudioCode-Logo",
+      },
+      {
+        text: "Copilot",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Github.png",
+        altImg: "Copilot-Logo",
+      },
+    ],
+  },
+  {
+    category: {
+      text: "Desing",
+      x: 130,
+      y: 30,
     },
-    {
-      text: "C#",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "C#-Logo",
+    skills: [
+      {
+        text: "Figma",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Figma.png",
+        altImg: "Figma-Logo",
+      },
+      {
+        text: "Blender",
+        points: 3,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Blender.png",
+        altImg: "Blender-Logo",
+      },
+    ],
+  },
+  {
+    category: {
+      text: "Other",
+      x: 130,
+      y: 30,
     },
-  ],
-  [
-    {
-      text: "Git",
-      points: 3,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Git-Logo",
-    },
-    {
-      text: "GitHub",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "GitHub-Logo",
-    },
-    {
-      text: "Visual Studio Code",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "ViseualStudioCode-Logo",
-    },
-    {
-      text: "Copilot",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Copilot-Logo",
-    },
-  ],
-  [
-    {
-      text: "Figma",
-      points: 3,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Figma-Logo",
-    },
-    {
-      text: "Blender",
-      points: 2,
-      x: 145,
-      y: 60,
-      srcImg: "Images/SkillsLogos/JS.png",
-      altImg: "Blender-Logo",
-    },
-  ],
-];
-
-export const subTitleConf = [
-  { text: "Programming", x: 435, y: 30 },
-  { text: "Tools", x: 470, y: 30 },
-  { text: "Desing", x: 480, y: 30 },
-  { text: "Desing", x: 435, y: 30 },
+    skills: [
+      {
+        text: "Power BI",
+        points: 2,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/PowerBi.png",
+        altImg: "Figma-Logo",
+      },
+      {
+        text: "Python",
+        points: 2,
+        x: 145,
+        y: 60,
+        srcImg: "Images/SkillsLogos/Python.png",
+        altImg: "Blender-Logo",
+      },
+    ],
+  },
 ];
 
 export const sliderConf = {

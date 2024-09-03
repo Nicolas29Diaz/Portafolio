@@ -7,127 +7,15 @@ import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Scene3D } from "./3D_Components/3D_Scene.jsx";
 import { useThree } from "@react-three/fiber";
+
+import { getCameraControls } from "../Store/cameraControls.js";
+
 export function Scene() {
-  const camera = useThree().camera;
+  const timeToChangeView = 1500;
 
-  const [characterDist, setCharacterDist] = useState(
-    window.innerWidth <= 768 ? 6 : 4
-  );
-
-  const cameraControls = {
-    SKILLS: {
-      maxDist: 8, //Max distance dolly to the object focused
-      minDist: 2, //Min distance dolly to the object focused
-      currentDist: 1,
-      currentDistMobile: 6,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      minAzimuthAngle: -Math.PI / 2,
-      maxAzimuthAngle: Math.PI / 2,
-      coordCamera: { x: -5, y: 3.96, z: -1.6 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      dollySpeed: 0.5,
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [-7.87, 3.96, -2.85], //Mesh fit position
-        size: [1, 2, 4], //Mesh fit size
-        layer: 0, //Mesh fit layer
-        rotation: [0, (-24 * Math.PI) / 180, 0],
-      },
-    },
-    CHARACTER: {
-      maxDist: characterDist, //Max distance dolly to the object focused
-      minDist: characterDist, //Min distance dolly to the object focused
-      currentDist: characterDist,
-      minAngle: Math.PI / 3,
-      maxAngle: Math.PI / 2,
-      coordCamera: { x: 0, y: 0, z: 5 }, //Coordinates to posisionate the camera view
-      speed: 0.7, //Enable/Disable (1 or 0) orbits controls
-      dollySpeed: 0,
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [0.5, 1, 0], //Mesh fit position
-        size: [2, 2, 1], //Mesh fit size
-        layer: 1, //Mesh fit layer
-      },
-    },
-    INITIAL: {
-      maxDist: 5000, //Max distance dolly to the object focused
-      minDist: 0, //Min distance dolly to the object focused
-      currentDist: 80,
-      minAngle: Math.PI / 3,
-      maxAngle: Math.PI / 2,
-      coordCamera:
-        window.innerWidth <= 768
-          ? { x: 0, y: 3.5, z: 7 }
-          : { x: 1, y: 3.5, z: 7 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      dollySpeed: 0,
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: window.innerWidth <= 768 ? [0, 3, 0] : [3, 0, 0], //Mesh fit position
-        rotation: [0, 0, 0],
-        size: [2, 2, 2], //Mesh fit size
-        layer: 1, //Mesh fit layer
-      },
-    },
-    CONTACT: {
-      maxDist: 12, //Max distance dolly to the object focused
-      minDist: 1, //Min distance dolly to the object focused
-      currentDist: 3,
-      currentDistMobile: 6,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      coordCamera: { x: -5, y: 3.6, z: 3 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [5.8, 2, -10], //Mesh fit position
-        size: [4, 4, 4], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        rotation: [0, 0, 0],
-      },
-    },
-    PROJECTS: {
-      maxDist: 11, //Max distance dolly to the object focused
-      minDist: 4, //Min distance dolly to the object focused
-      currentDist: 0,
-      currentDistMobile: 4,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      coordCamera: { x: 0.7, y: 2.55, z: 3 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      dollySpeed: 0.5,
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [0.9, 2.55, 7.86], //Mesh fit position
-        size: [5.5, 4, 1], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        rotation: [0, 0, 0],
-      },
-    },
-    ABOUT: {
-      maxDist: 8, //Max distance dolly to the object focused
-      minDist: 3, //Min distance dolly to the object focused
-      currentDist: 5,
-      currentDistMobile: 4,
-      minAngle: Math.PI / 4,
-      maxAngle: Math.PI / 2,
-      coordCamera:
-        window.innerWidth <= 768
-          ? { x: 1, y: 2.78, z: 0.5 }
-          : { x: 6, y: 2.78, z: 0.5 }, //Coordinates to posisionate the camera view
-      speed: 0, //Enable/Disable (1 or 0) orbits controls
-      dollySpeed: 0.5,
-      mesh: {
-        ref: useRef(), //Mesh to center the camera view
-        position: [8.93, 2.78, 0.55], //Mesh fit position
-        size: [1, 2, 4], //Mesh fit size
-        layer: 1, //Mesh fit layer
-        rotation: [0, 0, 0],
-      },
-    },
-  };
+  const cameraControlRef = useRef();
+  const [cameraControls, setCameraControls] = useState(getCameraControls());
+  const [currentView, setCurrentView] = useState(views.INITIAL);
   const {
     showCancelButton,
     setShowCancelButton,
@@ -136,133 +24,93 @@ export function Scene() {
     setShowButtonStart,
     showFloatButtons,
     setShowFloatButtons,
+    setCameraControls2,
   } = useStore();
 
-  // const [showFloatButtons, setShowFloatButtons] = useState(false);
-
-  const [currentView, setCurrentView] = useState(views.INITIAL);
-
-  let firstFit = true;
-  const [initialView, setInitialView] = useState(true);
-
-  const [minPolarAngle, setMinPolarAngle] = useState();
-  const [maxPolarAngle, setMaxPolarAngle] = useState();
-
-  const [minAzimuthAngle, setMinAzimuthAngle] = useState();
-  const [maxAzimuthAngle, setMaxAzimuthAngle] = useState();
-  const cameraControlRef = useRef();
-
-  //Controls
-  const [speed, setSpeed] = useState();
-  const [dollySpeed, setDollySpeed] = useState();
-  const [distMax, setDistMax] = useState();
-  const [distMin, setDistMin] = useState();
-
-  // function initialConfig() {
-  //   setMinPolarAngle(cameraControls.INITIAL.minAngle);
-  //   setMaxPolarAngle(cameraControls.INITIAL.maxAngle);
-  //   setDistMax(cameraControls.INITIAL.maxDist);
-  //   setDistMin(cameraControls.INITIAL.minDist);
-  //   setSpeed(cameraControls.INITIAL.speed);
-  //   cameraControlRef.current.distance = cameraControls.INITIAL.currentDist;
-  //   console.log("InitialConfig");
-  //   console.log(cameraControlRef.current.distance);
-  // }
-
-  const fitCamera = () => {
-    console.log("FitCamera");
-    const {
-      maxDist,
-      minDist,
-      speed,
-      maxAngle,
-      minAngle,
-      dollySpeed,
-      maxAzimuthAngle,
-      minAzimuthAngle,
-    } = cameraControls[currentView];
-
-    cameraControlRef.current.smoothTime = 0.3;
-    cameraControlRef.current.fitToSphere(
-      cameraControls[currentView].mesh.ref.current,
-      true
-    );
-
-    setDistMax(maxDist);
-    setDistMin(minDist);
-    setMaxPolarAngle(maxAngle);
-    setMinPolarAngle(minAngle);
-    setMaxAzimuthAngle(maxAzimuthAngle);
-    setMinAzimuthAngle(minAzimuthAngle);
-    setSpeed(speed);
-    setDollySpeed(dollySpeed);
-
-    // if (firstFit) {
-    //   // console.log("FirstFit");
-    //   const { currentDist } = cameraControls[currentView];
-    //   cameraControlRef.current.distance = currentDist;
-    //   firstFit = false;
-    // }
-
-    if (window.innerWidth <= 768 && currentView === views.CHARACTER) {
-      cameraControlRef.current.distance = 6;
-    } else {
-      cameraControlRef.current.distance = 4;
-    }
-  };
-
-  // useEffect(() => {
-  //   // setShowButtonStart(true);
-  //   initialConfig();
-  //   // console.log(cameraControlRef.current);
-  // }, []);
-
-  useEffect(() => {
-    if (!initialView) {
-      if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
-        // console.log("CHARACTER");
-        const intervalId = setInterval(movCameraToObject, 1);
-        setTimeout(() => {
-          clearInterval(intervalId);
-          setShowCancelButton(true);
-        }, 1500);
-      }
-
-      fitCamera();
-      window.addEventListener("resize", fitCamera);
-      return () => window.removeEventListener("resize", fitCamera);
-    } else {
-      movCameraToObject();
-      const move = () => {
-        if (window.innerWidth <= 1000) {
-          cameraControlRef.current.setLookAt(0, 3.5, 7, 0, 3, 0, true);
-        } else {
-          cameraControlRef.current.setLookAt(1, 3.5, 7, 3, 0, 0, true);
-        }
-      };
-      window.addEventListener("resize", move);
-      return () => window.removeEventListener("resize", move);
-    }
-  }, [currentView]);
-
-  function movCameraToObject() {
+  const moveCameraToObject = () => {
     const currentCoordCamera = cameraControls[currentView].coordCamera;
-    const currentMesh = cameraControls[currentView].mesh.ref.current.position;
-    // const { currentDist } = cameraControls[currentView];
+    const currentCoordLook = cameraControls[currentView].coordLook;
 
     cameraControlRef.current.setLookAt(
       currentCoordCamera.x,
       currentCoordCamera.y,
       currentCoordCamera.z,
-      currentMesh.x,
-      currentMesh.y,
-      currentMesh.z,
+      currentCoordLook.x,
+      currentCoordLook.y,
+      currentCoordLook.z,
       true
     );
+  };
 
-    // cameraControlRef.current.distance = currentDist;
-    !initialView ?? fitCamera();
-  }
+  const handleResize = () => {
+    const updatedCameraControls = getCameraControls();
+    setCameraControls(updatedCameraControls);
+  };
+
+  const updateControlsCamera = () => {
+    const camera = cameraControlRef.current;
+    const current = cameraControls[currentView];
+
+    if (currentView === views.CHARACTER) {
+      camera.distance = current.dolly.distance;
+    }
+    // camera.distance = current.dolly.distance;
+    // console.log("distanceUpdte", current.dolly.distance);
+
+    camera.dollySpeed = current.dolly.speed;
+    camera.minDistance = current.dolly.min;
+    camera.maxDistance = current.dolly.max;
+
+    camera.polarRotateSpeed = current.rotation.polar.speed;
+    camera.maxPolarAngle = current.rotation.polar.max;
+    camera.minPolarAngle = current.rotation.polar.min;
+
+    camera.azimuthRotateSpeed = current.rotation.azimuth.speed;
+    camera.minAzimuthAngle = current.rotation.azimuth.min;
+    camera.maxAzimuthAngle = current.rotation.azimuth.max;
+  };
+
+  const changeView = (view) => {
+    setCameraFocus(view);
+    setCurrentView(view);
+    setShowFloatButtons(false);
+  };
+
+  //In this function the camera is moved to the object, but
+  //the movemente is repeated until the camera is in the correct position
+  const fixedMoveCameraToObject = () => {
+    if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
+      const intervalId = setInterval(moveCameraToObject, 1);
+      setTimeout(() => {
+        clearInterval(intervalId);
+        setShowCancelButton(true);
+      }, timeToChangeView);
+    } else {
+      moveCameraToObject();
+    }
+  };
+
+  useEffect(() => {
+    moveCameraToObject();
+    updateControlsCamera();
+  }, [cameraControls]);
+
+  useEffect(() => {
+    fixedMoveCameraToObject();
+    updateControlsCamera();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [currentView]);
+
+  useEffect(() => {
+    if (!showButtonStart) {
+      setCurrentView(views.CHARACTER);
+      setTimeout(() => {
+        setShowFloatButtons(true);
+      }, 1000);
+    }
+  }, [showButtonStart]);
 
   useEffect(() => {
     if (!showCancelButton && !showButtonStart) {
@@ -273,74 +121,32 @@ export function Scene() {
   }, [showCancelButton]);
 
   useEffect(() => {
-    if (showButtonStart) {
-      setCameraFocus(views.INITIAL);
-      // setCurrentView(views.INITIAL);
-      // fitCamera();
-    } else {
-      setInitialView(false);
-      setCameraFocus(views.CHARACTER);
-      setCurrentView(views.CHARACTER);
-      setTimeout(() => {
-        setShowFloatButtons(true);
-      }, 1000);
-    }
-  }, [showButtonStart]);
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
 
-  const changeView = (view) => {
-    setCameraFocus(view);
-    setCurrentView(view);
-
-    setShowFloatButtons(false);
-  };
-
-  //Para mapear el cameraViews y mostrarlos
-  const meshFitComponents = Object.entries(cameraControls).map(
-    ([view, data]) => (
-      <MeshFit
-        key={view} // Asegúrate de tener una clave única
-        ref={data.mesh.ref}
-        position={data.mesh.position}
-        rotation={data.mesh?.rotation}
-        size={data.mesh.size}
-        layer={data.mesh.layer}
-      />
-    )
-  );
+      // console.log("azimuthAngle: ", camera.azimuthAngle);
+      // console.log("polarAngle:", camera.polarAngle);
+      console.log("distance:", camera.distance);
+      console.log("Camera position", pos);
+      // camera.distance = 0;
+    });
+  }, []);
 
   return (
     <>
       {/* Camera configuration */}
-      <CameraControls
-        ref={cameraControlRef}
-        minPolarAngle={minPolarAngle}
-        maxPolarAngle={maxPolarAngle}
-        // minAzimuthAngle={minAzimuthAngle ? minAzimuthAngle : -Infinity}
-        // maxAzimuthAngle={maxAzimuthAngle ? maxAzimuthAngle : Infinity}
-        maxDistance={distMax ? distMax : 200}
-        minDistance={distMin ? distMin : 0.1}
-        // infinityDolly={false}
-        truckSpeed={0}
-        dollySpeed={dollySpeed ? dollySpeed : 0}
-        polarRotateSpeed={speed ? speed : 0}
-        azimuthRotateSpeed={speed ? speed : 0}
-        // enabled={false}
-        // zoom={false}
-      ></CameraControls>
-
-      {/* Mesh fit camera targets */}
-      <>{meshFitComponents}</>
+      <CameraControls ref={cameraControlRef} truckSpeed={0} />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        {/* <Escena></Escena> */}
         <Scene3D></Scene3D>
-        {/* <Scene3D_2></Scene3D_2> */}
-        {/* <mesh>
-          <boxGeometry args={[1, 1, 1]}></boxGeometry>
-        </mesh> */}
       </group>
 
-      {/* {!showButtonStart && ( */}
       <>
         <FloatButton
           view={views.CONTACT}
@@ -357,7 +163,7 @@ export function Scene() {
         <FloatButton
           view={views.PROJECTS}
           changeView={changeView}
-          position={[0.5, 2.53, 6]}
+          position={[0.5, 2.53, 7]}
           rotation={[0, 0, Math.PI / 4]}
         />
         <FloatButton
@@ -367,9 +173,6 @@ export function Scene() {
           rotation={[0, Math.PI / 2, Math.PI / 4]}
         />
       </>
-      {/* )} */}
-
-     
     </>
   );
 }

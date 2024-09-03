@@ -14,9 +14,11 @@ import SkillContainer from "./SvgItems/SkillContainer";
 import BackGround from "./SvgItems/BackGround";
 
 // Importing constants
-import { skillsConfig, sliderConf } from "./Constants.js";
+import { sliderConf, skillsConf } from "./Constants.js";
 
 import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
+import Subtitle from "./SvgItems/Subtitle.jsx";
 
 function Skills() {
   const { cameraFocus } = useStore();
@@ -31,110 +33,69 @@ function Skills() {
     }
   }, [cameraFocus]);
 
+  useEffect(() => {
+    console.log(skillsConf[0].category);
+  }, []);
+
+  const viewport = useThree();
   return (
     <>
       {/* <pointLight
         // ref={lightRef}
         color="#002e63"
-        intensity={1000}
+        intensity={10}
         distance={20}
         position={[0, 0, 1]}
-      />
-       */}
+      /> */}
+
       <Html
-        className={`background-skills ${animate ? "" : "skills-no-pointer"}`}
-        distanceFactor={1}
+        className={`skills-html ${animate ? "" : "skills-no-pointer"}`}
+        distanceFactor={1.72}
         transform
         occlude="blending"
-        tabIndex={0}
         position={[0, 0.15, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
-        scale={[1.72, 1.72, 1.72]}
-        castShadow // Make HTML cast a shadow
-        receiveShadow // Make HTML receive shadows
       >
-        {/* {cameraFocus === "SKILLS" ? (  */}
-        <div className="general-container-skills">
-          <BackGround animate={animate} active={active}></BackGround>
+        <BackGround animate={animate} active={active}></BackGround>
+        <Subtitle
+          active={active}
+          subTitleOptions={skillsConf[active].category}
+        ></Subtitle>
 
-          <div className="container-1-skills">
-            <div className="slider-container-skills">
-              <Slider
-                {...sliderConf}
-                beforeChange={(current, next) => {
-                  setActive(next);
-                }}
-              >
-                <div>
-                  <div className="slider-item-skills">
-                    <>
-                      {skillsConfig[0].map((skill, index) => (
-                        <SkillContainer
-                          animate={animate}
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 0 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
+        <section className="skills-sectionSlider">
+          <div className="skills-sliderContainer">
+            <Slider
+              {...sliderConf}
+              beforeChange={(current, next) => {
+                setActive(next);
+              }}
+            >
+              {skillsConf.map((skillsGroup, groupIndex) => (
+                <div key={groupIndex}>
+                  <div className="skills-sliderItem">
+                    {skillsGroup.skills.map((skill, index) => (
+                      <SkillContainer
+                        animate={animate}
+                        key={index}
+                        skillPoints={skill.points}
+                        skillText={skill.text}
+                        x={skill.x}
+                        y={skill.y}
+                        activeSkillPoints={active === groupIndex}
+                        srcImg={skill.srcImg}
+                        altImg={skill.altImg}
+                      />
+                    ))}
                   </div>
                 </div>
-                <div>
-                  <div className="slider-item-skills">
-                    <>
-                      {skillsConfig[1].map((skill, index) => (
-                        <SkillContainer
-                          animate={animate}
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 1 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
-                  </div>
-                </div>
-                <div>
-                  <div className="slider-item-skills">
-                    <>
-                      {skillsConfig[2].map((skill, index) => (
-                        <SkillContainer
-                          animate={animate}
-                          key={index}
-                          skillPoints={skill.points}
-                          skillText={skill.text}
-                          x={skill.x}
-                          y={skill.y}
-                          activeSkillPoints={active === 2 ? true : false}
-                          srcImg={skill.srcImg}
-                          altImg={skill.altImg}
-                        />
-                      ))}
-                    </>
-                  </div>
-                </div>
-              </Slider>
-            </div>
+              ))}
+            </Slider>
           </div>
-          <div className="container-2-skills">
-            <div className="canvas-container-skills">
-              <img src="Images/SkillsLogos/JS.png" alt="Gift background" />
-              PONER UNA MASCARA QUE VAYA DE ABAJO HACIA ARRIBA PARA MOSTRAR EL
-              MODELO 3D
-              <svg></svg>
-            </div>
-          </div>
-        </div>
-        {/* // ) : ("")} */}
+        </section>
+
+        <section className="skills-sectionCharacter">
+          <img src="" alt="Character model rotating" />
+        </section>
       </Html>
     </>
   );
