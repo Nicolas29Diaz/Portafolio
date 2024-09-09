@@ -5,7 +5,7 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-import { Scene3D } from "./3D_Components/3D_Scene.jsx";
+import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";

@@ -7,8 +7,8 @@ import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { AxesHelper } from "three";
 import { Html } from "@react-three/drei";
-import { Scene3D_2 } from "./3D_Components/3DScene_2.jsx";
-import { Scene3D } from "./3D_Components/3D_Scene.jsx";
+
+// import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
 import {
   GizmoHelper,
   GizmoViewport,

@@ -5,17 +5,22 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-import { Scene3D } from "./3D_Components/3D_Scene.jsx";
+import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
 import { useThree } from "@react-three/fiber";
 
 import { getCameraControls } from "../Store/cameraControls.js";
 
+import { Scene3D } from "./3D_Models/Scene3D.jsx";
+
 export function Scene() {
   const timeToChangeView = 1500;
+  // const timeToMove = 3500;
+  const timeToMove = 0;
 
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
   const [currentView, setCurrentView] = useState(views.INITIAL);
+  const [firstViewToCharacter, setFirstViewToCharacter] = useState(true);
   const {
     showCancelButton,
     setShowCancelButton,
@@ -68,6 +73,17 @@ export function Scene() {
     camera.azimuthRotateSpeed = current.rotation.azimuth.speed;
     camera.minAzimuthAngle = current.rotation.azimuth.min;
     camera.maxAzimuthAngle = current.rotation.azimuth.max;
+
+    if (firstViewToCharacter) {
+      camera.polarRotateSpeed = 0;
+      camera.azimuthRotateSpeed = 0;
+      setFirstViewToCharacter(false);
+
+      setTimeout(() => {
+        camera.polarRotateSpeed = current.rotation.polar.speed;
+        camera.azimuthRotateSpeed = current.rotation.azimuth.speed;
+      }, timeToMove);
+    }
   };
 
   const changeView = (view) => {
@@ -108,7 +124,8 @@ export function Scene() {
       setCurrentView(views.CHARACTER);
       setTimeout(() => {
         setShowFloatButtons(true);
-      }, 1000);
+      }, timeToMove);
+      setFirstViewToCharacter(true);
     }
   }, [showButtonStart]);
 
@@ -144,6 +161,7 @@ export function Scene() {
       <CameraControls ref={cameraControlRef} truckSpeed={0} />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
+        {/* <Scene3D2></Scene3D2> */}
         <Scene3D></Scene3D>
       </group>
 

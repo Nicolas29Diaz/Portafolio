@@ -12,7 +12,7 @@ import Skills from "../Interfaces/Skills/Skills";
 import Projects from "../Interfaces/Projects/Projects";
 import About from "../Interfaces/About/About";
 
-export function Scene3D(props) {
+export function Scene3D2(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
     "../public/Models/3D_Scene.glb"
@@ -65,7 +65,7 @@ export function Scene3D(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        {cameraFocus !== "PROJECTS" && (
+        {cameraFocus === "PROJECTS" && (
           <>
             <group
               name="Character"

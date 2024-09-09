@@ -81,7 +81,7 @@
 /* Title text */
 .text-title {
   font-size: 2rem;
-  font-weight: 850;
+  /* font-weight: 850; */
   fill: #002f67;
   font-family: "Electrolize-Regular";
 }

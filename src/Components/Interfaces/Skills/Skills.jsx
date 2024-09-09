@@ -57,6 +57,16 @@ function Skills() {
         rotation={[-Math.PI / 2, 0, 0]}
       >
         <BackGround animate={animate} active={active}></BackGround>
+          {/* <div
+            style={{
+              background: "red",
+              width: "900px",
+              height: "400px",
+            }}
+          >
+            <h1>Hi, I'm Nicolas Diaz</h1>
+          </div> */}
+
         <Subtitle
           active={active}
           subTitleOptions={skillsConf[active].category}
