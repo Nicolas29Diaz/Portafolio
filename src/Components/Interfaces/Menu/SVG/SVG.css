@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&family=Play:wght@400;700&display=swap");
+
+@font-face {
+  font-family: "Electrolize-Regular";
+  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
+}
+
+.menu-border-line {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 6;
+}
+
+.menu-border-line-2 {
+  fill: rgb(255, 255, 255);
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.menu-button,
+.menu-decoration-button,
+.menu-text-button {
+  transition: all 0.3s ease; /* Aplica transición a todas las propiedades */
+}
+
+.menu-button {
+  fill: rgb(255, 255, 255);
+  stroke: #ffffff;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.menu-decoration-button {
+  fill: rgb(255, 255, 255);
+  stroke: #000000;
+  stroke-width: 1.5;
+}
+
+.menu-text-button {
+  font-size: 2rem;
+  font-family: "Electrolize-Regular";
+  font-weight: 700;
+  fill: #000000;
+}
+
+.menu-svg-button:hover .menu-decoration-button {
+  fill: #000000;
+  stroke: #ffffff;
+}
+
+.menu-svg-button:hover .menu-button {
+  fill: #000000;
+}
+
+.menu-svg-button:hover .menu-text-button {
+  fill: #ffffff;
+}

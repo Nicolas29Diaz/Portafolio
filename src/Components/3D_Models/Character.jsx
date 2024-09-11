@@ -15,7 +15,7 @@ export function Character({
 }) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/Models/Character.glb");
-  const { actions, names } = useAnimations(animations, group);
+  const { actions, names, mixer } = useAnimations(animations, group);
 
   const [fadeFactor, setFadeFactor] = useState(0);
   const [fading, setFading] = useState(false);
@@ -68,18 +68,21 @@ export function Character({
               geometry={nodes.Cube020.geometry}
               material={materials["Piel.001"]}
               skeleton={nodes.Cube020.skeleton}
+              frustumCulled={false}
             />
             <skinnedMesh
               name="Cube020_1"
               geometry={nodes.Cube020_1.geometry}
               material={materials["Shirt.001"]}
               skeleton={nodes.Cube020_1.skeleton}
+              frustumCulled={false}
             />
             <skinnedMesh
               name="Cube020_2"
               geometry={nodes.Cube020_2.geometry}
               material={materials["Manga.001"]}
               skeleton={nodes.Cube020_2.skeleton}
+              frustumCulled={false}
             />
           </group>
           <group name="Brazo2001">
@@ -88,18 +91,21 @@ export function Character({
               geometry={nodes.Cube022.geometry}
               material={materials["Piel.001"]}
               skeleton={nodes.Cube022.skeleton}
+              frustumCulled={false}
             />
             <skinnedMesh
               name="Cube022_1"
               geometry={nodes.Cube022_1.geometry}
               material={materials["Shirt.001"]}
               skeleton={nodes.Cube022_1.skeleton}
+              frustumCulled={false}
             />
             <skinnedMesh
               name="Cube022_2"
               geometry={nodes.Cube022_2.geometry}
               material={materials["Manga.001"]}
               skeleton={nodes.Cube022_2.skeleton}
+              frustumCulled={false}
             />
           </group>
           <skinnedMesh
@@ -202,12 +208,14 @@ export function Character({
               geometry={nodes.Cube031.geometry}
               material={materials["Shirt.001"]}
               skeleton={nodes.Cube031.skeleton}
+              frustumCulled={false}
             />
             <skinnedMesh
               name="Cube031_1"
               geometry={nodes.Cube031_1.geometry}
               material={materials["jean.001"]}
               skeleton={nodes.Cube031_1.skeleton}
+              frustumCulled={false}
             />
           </group>
           <primitive object={nodes.mixamorigHips} />

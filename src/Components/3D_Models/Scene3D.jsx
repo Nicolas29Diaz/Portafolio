@@ -14,9 +14,13 @@ import Projects from "../Interfaces/Projects/Projects";
 import About from "../Interfaces/About/About";
 import useStore from "../../Store/Store";
 import { Cables } from "./Cables";
+import Menu from "../Interfaces/Menu/Menu";
 
 export function Scene3D() {
   const { showButtonStart, cameraFocus } = useStore();
+
+  //Screens visibility
+  const [showScreens, setShowScreens] = useState(false);
 
   // Character
   ////Animations
@@ -71,6 +75,7 @@ export function Scene3D() {
       introAnimation();
     } else {
       startAnimation();
+      setShowScreens(true);
     }
   }, [showButtonStart]);
 
@@ -91,21 +96,17 @@ export function Scene3D() {
   return (
     <>
       {/* SCREENS */}
-      <About3D>
-        <About />
-      </About3D>
+      <About3D>{showScreens && <About />}</About3D>
 
       <Contact3D></Contact3D>
 
-      <Menu3D visible={showMenu}></Menu3D>
+      <Menu3D visible={showMenu}>{showScreens && <Menu />}</Menu3D>
 
       <Projects3D visible={showProjects}>
-        <Projects />
+        {showScreens && <Projects />}
       </Projects3D>
 
-      <Skills3D>
-        <Skills />
-      </Skills3D>
+      <Skills3D>{showScreens && <Skills />}</Skills3D>
 
       {/* Scenario */}
       <Character

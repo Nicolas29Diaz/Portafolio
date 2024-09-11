@@ -7,7 +7,7 @@ import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { AxesHelper } from "three";
 import { Html } from "@react-three/drei";
-
+import { Scene3D } from "./3D_Models/Scene3D.jsx";
 // import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
 import {
   GizmoHelper,
@@ -125,29 +125,29 @@ export function EditScene() {
     )
   );
 
-  const cameraControlRef = useRef();
-  useEffect(() => {
-    const camera = cameraControlRef.current;
-    let pos = {};
-    camera.addEventListener("controlend", () => {
-      pos = {
-        x: camera._camera.position.x,
-        y: camera._camera.position.y,
-        z: camera._camera.position.z,
-      };
+  // const cameraControlRef = useRef();
+  // useEffect(() => {
+  //   const camera = cameraControlRef.current;
+  //   let pos = {};
+  //   camera.addEventListener("controlend", () => {
+  //     pos = {
+  //       x: camera._camera.position.x,
+  //       y: camera._camera.position.y,
+  //       z: camera._camera.position.z,
+  //     };
 
-      console.log("azimuthAngle: ", camera.azimuthAngle);
-      console.log("polarAngle:", camera.polarAngle);
-      console.log("distance:", camera.distance);
-      console.log("Camera position", pos);
-    });
-  }, []);
+  //     console.log("azimuthAngle: ", camera.azimuthAngle);
+  //     console.log("polarAngle:", camera.polarAngle);
+  //     console.log("distance:", camera.distance);
+  //     console.log("Camera position", pos);
+  //   });
+  // }, []);
 
   return (
     <>
-      <CameraControls ref={cameraControlRef}></CameraControls>
+      {/* <CameraControls ref={cameraControlRef}></CameraControls> */}
       <SceneConf></SceneConf>
-
+      <OrbitControls></OrbitControls>
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Escena></Escena> */}
         <Scene3D></Scene3D>
@@ -166,7 +166,7 @@ export function EditScene() {
         }}
       >
         <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
-          <boxGeometry args={[1, 2, 4]}></boxGeometry>
+          <boxGeometry args={[1, 1, 1]}></boxGeometry>
           <meshStandardMaterial
             color="red"
             transparent
@@ -174,16 +174,7 @@ export function EditScene() {
           ></meshStandardMaterial>
         </mesh>
       </PivotControls>
-      {/* <TransformControls>
-        <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
-          <boxGeometry args={[1, 1, 1]}></boxGeometry>
-          <meshStandardMaterial
-            color="blue"
-            transparent
-            opacity={0.5}
-          ></meshStandardMaterial>
-        </mesh>
-      </TransformControls> */}
+     
 
       {/* <GizmoHelper alignment="bottom-right" margin={[100, 100]}>
         <GizmoViewport labelColor="white" axisHeadScale={1} />

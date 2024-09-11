@@ -2,9 +2,8 @@ import { CameraControls } from "@react-three/drei";
 import { create } from "zustand";
 
 export const views = {
-  TV: "TV",
   CHARACTER: "CHARACTER",
-  PC: "PC",
+  MENU: "MENU",
   INITIAL: "INITIAL",
   SKILLS: "SKILLS",
   CONTACT: "CONTACT",
@@ -13,20 +12,27 @@ export const views = {
 };
 
 const useStore = create((set) => ({
-  cameraControls2: null,
-  showCancelButton: false,
+  isCancelButtonVisible: false,
+  isCancelButtonPressed: false,
+
   showButtonStart: true,
   showFloatButtons: false,
+  
+  isMenuView: false,
+  menuOption: "",
 
   cameraFocus: views.INITIAL,
   gpuTier: 1,
 
   setGpuTier: (value) => set({ gpuTier: value }),
-  setShowCancelButton: (value) => set({ showCancelButton: value }),
   setShowButtonStart: (value) => set({ showButtonStart: value }),
   setCameraFocus: (focus) => set({ cameraFocus: focus }),
   setShowFloatButtons: (value) => set({ showFloatButtons: value }),
-  setCameraControls2: (value) => set({ CameraControls: value }),
+  setMenuView: (value) => set({ isMenuView: value }),
+  setMenuOption: (value) => set({ menuOption: value }),
+
+  setCancelButtonVisibility: (value) => set({ isCancelButtonVisible: value }),
+  setCancelButtonPressed: (value) => set({ isCancelButtonPressed: value }),
 }));
 
 export default useStore;

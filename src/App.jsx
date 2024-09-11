@@ -28,8 +28,16 @@ import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import BackGround from "./Components/Interfaces/Skills/SvgItems/BackGround.jsx";
 import Skills from "./Components/Interfaces/Skills/Skills.jsx";
 /*
+SOLUCIONES:
+- El bug de la camara cuando paso de menu a otra vista, es porque la camara se está actualizando con el fixed,
+lo cual es correcto, pero si el usuario presiona muy rapido la opcion del menu, pues la camara se va a confundir, intentando
+hacer el fixed movemente camera, tanto para la nueva vista, como para la anterior, entonces la solucion es poner un delay
+para que el usuario no pueda presionar de una las opciones del menu, o arreglarlo de alguna forma en el fixedMovement
 
 TAREAS:
+- Quitar animaciones de los SVG al iniciar la app y verificar que no sean tan pesadas y exageradas
+- Cambiar logica del Cancel Button, osea la X para salir de una vista
+- Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
 - Verificar tamaño fuente uniforme IOS y Android y Windows.. Poner una fuente de respaldo
 - Animar svg about y projects y menu y contact
 - Terminar pantalla Skills ponienido el modelo
@@ -57,11 +65,16 @@ IDEAS:
 
 function App() {
   const {
-    showCancelButton,
-    setShowCancelButton,
+    isCancelButtonVisible,
+    setCancelButtonVisibility,
+    isCancelButtonPressed,
+    setCancelButtonPressed,
+
     showButtonStart,
     setShowButtonStart,
     setGpuTier,
+    isMenuView,
+    setMenuView,
   } = useStore();
 
   const { progress } = useProgress();
@@ -95,7 +108,6 @@ function App() {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  
   const [canvasSize, setCanvasSize] = useState({
     width:
       window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth + 1,
@@ -119,14 +131,18 @@ function App() {
             : window.innerHeight + 1,
       };
       setCanvasSize(canv);
-      console.log("canvasSize");
-      console.log(canv);
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // const handleMenu = () => {
+  //   setShowCancelButton(true);
+  //   setCurr;
+  // };
+
   return (
     <>
       <div
@@ -140,7 +156,7 @@ function App() {
       >
         <Canvas
           shadows
-          camera={{ position: [5, 20, 80], fov: 60 }}
+          camera={{ position: [1, 4, 7], fov: 60 }}
           ref={refCanvas}
           dpr={2}
         >
@@ -181,9 +197,16 @@ function App() {
         </Canvas>
       </div>
 
-      {showCancelButton && (
+      {isCancelButtonVisible && (
         <div className="contentCancelButton">
-          <div onClick={() => setShowCancelButton(false)}>+</div>
+          <div
+            onClick={() => {
+              setCancelButtonPressed(true);
+              setCancelButtonVisibility(false);
+            }}
+          >
+            +
+          </div>
           <i></i>
           <i></i>
         </div>
@@ -201,6 +224,13 @@ function App() {
             windowWidth > 1000 ? "vintage-overlay-1" : "vintage-overlay-2"
           }
         ></div>
+      )}
+
+      {/* PONER PARA ESPERAR UNOS 3.5 SEC ANTES DE MOSTRAR EL BOTON MENU */}
+      {!showButtonStart && (
+        <nav className="menu-button-container">
+          <button onClick={() => setMenuView(true)}>Menu</button>
+        </nav>
       )}
     </>
   );

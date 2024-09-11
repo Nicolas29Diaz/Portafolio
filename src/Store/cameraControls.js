@@ -36,6 +36,10 @@ export const getCameraControls = () => {
   const isMobileInitial = width <= 1000;
   const isTabletInitial = width <= 1024;
 
+  //En Menu cambia tanto Y como Z como X entonces se aplica la función relativeDistance a todas
+  const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
+  const y_positionMenu = relativeDistance(width, 1.48, 2.32, 1024);
+  const z_positionMenu = relativeDistance(width, 0.81, 1.21, 1024);
   return {
     SKILLS: {
       rotation: {
@@ -183,12 +187,12 @@ export const getCameraControls = () => {
     MENU: {
       rotation: {
         polar: {
-          speed: 0.7, //Enable/Disable (1 or 0) polar rotation
-          min: Math.PI / 3,
-          max: Math.PI / 2,
+          speed: 0, //Enable/Disable (1 or 0) polar rotation
+          min: 0,
+          max: Math.PI,
         },
         azimuth: {
-          speed: 0.7, //Enable/Disable (1 or 0) azimuth rotation
+          speed: 0, //Enable/Disable (1 or 0) azimuth rotation
           min: -Infinity,
           max: Infinity,
         },
@@ -197,14 +201,9 @@ export const getCameraControls = () => {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 0,
         max: 10,
-        distance: distanceCharacter,
       },
-      coordCamera: {
-        x: 0,
-        y: 3,
-        z: 4,
-      }, //Coordinates to posisionate the camera view
-      coordLook: { x: 0.5, y: 1, z: 0 }, //Coordinates to look at
+      coordCamera: { x: x_positionMenu, y: y_positionMenu, z: z_positionMenu }, //Coordinates to posisionate the camera view
+      coordLook: { x: 1.5, y: 0.5, z: 0 }, //Coordinates to look at
     },
   };
 };

@@ -15,21 +15,28 @@ import { Scene3D } from "./3D_Models/Scene3D.jsx";
 export function Scene() {
   const timeToChangeView = 1500;
   // const timeToMove = 3500;
-  const timeToMove = 0;
+  const timeToMove = 3500;
 
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
   const [currentView, setCurrentView] = useState(views.INITIAL);
   const [firstViewToCharacter, setFirstViewToCharacter] = useState(true);
   const {
-    showCancelButton,
-    setShowCancelButton,
+    isCancelButtonVisible,
+    setCancelButtonVisibility,
+    isCancelButtonPressed,
+    setCancelButtonPressed,
     showButtonStart,
     setCameraFocus,
+    camerFocus,
     setShowButtonStart,
     showFloatButtons,
     setShowFloatButtons,
     setCameraControls2,
+    isMenuView,
+    setMenuView,
+    menuOption,
+    setMenuOption,
   } = useStore();
 
   const moveCameraToObject = () => {
@@ -56,7 +63,7 @@ export function Scene() {
     const camera = cameraControlRef.current;
     const current = cameraControls[currentView];
 
-    if (currentView === views.CHARACTER) {
+    if (currentView === views.CHARACTER && !firstViewToCharacter) {
       camera.distance = current.dolly.distance;
     }
     // camera.distance = current.dolly.distance;
@@ -86,23 +93,31 @@ export function Scene() {
     }
   };
 
-  const changeView = (view) => {
+  const changeView = (view, floatButton = false) => {
     setCameraFocus(view);
     setCurrentView(view);
-    setShowFloatButtons(false);
+    setShowFloatButtons(floatButton);
   };
 
   //In this function the camera is moved to the object, but
   //the movemente is repeated until the camera is in the correct position
   const fixedMoveCameraToObject = () => {
     if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
-      const intervalId = setInterval(moveCameraToObject, 1);
+      const intervalId = setInterval(moveCameraToObject, 100);
+
       setTimeout(() => {
         clearInterval(intervalId);
-        setShowCancelButton(true);
       }, timeToChangeView);
     } else {
       moveCameraToObject();
+    }
+  };
+
+  const updateCancelButtonVisibility = () => {
+    if (currentView !== views.CHARACTER && currentView !== views.INITIAL) {
+      setCancelButtonVisibility(true);
+    } else {
+      setCancelButtonVisibility(false);
     }
   };
 
@@ -115,13 +130,18 @@ export function Scene() {
     fixedMoveCameraToObject();
     updateControlsCamera();
 
+    setTimeout(() => {
+      updateCancelButtonVisibility();
+    }, timeToChangeView);
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [currentView]);
 
   useEffect(() => {
     if (!showButtonStart) {
-      setCurrentView(views.CHARACTER);
+      // setCurrentView(views.CHARACTER);
+      changeView(views.CHARACTER, true);
       setTimeout(() => {
         setShowFloatButtons(true);
       }, timeToMove);
@@ -130,30 +150,53 @@ export function Scene() {
   }, [showButtonStart]);
 
   useEffect(() => {
-    if (!showCancelButton && !showButtonStart) {
-      setCameraFocus(views.CHARACTER);
-      setCurrentView(views.CHARACTER);
-      setShowFloatButtons(true);
+    if (isCancelButtonPressed) {
+      setCancelButtonPressed(false);
+      setCancelButtonVisibility();
+      changeView(views.CHARACTER, true);
     }
-  }, [showCancelButton]);
+  }, [isCancelButtonPressed]);
+
+  //MOSTAR COORDENADAS CAMARA
+  // useEffect(() => {
+  //   const camera = cameraControlRef.current;
+  //   let pos = {};
+  //   camera.addEventListener("controlend", () => {
+  //     pos = {
+  //       x: camera._camera.position.x,
+  //       y: camera._camera.position.y,
+  //       z: camera._camera.position.z,
+  //     };
+
+  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
+  //     // console.log("polarAngle:", camera.polarAngle);
+  //     console.log("distance:", camera.distance);
+  //     console.log("Camera position", pos);
+  //     // camera.distance = 0;
+  //   });
+  // }, []);
 
   useEffect(() => {
-    const camera = cameraControlRef.current;
-    let pos = {};
-    camera.addEventListener("controlend", () => {
-      pos = {
-        x: camera._camera.position.x,
-        y: camera._camera.position.y,
-        z: camera._camera.position.z,
-      };
+    if (isMenuView) {
+      console.log("isMenuView", isMenuView);
+      changeView(views.MENU);
+      setMenuView(false);
+    }
+  }, [isMenuView]);
 
-      // console.log("azimuthAngle: ", camera.azimuthAngle);
-      // console.log("polarAngle:", camera.polarAngle);
-      console.log("distance:", camera.distance);
-      console.log("Camera position", pos);
-      // camera.distance = 0;
-    });
-  }, []);
+  useEffect(() => {
+    if (menuOption !== "") {
+      // console.log("menuOption", menuOption);
+      // setCancelButtonVisibility(false);
+      // setCameraFocus(menuOption);
+      // setCurrentView(menuOption);
+      // setShowFloatButtons(false);
+      setCancelButtonVisibility(false);
+      changeView(menuOption);
+      console.log("menuOption", menuOption);
+      setMenuOption("");
+    }
+  }, [menuOption]);
 
   return (
     <>

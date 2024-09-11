@@ -1,0 +1,55 @@
+.menu-html {
+  background: rgb(0, 0, 0);
+  width: 390px;
+  height: 460px;
+  position: relative;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-container button {
+  color: white;
+  background: #2c3e50;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 2.5rem;
+  height: 90px;
+  width: 50%;
+  border-radius: 15px;
+}
+
+.menu-no-pointer {
+  pointer-events: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu button {
+  color: white;
+  background: #2c3e50;
+  border: none;
+
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 5rem;
+  height: 200px;
+  width: 80%;
+  border-radius: 15px;
+}
