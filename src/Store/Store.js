@@ -17,9 +17,10 @@ const useStore = create((set) => ({
 
   showButtonStart: true,
   showFloatButtons: false,
-  
+
   isMenuView: false,
   menuOption: "",
+  isMenuButtonVisible: false,
 
   cameraFocus: views.INITIAL,
   gpuTier: 1,
@@ -30,6 +31,7 @@ const useStore = create((set) => ({
   setShowFloatButtons: (value) => set({ showFloatButtons: value }),
   setMenuView: (value) => set({ isMenuView: value }),
   setMenuOption: (value) => set({ menuOption: value }),
+  setMenuButtonVisible: (value) => set({ isMenuButtonVisible: value }),
 
   setCancelButtonVisibility: (value) => set({ isCancelButtonVisible: value }),
   setCancelButtonPressed: (value) => set({ isCancelButtonPressed: value }),

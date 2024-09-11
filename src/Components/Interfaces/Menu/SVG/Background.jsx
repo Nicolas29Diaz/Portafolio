@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./SVG.css";
-import useStore from "../../../../Store/Store";
+import { useScaleAnimation } from "../../../../Animation/useScaleAnimation";
 
-function Background({ animate }) {
-  const { setMenuOption } = useStore();
+function Background({ isHandVisible, onHandClick }) {
+  const opacity = useScaleAnimation(isHandVisible, 1);
   return (
     <>
       <svg
@@ -70,113 +70,24 @@ function Background({ animate }) {
             points="40,0 70,0 30,40 0,40 40,0"
           ></polyline>
         </g>
-
-        {/* Buttons */}
-        <g transform="translate(80 80)">
-          <g
-            onClick={() => {
-              setMenuOption("SKILLS");
-            }}
-            transform="translate(0 0)"
-            className="menu-svg-button"
-          >
-            <polyline
-              className={`menu-button`}
-              points="0,0 190,0 200,10 200,50 10,50 0,40 0,0"
-            ></polyline>
-            <polyline
-              transform="translate(8 8) scale(1.2)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <polyline
-              transform="translate(192 42) scale(1.2) rotate(180 0 0)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <text transform="translate(50 35)" className="menu-text-button">
-              SKILLS
-            </text>
-          </g>
-
-          <g
-            onClick={() => {
-              setMenuOption("ABOUT");
-            }}
-            transform="translate(0 80)"
-            className="menu-svg-button"
-          >
-            <polyline
-              className={`menu-button`}
-              points="0,0 190,0 200,10 200,50 10,50 0,40 0,0"
-            ></polyline>
-            <polyline
-              transform="translate(8 8) scale(1.2)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <polyline
-              transform="translate(192 42) scale(1.2) rotate(180 0 0)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <text transform="translate(50 35)" className="menu-text-button">
-              ABOUT
-            </text>
-          </g>
-
-          <g
-            onClick={() => {
-              setMenuOption("PROJECTS");
-            }}
-            transform="translate(0 160)"
-            className="menu-svg-button"
-          >
-            <polyline
-              className={`menu-button`}
-              points="0,0 190,0 200,10 200,50 10,50 0,40 0,0"
-            ></polyline>
-            <polyline
-              transform="translate(8 8) scale(1.2)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <polyline
-              transform="translate(192 42) scale(1.2) rotate(180 0 0)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <text transform="translate(20 35)" className="menu-text-button">
-              PROJECTS
-            </text>
-          </g>
-
-          <g
-            onClick={() => {
-              setMenuOption("CONTACT");
-            }}
-            transform="translate(0 240)"
-            className="menu-svg-button"
-          >
-            <polyline
-              className={`menu-button`}
-              points="0,0 190,0 200,10 200,50 10,50 0,40 0,0"
-            ></polyline>
-            <polyline
-              transform="translate(8 8) scale(1.2)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <polyline
-              transform="translate(192 42) scale(1.2) rotate(180 0 0)"
-              className={`menu-decoration-button`}
-              points="-10,-10 10,-10 8,-5 -5,-5 -5,12 -10,17 -10,-10"
-            ></polyline>
-            <text transform="translate(30 35)" className="menu-text-button">
-              CONTACT
-            </text>
-          </g>
+        {/* Title */}
+        <g transform="translate(65 45)">
+          <text className="menu-title">MENU</text>
         </g>
+
+        {opacity > 0 && (
+          <foreignObject
+            x={20}
+            y={70}
+            // style={{ width: "300px", height: "300px" }}
+            className="menu-hand-container"
+            onClick={onHandClick}
+            // transform="translate(-50%, -50%) scale(0.5)"
+            style={{ opacity: opacity }}
+          >
+            <img src="/Images/Icons/HandMenu.png" alt="HandIcon" />
+          </foreignObject>
+        )}
       </svg>
     </>
   );

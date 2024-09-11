@@ -5,7 +5,7 @@
 :root {
   --button-border-color: rgb(255, 255, 255);
   --button-hover-color: rgb(0, 159, 203);
-  --button-bg-color: rgb(71, 71, 71);
+  --button-bg-color: rgb(0, 0, 0);
   --button-animation: 0.3s;
 }
 .contentFloatButton {

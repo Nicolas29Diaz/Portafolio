@@ -18,7 +18,7 @@ export function Chair({
 
   useEffect(() => {
     if (startAnimation) {
-      console.log("Chair useEffect");
+      // console.log("Chair useEffect");
       const helmet = actions[names[0]];
       helmet.reset().fadeIn(0.5).play();
       helmet.setLoop(THREE.LoopOnce);

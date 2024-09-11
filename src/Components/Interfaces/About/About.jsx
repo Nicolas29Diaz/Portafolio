@@ -6,10 +6,14 @@ import { Html } from "@react-three/drei";
 // Importing styles
 import "./About.css";
 import "./SvgItems/SVG.css";
+import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 
 // Importing components
 
 function About({ animate = false }) {
+  const { showButtonStart } = useStore();
+  const opacity = useScaleAnimation(!showButtonStart);
+
   return (
     <Html
       className={`about-background ${animate ? "" : ""}`}
@@ -20,6 +24,7 @@ function About({ animate = false }) {
       position={[0.3, 0, 0]}
       rotation={[0, -Math.PI / 2, 0]}
       scale={[1.72, 1.72, 1.72]}
+      style={{ opacity: opacity }}
     >
       <svg
         width="100%"

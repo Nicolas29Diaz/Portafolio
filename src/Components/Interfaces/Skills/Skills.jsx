@@ -21,9 +21,10 @@ import { useThree } from "@react-three/fiber";
 import Subtitle from "./SvgItems/Subtitle.jsx";
 
 function Skills() {
-  const { cameraFocus } = useStore();
+  const { cameraFocus, showButtonStart } = useStore();
   const [active, setActive] = useState(0);
   const [animate, setAnimate] = useState(false);
+
   useEffect(() => {
     // console.log(cameraFocus);
     if (cameraFocus === "SKILLS") {
@@ -34,7 +35,7 @@ function Skills() {
   }, [cameraFocus]);
 
   useEffect(() => {
-    console.log(skillsConf[0].category);
+    // console.log(skillsConf[0].category);
   }, []);
 
   const viewport = useThree();
@@ -57,7 +58,7 @@ function Skills() {
         rotation={[-Math.PI / 2, 0, 0]}
       >
         <BackGround animate={animate} active={active}></BackGround>
-          {/* <div
+        {/* <div
             style={{
               background: "red",
               width: "900px",

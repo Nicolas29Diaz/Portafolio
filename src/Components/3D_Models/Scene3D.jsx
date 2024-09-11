@@ -51,7 +51,7 @@ export function Scene3D() {
 
   const introAnimation = () => {
     setCharacterIntroAnim(true);
-    console.log("Intro Animation");
+    // console.log("Intro Animation");
   };
 
   const startAnimation = () => {
@@ -96,11 +96,15 @@ export function Scene3D() {
   return (
     <>
       {/* SCREENS */}
-      <About3D>{showScreens && <About />}</About3D>
+      <About3D>
+        <About />
+      </About3D>
 
       <Contact3D></Contact3D>
 
-      <Menu3D visible={showMenu}>{showScreens && <Menu />}</Menu3D>
+      <Menu3D visible={showMenu}>
+        <Menu />
+      </Menu3D>
 
       <Projects3D visible={showProjects}>
         {showScreens && <Projects />}

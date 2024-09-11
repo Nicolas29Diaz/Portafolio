@@ -6,7 +6,7 @@ function Subtitle({ active, subTitleOptions }) {
   useEffect(() => {
     setTimeout(() => {
       setSubTitleOptionsDelay(subTitleOptions);
-      console.log(subTitleOptions.text);
+      // console.log(subTitleOptions.text);
     }, 400);
   }, [active]);
 

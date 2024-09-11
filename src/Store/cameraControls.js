@@ -40,6 +40,11 @@ export const getCameraControls = () => {
   const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
   const y_positionMenu = relativeDistance(width, 1.48, 2.32, 1024);
   const z_positionMenu = relativeDistance(width, 0.81, 1.21, 1024);
+
+  //Contacts
+  const y_positionContact = relativeDistance(width, 3.18, 3.37);
+  const z_positionContact = relativeDistance(width, -6.06, -5.51);
+
   return {
     SKILLS: {
       rotation: {
@@ -120,23 +125,23 @@ export const getCameraControls = () => {
     CONTACT: {
       rotation: {
         polar: {
-          speed: 1, //Enable/Disable (1 or 0) polar rotation
-          min: Math.PI / 4,
-          max: Math.PI / 2,
+          speed: 0, //Enable/Disable (1 or 0) polar rotation
+          min: 0,
+          max: Math.PI,
         },
         azimuth: {
-          speed: 1, //Enable/Disable (1 or 0) azimuth rotation
-          min: Math.PI / 2,
-          max: Math.PI / 2,
+          speed: 0, //Enable/Disable (1 or 0) azimuth rotation
+          min: -Infinity,
+          max: Infinity,
         },
       },
       dolly: {
         speed: 1, //Enable/Disable (1 or 0) dolly
-        min: 4,
-        max: 11,
+        min: 2,
+        max: 6,
       },
-      coordCamera: { x: 0.7, y: 2.55, z: 3 }, //Coordinates to posisionate the camera view
-      coordLook: { x: 0.9, y: 2.55, z: 7.86 }, //Coordinates to look at
+      coordCamera: { x: 0.275, y: y_positionContact, z: z_positionContact }, //Coordinates to posisionate the camera view
+      coordLook: { x: 0.275, y: 2.5, z: -8 }, //Coordinates to look at
     },
     PROJECTS: {
       rotation: {

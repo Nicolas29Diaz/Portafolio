@@ -15,7 +15,10 @@ import { Scene3D } from "./3D_Models/Scene3D.jsx";
 export function Scene() {
   const timeToChangeView = 1500;
   // const timeToMove = 3500;
-  const timeToMove = 3500;
+  //No se si dejar eso del tiempo para mover la camara,
+  //Puede ser que simplemente el usuario se pueda mover, pero que aparezca
+  //el icono de movimiento luego de un tiempo
+  const timeToMove = 0;
 
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
@@ -37,6 +40,7 @@ export function Scene() {
     setMenuView,
     menuOption,
     setMenuOption,
+    setMenuButtonVisible,
   } = useStore();
 
   const moveCameraToObject = () => {
@@ -130,6 +134,12 @@ export function Scene() {
     fixedMoveCameraToObject();
     updateControlsCamera();
 
+    if (currentView === views.CHARACTER) {
+      setMenuButtonVisible(true);
+    } else {
+      setMenuButtonVisible(false);
+    }
+
     setTimeout(() => {
       updateCancelButtonVisibility();
     }, timeToChangeView);
@@ -158,6 +168,7 @@ export function Scene() {
   }, [isCancelButtonPressed]);
 
   //MOSTAR COORDENADAS CAMARA
+
   // useEffect(() => {
   //   const camera = cameraControlRef.current;
   //   let pos = {};
@@ -168,17 +179,17 @@ export function Scene() {
   //       z: camera._camera.position.z,
   //     };
 
-  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
-  //     // console.log("polarAngle:", camera.polarAngle);
+  //     console.log("azimuthAngle: ", camera.azimuthAngle);
+  //     console.log("polarAngle:", camera.polarAngle);
   //     console.log("distance:", camera.distance);
   //     console.log("Camera position", pos);
-  //     // camera.distance = 0;
+  //     camera.distance = 0;
   //   });
   // }, []);
 
   useEffect(() => {
     if (isMenuView) {
-      console.log("isMenuView", isMenuView);
+      // console.log("isMenuView", isMenuView);
       changeView(views.MENU);
       setMenuView(false);
     }
@@ -193,7 +204,7 @@ export function Scene() {
       // setShowFloatButtons(false);
       setCancelButtonVisibility(false);
       changeView(menuOption);
-      console.log("menuOption", menuOption);
+      // console.log("menuOption", menuOption);
       setMenuOption("");
     }
   }, [menuOption]);
@@ -201,7 +212,7 @@ export function Scene() {
   return (
     <>
       {/* Camera configuration */}
-      <CameraControls ref={cameraControlRef} truckSpeed={0} />
+      <CameraControls ref={cameraControlRef} truckSpeed={1} />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Scene3D2></Scene3D2> */}
@@ -212,8 +223,8 @@ export function Scene() {
         <FloatButton
           view={views.CONTACT}
           changeView={changeView}
-          position={[5, 2.53, -7.668]}
-          rotation={[0, -Math.PI / 5, Math.PI / 4]}
+          position={[0, 2.8, -6]}
+          rotation={[0, 0, Math.PI / 4]}
         />
         <FloatButton
           view={views.SKILLS}

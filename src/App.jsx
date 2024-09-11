@@ -1,40 +1,27 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { getGPUTier } from "detect-gpu";
-import {
-  Environment,
-  Html,
-  Loader,
-  OrbitControls,
-  Preload,
-  RenderTexture,
-  Text,
-  useProgress,
-} from "@react-three/drei";
-
+import { Preload, Text, useProgress } from "@react-three/drei";
 import useStore from "./Store/Store.js";
-
 import { EditScene } from "./Components/EditScene.jsx";
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
-
 import "./Syles/FloatButton.css";
 import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
 import { SceneConf } from "./Components/SceneConf.jsx";
-
 import { Scene } from "./Components/Scene.jsx";
-import { SceneOp2 } from "./Components/SceneOp2.jsx";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import BackGround from "./Components/Interfaces/Skills/SvgItems/BackGround.jsx";
-import Skills from "./Components/Interfaces/Skills/Skills.jsx";
+
 /*
 SOLUCIONES:
 - El bug de la camara cuando paso de menu a otra vista, es porque la camara se está actualizando con el fixed,
 lo cual es correcto, pero si el usuario presiona muy rapido la opcion del menu, pues la camara se va a confundir, intentando
 hacer el fixed movemente camera, tanto para la nueva vista, como para la anterior, entonces la solucion es poner un delay
 para que el usuario no pueda presionar de una las opciones del menu, o arreglarlo de alguna forma en el fixedMovement
+- Poner qu eaparezcan uno a uno los botenones y quitar el pointer 
 
 TAREAS:
+- Cambiar el icono del cursor, puede ser una bolita o algo así
 - Quitar animaciones de los SVG al iniciar la app y verificar que no sean tan pesadas y exageradas
 - Cambiar logica del Cancel Button, osea la X para salir de una vista
 - Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
@@ -67,22 +54,27 @@ function App() {
   const {
     isCancelButtonVisible,
     setCancelButtonVisibility,
-    isCancelButtonPressed,
     setCancelButtonPressed,
-
     showButtonStart,
     setShowButtonStart,
     setGpuTier,
-    isMenuView,
     setMenuView,
+    isMenuButtonVisible,
   } = useStore();
-
-  const { progress } = useProgress();
-
   const editMode = false;
 
+  const { progress } = useProgress();
   const refCanvas = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({
+    width:
+      window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth + 1,
+    height:
+      window.innerHeight % 2 === 0
+        ? window.innerHeight
+        : window.innerHeight + 1,
+  });
 
   useEffect(() => {
     const getGPUInfo = async () => {
@@ -106,17 +98,6 @@ function App() {
     };
   }, []);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const [canvasSize, setCanvasSize] = useState({
-    width:
-      window.innerWidth % 2 === 0 ? window.innerWidth : window.innerWidth + 1,
-    height:
-      window.innerHeight % 2 === 0
-        ? window.innerHeight
-        : window.innerHeight + 1,
-  });
-
   // Listener para el evento resize, ajusta el tamaño del canvas a valores pares
   useEffect(() => {
     const handleResize = () => {
@@ -137,11 +118,6 @@ function App() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // const handleMenu = () => {
-  //   setShowCancelButton(true);
-  //   setCurr;
-  // };
 
   return (
     <>
@@ -214,7 +190,13 @@ function App() {
 
       {progress >= 100 && showButtonStart && (
         <div className="containerStartButton">
-          <button onClick={() => setShowButtonStart(false)}>Start</button>
+          <button
+            onClick={() => {
+              setShowButtonStart(false);
+            }}
+          >
+            Start
+          </button>
         </div>
       )}
 
@@ -226,11 +208,14 @@ function App() {
         ></div>
       )}
 
-      {/* PONER PARA ESPERAR UNOS 3.5 SEC ANTES DE MOSTRAR EL BOTON MENU */}
-      {!showButtonStart && (
-        <nav className="menu-button-container">
-          <button onClick={() => setMenuView(true)}>Menu</button>
-        </nav>
+      {isMenuButtonVisible && (
+        <div
+          className="menu-button-container"
+          onClick={() => setMenuView(true)}
+        >
+          <img src="./Images/Icons/Menu3.png" alt="MenuIcon" />
+          {/* <button onClick={() => setMenuView(true)}>Menu</button> */}
+        </div>
       )}
     </>
   );
