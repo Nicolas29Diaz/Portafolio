@@ -5,6 +5,3 @@
   position: relative;
 }
 
-.menu-no-pointer {
-  pointer-events: none;
-}

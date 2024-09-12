@@ -7,7 +7,7 @@ import Buttons from "./SVG/Buttons";
 import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 function Menu() {
   const { cameraFocus, showButtonStart, setMenuView, isMenuView } = useStore();
-  const [animate, setAnimate] = useState(false);
+
   const [canPressButton, setCanPressButton] = useState(false);
   const [isHandVisible, setHandVisible] = useState(false);
   const [isMenuOptionsVisible, setMenuOptionsVisible] = useState(false);
@@ -33,7 +33,7 @@ function Menu() {
   return (
     <>
       <Html
-        className={`menu-html ${animate ? "" : ""}`}
+        className={`menu-html`}
         distanceFactor={1.72}
         transform
         occlude="blending"

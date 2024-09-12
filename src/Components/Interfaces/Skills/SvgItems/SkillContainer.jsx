@@ -24,30 +24,28 @@ function SkillContainer({
               <stop offset="90%" stopColor="rgba(0,0,0)"></stop>
             </linearGradient>
           </defs>
-          <g transform={`translate(${position}) scale(${scale})`}>
+
+          <g>
             {/* Skill container */}
+
             <g>
               <polyline
-                className={`border-line ${
-                  animate ? "animation-border-line" : ""
-                }`}
-                points="0,70 0,20 30,0 100,0 100,80 130,80 140,90 250,90 270,75"
+                className={`border-line `}
+                points="10,85 10,35 40,15 110,15 110,95 140,95 150,105 260,105 280,90"
               />
               <polyline
-                className={`border-line ${
-                  animate ? "animation-border-line" : ""
-                }`}
-                points="0,70 0,120 65,120 100,100 100,80 100,85"
+                className={`border-line`}
+                points="10,85 10,135 75,135 110,115 110,95 110,100"
               />
             </g>
 
             {/* Skill container Decoration */}
-            <g transform="translate(0 0)">
+            <g>
               <polyline
                 className={`border-line-2 ${
                   animate ? "animation-border-line-3" : ""
                 }`}
-                points="100,80 130,80 140,90 150,90"
+                points="110,95 140,95 150,105 160,105"
               />
             </g>
 
@@ -67,7 +65,7 @@ function SkillContainer({
         </svg>
 
         <div className="img-container">
-          <img src={srcImg} alt={altImg} />
+          <img src={srcImg} alt={altImg} loading="lazy" />
         </div>
       </div>
     </>

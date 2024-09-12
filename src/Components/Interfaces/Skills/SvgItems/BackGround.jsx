@@ -40,9 +40,7 @@ function BackGround({ animate }) {
           {/* Skills Border */}
           <g>
             <polyline
-              className={`border-line ${
-                animate ? "animation-border-line-2" : ""
-              }`}
+              className={`border-line`}
               points="0,200 0,50 40,50 55,70 245,70 260,50 670,50 700,80 700,200"
             />
             <polyline
@@ -52,9 +50,7 @@ function BackGround({ animate }) {
               points="35,0 300,0 300,20 300,40 255,40 240,60 60,60 45,40 0,40 0,20 35,0"
             />
             <polyline
-              className={`border-line ${
-                animate ? "animation-border-line-2" : ""
-              }`}
+              className={`border-line`}
               points="0,200 0,390 30,420 670,420 700,390 700,200"
             />
             <text x={105} y={45} className="text-title">
@@ -66,9 +62,7 @@ function BackGround({ animate }) {
           {/* Subtitle border */}
           <g>
             <polyline
-              className={`border-line subtitle-content ${
-                animate ? "animation-border-line" : ""
-              }`}
+              className={`border-line subtitle-content`}
               points="310,20 310,40 670,40 700,0 310,0 310,20"
             />
           </g>
@@ -76,9 +70,7 @@ function BackGround({ animate }) {
           {/* 3D model border */}
           <g>
             <polyline
-              className={`border-line ${
-                animate ? "animation-border-line-2" : ""
-              }`}
+              className={`border-line`}
               points="680,45 715,0 910,0 940,30 940,390 910,420 685,420 710,395 710,75 680,45"
             />
           </g>

@@ -137,21 +137,7 @@ export const sliderConf = {
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-  // dots: true,
-  // autoplay: true,
-  // autoplaySpeed: 6000,
-  speed: 1000,
+  speed: 700,
   touchThreshold: 20,
+  lazyload: "ondemand",
 };
-// export const sliderConf = {
-//   infinite: true,
-
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-//   dots: true,
-//   // autoplay: true,
-//   // autoplaySpeed: 6000,
-//   fade: true,
-//   speed: 500,
-//   waitForAnimate: false,
-// };

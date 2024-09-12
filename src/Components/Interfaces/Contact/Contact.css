@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "Electrolize-Regular";
+  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
+}
+:root {
+  --background-color: #002d34;
+  --input-background-color: #b5ebf3;
+  --text-color: #000000;
+  --placeholder-color: #4342428c;
+  --border-color: #b5ebf3;
+}
+.contact-html {
+  /* Radial gradient */
+  background: radial-gradient(circle, #004f5b, var(--background-color));
+  width: 580px;
+  height: 610px;
+  position: relative;
+  font-family: "Electrolize-Regular";
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.contact-no-pointer {
+  pointer-events: none;
+}
+
+.contact-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 50px;
+  z-index: 1;
+}
+
+.contact-content input {
+  font-family: inherit;
+  font-size: inherit;
+  height: 50px;
+  width: 80%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-background-color);
+  color: inherit;
+}
+
+.contact-content textarea {
+  font-family: inherit;
+  font-size: inherit;
+  width: 80%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-background-color);
+  color: inherit;
+}
+.contact-content textarea::placeholder {
+  color: var(--placeholder-color);
+}
+.contact-content input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.contact-content button {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: var(--input-background-color);
+  color: var(--text-color);
+  cursor: pointer;
+  margin-top: 15px;
+  transition: transform 0.1s ease;
+}
+.contact-content button:hover {
+  background-color: #6bdced;
+  transform: scale(1.1);
+}
+
+.contact-title {
+  /* font-family: "Electrolize-Regular"; */
+  /* fill: #000000;
+  font-size: 30px;
+  font-weight: 700; */
+}
+
+.contact-icon-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  position: absolute;
+  bottom: 80px;
+  width: 100%;
+  height: 70px;
+  z-index: 1;
+}
+
+.contact-icon-row ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+  transition: transform 0.1s ease;
+  list-style: none;
+  gap: 20px;
+}
+
+.contact-icon-row li {
+  height: 100%;
+  width: auto;
+  border: 4px solid var(--border-color);
+  border-radius: 50%;
+  transition: transform 0.1s ease;
+}
+.contact-icon-row li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+.contact-icon-row li a img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+.contact-icon-row li:hover {
+  transform: scale(1.2);
+}
+

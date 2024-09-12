@@ -21,6 +21,7 @@
   stroke-dasharray: 0 1000;
   animation: skillsDrawLine 8s ease forwards;
 }
+
 .animation-border-line-2 {
   stroke-dasharray: 0 1000;
   animation: skillsDrawLine 5s ease forwards;
@@ -86,8 +87,6 @@
   font-family: "Electrolize-Regular";
 }
 
-
-
 /* Subtitle container */
 .subtitle-content {
   fill: url(#content-gradient-subtitle);
@@ -95,7 +94,7 @@
 
 .title-content {
   fill: #08bee1;
-} 
+}
 
 /* Div skill container */
 .skill-container {

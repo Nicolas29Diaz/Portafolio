@@ -15,7 +15,7 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
           <mask id="skillPoints-mask">
             {/* Rectangle to reveal skill points */}
             <rect
-              transform="translate(42 112) rotate(-180)"
+              transform="translate(51 127) rotate(-180)"
               className="skillPoints-mask-show"
               // height="60px"
               width="42px"
@@ -23,16 +23,13 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
             />
           </mask>
 
-          <g
-            transform="scale(1.05) translate(0 -5)"
-            mask="url(#skillPoints-mask)"
-          >
+          <g transform="scale(1.05)" mask="url(#skillPoints-mask)">
             <g transform="translate(0 0)">
               <polyline
                 className={
                   skillPoints >= 1 ? "skillPoints filled" : "skillPoints"
                 }
-                points="6,110 35,110 35,103 6,103 6,110"
+                points="16,120 45,120 45,113 16,113 16,120"
               />
             </g>
             <g transform="translate(0 -13)">
@@ -40,7 +37,7 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
                 className={
                   skillPoints >= 2 ? "skillPoints filled" : "skillPoints"
                 }
-                points="6,110 35,110 35,103 6,103 6,110"
+                points="16,120 45,120 45,113 16,113 16,120"
               />
             </g>
             <g transform="translate(0 -26)">
@@ -48,7 +45,7 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
                 className={
                   skillPoints >= 3 ? "skillPoints filled" : "skillPoints"
                 }
-                points="6,110 35,110 35,103 6,103 6,110"
+                points="16,120 45,120 45,113 16,113 16,120"
               />
             </g>
             <g transform="translate(0 -39)">
@@ -56,36 +53,36 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
                 className={
                   skillPoints >= 4 ? "skillPoints filled" : "skillPoints"
                 }
-                points="6,110 35,110 35,103 6,103 6,110"
+                points="16,120 45,120 45,113 16,113 16,120"
               />
             </g>
           </g>
         </>
       )}
 
-      <g transform="scale(1.05) translate(0 -5)">
-        <g transform="translate(0 0)">
+      <g transform="scale(1.05)">
+        <g>
           <polyline
             className="skillPoints"
-            points="6,110 35,110 35,103 6,103 6,110"
+            points="16,120 45,120 45,113 16,113 16,120"
           />
         </g>
         <g transform="translate(0 -13)">
           <polyline
             className="skillPoints"
-            points="6,110 35,110 35,103 6,103 6,110"
+            points="16,120 45,120 45,113 16,113 16,120"
           />
         </g>
         <g transform="translate(0 -26)">
           <polyline
             className="skillPoints"
-            points="6,110 35,110 35,103 6,103 6,110"
+            points="16,120 45,120 45,113 16,113 16,120"
           />
         </g>
         <g transform="translate(0 -39)">
           <polyline
             className="skillPoints"
-            points="6,110 35,110 35,103 6,103 6,110"
+            points="16,120 45,120 45,113 16,113 16,120"
           />
         </g>
       </g>

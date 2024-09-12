@@ -38,7 +38,6 @@ function About({ animate = false }) {
           // zIndex: "1000",
         }}
       >
-        {/* 1450,50 */}
         <g transform="translate(-350 0)">
           <polyline
             className="about-border-thick about-no-fill"
@@ -55,7 +54,9 @@ function About({ animate = false }) {
             ABOUT
           </text>
         </g>
-
+        <clipPath id="circleClip">
+          <circle cx="370" cy="350" r="150" />
+        </clipPath>
         <image
           xlinkHref="https://www.metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg"
           x="0"
@@ -64,9 +65,6 @@ function About({ animate = false }) {
           height="800"
           clipPath="url(#circleClip)"
         />
-        <clipPath id="circleClip">
-          <circle cx="370" cy="350" r="150" />
-        </clipPath>
 
         <g transform="translate(250 0)">
           <text x="0" y="520" className="about-text-description">
@@ -78,11 +76,6 @@ function About({ animate = false }) {
             </tspan>
           </text>
         </g>
-
-        {/* <foreignObject x="150" y="550" width="300" height="500">
-          <div className="about-text-description">Nicolas </div>
-          <div className="about-text-description">Diaz Santos</div>
-        </foreignObject> */}
 
         <foreignObject x="-580" y="105" width="710" height="600">
           <div className="about-text-description">
