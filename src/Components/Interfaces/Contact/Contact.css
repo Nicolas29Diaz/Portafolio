@@ -139,3 +139,13 @@
   transform: scale(1.2);
 }
 
+.contact-text-feedback {
+  font-size: 1.2  rem;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+.error {
+  color: rgb(226, 0, 0);
+}

@@ -3,10 +3,16 @@ import { Html } from "@react-three/drei";
 import "./Contact.css";
 import Background from "./SVG/Background";
 import useStore from "../../../Store/Store";
+
 function Contact() {
   const [animate, setAnimate] = useState(false);
 
   const { cameraFocus } = useStore();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isVisibleButton, setVisibleButton] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (cameraFocus === "CONTACT") {
@@ -15,11 +21,34 @@ function Contact() {
       setAnimate(false);
     }
   }, [cameraFocus]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add your form submission logic here
-    console.log(event.target[0].value);
-    console.log(event.target[1].value);
+    setIsLoading(true);
+    setIsSuccess(false);
+    setError(null);
+
+    emailjs.init(import.meta.env.VITE_PUBLIC_KEY);
+
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_SERVICE_ID,
+        "template_fybb9nr",
+        event.target
+      )
+      .then(
+        (result) => {
+          setIsLoading(false);
+          setIsSuccess(true);
+          event.target.reset(); // Opcional: Limpiar el formulario después de enviar
+        },
+        (error) => {
+          setIsLoading(false);
+          setError("Failed to send message. Please try again.");
+          console.log(error);
+        }
+      );
+    setVisibleButton(false);
   };
 
   return (
@@ -31,12 +60,27 @@ function Contact() {
       position={[0.274, -0.046, 0.44]}
       rotation={[-Math.PI / 9.2, 0, 0]}
     >
-      <form action="" className="contact-content" onSubmit={handleSubmit}>
-        <input type="email" placeholder="Your Email" required />
-        <textarea placeholder="Your Message" rows="5" required />
+      <form className="contact-content" onSubmit={handleSubmit}>
+        <input type="email" name="email_id" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required />
         <div>
-          <button type="submit">Send</button>
+          {isVisibleButton && (
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Sending..." : "Send"}
+            </button>
+          )}
         </div>
+        {isSuccess && (
+          <p className="contact-text-feedback">
+            I received the message, thank you for contacting me.
+          </p>
+        )}
+        {error && (
+          <p className="contact-text-feedback error">
+            Message delivery failed. <br />
+            Feel free to use another method below to get in touch.
+          </p>
+        )}
       </form>
 
       <Background></Background>
