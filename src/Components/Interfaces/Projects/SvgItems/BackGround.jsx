@@ -18,11 +18,6 @@ function BackGround({ animate }) {
         {/* Border BackGround */}
         <g transform="translate(-230 20) scale(1)">
           <polyline
-            // className={`projects-border-background projects-no-fill ${
-            //   animate
-            //     ? "projects-border-thick-anim"
-            //     : "projects-border-thick-no-anim"
-            // }`}
             className={`projects-border-background projects-no-fill projects-border-thick-no-anim
             `}
             points="78,0 1200,0 1200,695 0,695 0,80 80,0"

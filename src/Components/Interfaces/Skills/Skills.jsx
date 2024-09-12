@@ -21,34 +21,27 @@ import { useThree } from "@react-three/fiber";
 import Subtitle from "./SvgItems/Subtitle.jsx";
 
 function Skills() {
-  const { cameraFocus, showButtonStart } = useStore();
+  const { cameraFocus, showButtonStart, gpuTier } = useStore();
   const [active, setActive] = useState(0);
+
+  const [isLowTier, setIsLowTier] = useState(false);
   const [animate, setAnimate] = useState(false);
+
+  const [showSubtitle, setShowSubtitle] = useState(false);
 
   useEffect(() => {
     // console.log(cameraFocus);
     if (cameraFocus === "SKILLS") {
       setAnimate(true);
+      setShowSubtitle(true);
     } else {
       setAnimate(false);
+      setShowSubtitle(false);
     }
   }, [cameraFocus]);
 
-  useEffect(() => {
-    // console.log(skillsConf[0].category);
-  }, []);
-
-  const viewport = useThree();
   return (
     <>
-      {/* <pointLight
-        // ref={lightRef}
-        color="#002e63"
-        intensity={10}
-        distance={20}
-        position={[0, 0, 1]}
-      /> */}
-
       <Html
         className={`skills-html ${animate ? "" : "skills-no-pointer"}`}
         distanceFactor={1.72}
@@ -58,20 +51,14 @@ function Skills() {
         rotation={[-Math.PI / 2, 0, 0]}
       >
         <BackGround animate={animate} active={active}></BackGround>
-        {/* <div
-            style={{
-              background: "red",
-              width: "900px",
-              height: "400px",
-            }}
-          >
-            <h1>Hi, I'm Nicolas Diaz</h1>
-          </div> */}
 
-        <Subtitle
-          active={active}
-          subTitleOptions={skillsConf[active].category}
-        ></Subtitle>
+        {showSubtitle && (
+          <Subtitle
+            animate={animate}
+            active={active}
+            subTitleOptions={skillsConf[active].category}
+          ></Subtitle>
+        )}
 
         <section className="skills-sectionSlider">
           <div className="skills-sliderContainer">
@@ -95,6 +82,7 @@ function Skills() {
                         activeSkillPoints={active === groupIndex}
                         srcImg={skill.srcImg}
                         altImg={skill.altImg}
+                        cameraFocus={cameraFocus}
                       />
                     ))}
                   </div>

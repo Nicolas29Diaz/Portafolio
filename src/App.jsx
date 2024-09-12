@@ -21,6 +21,7 @@ para que el usuario no pueda presionar de una las opciones del menu, o arreglarl
 - Poner qu eaparezcan uno a uno los botenones y quitar el pointer 
 
 TAREAS:
+- Usar WebP para las imagenes 
 - Cambiar el icono del cursor, puede ser una bolita o algo así
 - Quitar animaciones de los SVG al iniciar la app y verificar que no sean tan pesadas y exageradas
 - Cambiar logica del Cancel Button, osea la X para salir de una vista
@@ -80,7 +81,7 @@ function App() {
     const getGPUInfo = async () => {
       const gpuInfo = await getGPUTier();
       setGpuTier(gpuInfo.tier);
-      // console.log(gpuInfo.tier);
+      console.log("gpuInfo.tier", gpuInfo.tier);
     };
     getGPUInfo();
   }, []);
@@ -128,7 +129,6 @@ function App() {
           height: canvasSize.height,
           width: canvasSize.width,
         }}
-        // ref={canvasRef}
       >
         <Canvas
           shadows
@@ -138,10 +138,10 @@ function App() {
         >
           <Suspense fallback={<LoadingScreen />}>
             <SceneConf></SceneConf>
-
             {editMode ? <EditScene></EditScene> : <Scene></Scene>}
             <Preload all onLoad={() => setIsLoaded(true)} />
           </Suspense>
+
           {showButtonStart && (
             <group
               position={windowWidth > 1000 ? [2, 2, 2] : [-1.35, 5, 1]}
@@ -156,7 +156,8 @@ function App() {
                 font="./Fonts/Poppins-Black.ttf"
               >
                 {`Hi! I'm \nNicolas Diaz`}
-                <meshStandardMaterial
+                {/* ACA SE PUEDE MEJORAR ESTO PARA MAYOR FLUIDEZ */}
+                {/* <meshStandardMaterial
                   emissive="white"
                   emissiveIntensity={0.5}
                 />
@@ -166,7 +167,7 @@ function App() {
                     luminanceThreshold={0.5}
                     luminanceSmoothing={0.9}
                   />
-                </EffectComposer>
+                </EffectComposer> */}
               </Text>
             </group>
           )}
@@ -200,13 +201,13 @@ function App() {
         </div>
       )}
 
-      {showButtonStart && (
+      {/* {showButtonStart && (
         <div
           className={
             windowWidth > 1000 ? "vintage-overlay-1" : "vintage-overlay-2"
           }
         ></div>
-      )}
+      )} */}
 
       {isMenuButtonVisible && (
         <div

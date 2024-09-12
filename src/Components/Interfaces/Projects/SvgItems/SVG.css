@@ -26,10 +26,10 @@
   stroke-width: 7;
 }
 .projects-border-thick-anim {
-  stroke-dasharray: 0 5000;
-  animation: drawLine 3s ease forwards;
+  will-change: stroke-dasharray;
+  stroke-dasharray: 0 2000; /* Reducido el valor */
+  animation: drawLine 2s ease forwards; /* Duración menor */
 }
-
 
 .projects-border-thick-no-anim {
   animation-play-state: paused;
@@ -56,8 +56,12 @@
   font-family: "Electrolize-Regular";
 }
 
-.projects-text-title-2{
+.projects-text-title-2 {
   font-size: 47px;
   font-family: "Electrolize-Regular";
   font-weight: 600;
+}
+
+.clipped-image {
+  clip-path: url(#imageMask);
 }

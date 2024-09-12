@@ -34,7 +34,7 @@ export function Character({
     }
 
     if (introAnimation) {
-      actions[names[1]].play();
+      actions[names[1]].play().fadeIn(0);
     }
   }, [introAnimation, sitAnimation, actions, names]);
 

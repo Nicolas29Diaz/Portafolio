@@ -21,8 +21,6 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
               width="42px"
               fill="white"
             />
-            {/* Rectangle to hide skill points */}
-            {/* <rect className="skillPoints-mask-hide" height="160px" width="300px" fill="black" /> */}
           </mask>
 
           <g

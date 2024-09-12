@@ -97,20 +97,22 @@ export function Scene3D() {
     <>
       {/* SCREENS */}
       <About3D>
-        <About />
+        {/* <About /> */}
       </About3D>
 
       <Contact3D></Contact3D>
 
       <Menu3D visible={showMenu}>
-        <Menu />
+        {/* <Menu /> */}
       </Menu3D>
 
       <Projects3D visible={showProjects}>
-        {showScreens && <Projects />}
+        {/* {showScreens && <Projects />} */}
       </Projects3D>
 
-      <Skills3D>{showScreens && <Skills />}</Skills3D>
+      <Skills3D>
+        {showScreens && <Skills />}
+      </Skills3D>
 
       {/* Scenario */}
       <Character

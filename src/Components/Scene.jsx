@@ -212,7 +212,7 @@ export function Scene() {
   return (
     <>
       {/* Camera configuration */}
-      <CameraControls ref={cameraControlRef} truckSpeed={1} />
+      <CameraControls ref={cameraControlRef} truckSpeed={0} />
 
       <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
         {/* <Scene3D2></Scene3D2> */}

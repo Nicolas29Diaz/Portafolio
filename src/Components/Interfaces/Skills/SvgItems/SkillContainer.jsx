@@ -12,6 +12,7 @@ function SkillContainer({
   y = 0,
   srcImg = "",
   altImg = "Image",
+  cameraFocus,
 }) {
   return (
     <>
@@ -39,6 +40,7 @@ function SkillContainer({
                 points="0,70 0,120 65,120 100,100 100,80 100,85"
               />
             </g>
+
             {/* Skill container Decoration */}
             <g transform="translate(0 0)">
               <polyline
@@ -55,12 +57,15 @@ function SkillContainer({
             </text>
 
             {/* SKILLPOINTS */}
-            <SKillPoints
-              skillPoints={skillPoints}
-              activeSkillPoints={activeSkillPoints}
-            ></SKillPoints>
+            {cameraFocus === "SKILLS" && (
+              <SKillPoints
+                skillPoints={skillPoints}
+                activeSkillPoints={activeSkillPoints}
+              ></SKillPoints>
+            )}
           </g>
         </svg>
+
         <div className="img-container">
           <img src={srcImg} alt={altImg} />
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import "./Projects.css";
 
 import { Html } from "@react-three/drei";
@@ -73,47 +73,34 @@ function Projects() {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     touchThreshold: 100,
-    // responsive: [
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 1,
-    //       infinite: true,
-    //       dots: false,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 600,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 1,
-    //       initialSlide: 2,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 480,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
+    lazyLoad: "ondemand",
   };
 
   const [animate, setAnimate] = useState(false);
-  const { cameraFocus } = useStore();
+  const [interaction, setInteraction] = useState(false);
+  const { cameraFocus, gpuTier } = useStore();
 
   useEffect(() => {
     if (cameraFocus === "PROJECTS") {
-      setAnimate(true);
+      setInteraction(true);
+      if (gpuTier >= 3) {
+        setAnimate(true);
+      } else {
+        setAnimate(false);
+      }
     } else {
+      setInteraction(false);
       setAnimate(false);
     }
   }, [cameraFocus]);
 
   const sliderProjects = projectsData.map((project, i) => (
-    <Project project={project} key={i} animate={animate} />
+    <Project
+      project={project}
+      key={i}
+      animate={animate}
+      interaction={interaction}
+    />
   ));
   return (
     <Html
