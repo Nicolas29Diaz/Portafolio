@@ -62,7 +62,11 @@
 
 .skillPoints-mask-show {
   height: 0px;
-  animation: skillPointsMask 2.5s ease forwards;
+  animation: skillPointsMask 1.5s ease-in-out forwards;
+}
+
+.skill-container-clipPath {
+  clip-path: url(#skillPoints-mask);
 }
 
 @keyframes skillPointsMask {
@@ -82,9 +86,9 @@
 /* Title text */
 .text-title {
   font-size: 2rem;
-  /* font-weight: 850; */
+  font-weight: 900;
   fill: #002f67;
-  font-family: "Electrolize-Regular";
+  font-family: "Suse";
 }
 
 /* Subtitle container */
@@ -117,4 +121,24 @@
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+
+.skill-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+
+  left: 120px;
+  width: 160px;
+  /* border: 2px solid #08bee1; */
+}
+.skill-text-container p {
+  font-family: var(--main-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #08bee1;
+  text-align: center;
+  padding: 5px;
 }

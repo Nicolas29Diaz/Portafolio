@@ -12,7 +12,7 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
       {/* Define the mask */}
       {activeSkillPoints && (
         <>
-          <mask id="skillPoints-mask">
+          <clipPath id="skillPoints-mask">
             {/* Rectangle to reveal skill points */}
             <rect
               transform="translate(51 127) rotate(-180)"
@@ -21,9 +21,8 @@ function SkillPoints({ skillPoints, activeSkillPoints }) {
               width="42px"
               fill="white"
             />
-          </mask>
-
-          <g transform="scale(1.05)" mask="url(#skillPoints-mask)">
+          </clipPath>
+          <g transform="scale(1.05)" className="skill-container-clipPath">
             <g transform="translate(0 0)">
               <polyline
                 className={

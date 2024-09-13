@@ -5,50 +5,48 @@ import { Preload, Text, useProgress } from "@react-three/drei";
 import useStore from "./Store/Store.js";
 import { EditScene } from "./Components/EditScene.jsx";
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
-import "./Syles/FloatButton.css";
-import "./Syles/CancelButton.css";
-import "./Syles/StartButton.css";
+
 import { SceneConf } from "./Components/SceneConf.jsx";
 import { Scene } from "./Components/Scene.jsx";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
+
+//Styles
+import "./Syles/FloatButton.css";
+import "./Syles/CancelButton.css";
+import "./Syles/StartButton.css";
+import "./Syles/GlobalStyles.css";
+
 /*
-SOLUCIONES:
-- El bug de la camara cuando paso de menu a otra vista, es porque la camara se está actualizando con el fixed,
-lo cual es correcto, pero si el usuario presiona muy rapido la opcion del menu, pues la camara se va a confundir, intentando
-hacer el fixed movemente camera, tanto para la nueva vista, como para la anterior, entonces la solucion es poner un delay
-para que el usuario no pueda presionar de una las opciones del menu, o arreglarlo de alguna forma en el fixedMovement
-- Poner qu eaparezcan uno a uno los botenones y quitar el pointer 
+QUEDÉ EN SUBTITLE, TOCA CAMBIAR EL MASK POR EL PATH Y PONER EL TEXTO AFUERA DEL SVG, Y VER SI FUNCIONA
+LA ANIMACION O ARREGLARLA PARA HACERLA DESDE CSS Y HTML NORMAL, NO SVG
 
 TAREAS:
-- Usar WebP para las imagenes 
-- Cambiar el icono del cursor, puede ser una bolita o algo así
-- Quitar animaciones de los SVG al iniciar la app y verificar que no sean tan pesadas y exageradas
-- Cambiar logica del Cancel Button, osea la X para salir de una vista
+MUY IMPORTANTE:
+- En safari la pantalla de contact no sirveeeee el hover
+- Solucionar problemas con IOS (Textos, tamaños, etc)
 - Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
 - Verificar tamaño fuente uniforme IOS y Android y Windows.. Poner una fuente de respaldo
-- Animar svg about y projects y menu y contact
 - Terminar pantalla Skills ponienido el modelo
-- Hacer la pantalla de Contacto
 - Poner los proyectos
-- En la vista desde celular se ve el boton de proyects mientras se ve el charact, ajustar ya sea el boton o la camara
+- Hacer la pantalla de caraga
+- Posicionar bien los textos en skills
+
+IMPORTANTE:
+- Usar WebP para las imagenes 
 - Verificar el tamaño de los botones que sea responsive, no por pixels
-- Arreglar cosas en Safari/IPhone o simpelemente no soportarlo y poner un mensaje de que no es soportado en Safari
-- No dejar mover la camara hasta que se cierre el casco de analisis
+
+
+NO IMPORTA TANTO:
+- Animar svg about y projects y menu y contact
+- Cambiar el icono del cursor, puede ser una bolita o algo así
+- Quitar la lampara arriba mio
+
 
 IDEAS:
 - Icono para mostrar al usuario que puede deslizar la pantalla
 - Sonido de ambiente y en general
-- Hacer que el botón de start aparezca cuando el progreso sea 100%
-- Poner un botón menu que mueva la camara hacía el menu (con la opción de cancelar)
-- Disolver los ojos del personaje
-- Quitar sombras para dispositivos de gama baja
-- En skills palanca animada o boton animado.
-- Poner mi foto y poner un texto que diga VirtualSkin o Skin o Game Skin o algo así
 - Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas
-- Para darle vida al personaje al saludar puede alzar las cejas y agrandar los ojos o algo así
-- Poner una lampara arriba mio
-- Poner materas y cosas lowpoly
 */
 
 function App() {

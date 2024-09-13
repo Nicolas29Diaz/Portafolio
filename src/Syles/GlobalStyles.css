@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Suse";
+  src: url("/Fonts/Suse/SUSE-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+:root {
+  /* TEXTO */
+  --text-light-color: #fdfdfd;
+  --text-dark-color: #0d0d0d;
+
+  --main-font: "Suse", sans-serif;
+  --heading-font-size: 2.5rem;
+  --subheading-font-size: 1.5rem;
+  --heading-font-weight: 900;
+  --subheading-font-weight: 600;
+  --body-font-size: 1rem;
+}
+
+text {
+  font-family: var(--main-font);
+}
+
+h1 {
+  position: absolute;
+  transform: translate(-50%, -50%); /* Centra el elemento */
+  font-family: var(--main-font);
+  font-size: var(--heading-font-size);
+  color: var(--text-light-color);
+  font-weight: var(--heading-font-weight);
+}
+
+h2 {
+  /* position: absolute; */
+  font-family: var(--main-font);
+  font-size: var(--subheading-font-size);
+  color: var(--text-light-color);
+  font-weight: var(--heading-font-weight);
+}

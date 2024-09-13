@@ -9,7 +9,7 @@ function SkillContainer({
   activeSkillPoints = false,
   skillText = "Skill Name",
   x = 0,
-  y = 0,
+  y = 50,
   srcImg = "",
   altImg = "Image",
   cameraFocus,
@@ -50,22 +50,24 @@ function SkillContainer({
             </g>
 
             {/* TEXT */}
-            <text className="text-skills" x={x} y={y}>
+            {/* <text className="text-skills" x={x} y={y}>
               {skillText}
-            </text>
+            </text> */}
 
             {/* SKILLPOINTS */}
-            {cameraFocus === "SKILLS" && (
-              <SKillPoints
-                skillPoints={skillPoints}
-                activeSkillPoints={activeSkillPoints}
-              ></SKillPoints>
-            )}
+
+            <SKillPoints
+              skillPoints={skillPoints}
+              activeSkillPoints={activeSkillPoints}
+            ></SKillPoints>
           </g>
         </svg>
 
         <div className="img-container">
           <img src={srcImg} alt={altImg} loading="lazy" />
+        </div>
+        <div className="skill-text-container" style={{ top: `${y}px` }}>
+          <p className="skill-text">{skillText}</p>
         </div>
       </div>
     </>

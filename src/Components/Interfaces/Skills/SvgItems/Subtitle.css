@@ -89,3 +89,21 @@
 .mask-rect {
   animation: slideInMask 0.5s forwards, slideOutMask 0.5s 0.5s forwards;
 }
+
+.skills-text-subtitle {
+  color: #65e5ff;
+  text-align: center;
+}
+.skills-text-subtitle-container {
+  position: absolute;
+  top: 20px;
+  left: 345px;
+  width: 345px;
+  height: 43px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  clip-path: url(#mask-subtitle);
+}

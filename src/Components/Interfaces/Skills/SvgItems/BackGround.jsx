@@ -53,9 +53,9 @@ function BackGround({ animate }) {
               className={`border-line`}
               points="0,200 0,390 30,420 670,420 700,390 700,200"
             />
-            <text x={105} y={45} className="text-title">
+            {/* <text x={105} y={45} className="text-title">
               SKILLS
-            </text>
+            </text> */}
           </g>
           {/* )} */}
 
@@ -76,6 +76,10 @@ function BackGround({ animate }) {
           </g>
         </g>
       </svg>
+
+      <header style={{ position: "absolute", top: "48px", left: "170px" }}>
+        <h1>SKILLS</h1>
+      </header>
     </>
   );
 }

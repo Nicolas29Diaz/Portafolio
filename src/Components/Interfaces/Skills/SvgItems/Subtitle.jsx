@@ -11,47 +11,50 @@ function Subtitle({ active, subTitleOptions }) {
   }, [active]);
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 320 32"
-      style={{
-        width: "320px",
-        height: "32px",
-        position: "absolute",
-        top: "25px",
-        left: "350px",
-        margin: "auto",
-        zIndex: "0",
-      }}
-    >
-      <defs>
-        <linearGradient id="text-gradient-slideIn">
-          <stop offset="5%" stopColor="rgba(96, 202, 255, 1)"></stop>
-          <stop offset="100%  " stopColor="rgba(255, 255, 255, 0)"></stop>
-        </linearGradient>
-        <linearGradient id="text-gradient-slideOut">
-          <stop offset="5%  " stopColor="rgba(255, 255, 255, 0)"></stop>
-          <stop offset="100%" stopColor="rgba(96, 202, 255, 1)"></stop>
-        </linearGradient>
-      </defs>
-
-      <g key={active}>
-        <rect className="rect-title-change" height="100%" width="10px" />
-
-        <mask id="mask-subtitle">
-          <rect fill="white" height="100%" className="mask-rect" />
-        </mask>
-      </g>
-
-      <text
-        x={subTitleOptionsDelay.x}
-        y="24.5"
-        className="text-subtitle"
-        mask="url(#mask-subtitle)"
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 320 32"
+        style={{
+          width: "320px",
+          height: "32px",
+          position: "absolute",
+          top: "25px",
+          left: "350px",
+          margin: "auto",
+          zIndex: "0",
+        }}
       >
-        {subTitleOptionsDelay.text}
-      </text>
-    </svg>
+        <defs>
+          <linearGradient id="text-gradient-slideIn">
+            <stop offset="5%" stopColor="rgba(96, 202, 255, 1)"></stop>
+            <stop offset="100%  " stopColor="rgba(255, 255, 255, 0)"></stop>
+          </linearGradient>
+          <linearGradient id="text-gradient-slideOut">
+            <stop offset="5%  " stopColor="rgba(255, 255, 255, 0)"></stop>
+            <stop offset="100%" stopColor="rgba(96, 202, 255, 1)"></stop>
+          </linearGradient>
+        </defs>
+
+        <g key={active}>
+          <rect className="rect-title-change" height="100%" width="10px" />
+          <clipPath id="mask-subtitle">
+            <rect fill="white" height="43px" className="mask-rect" />
+          </clipPath>
+        </g>
+
+        <text
+          x={subTitleOptionsDelay.x}
+          y="24.5"
+          className="text-subtitle"
+          mask="url(#mask-subtitle)"
+        ></text>
+      </svg>
+
+      <div className="skills-text-subtitle-container">
+        <h2 className="skills-text-subtitle">{subTitleOptionsDelay.text}</h2>
+      </div>
+    </>
   );
 }
 
