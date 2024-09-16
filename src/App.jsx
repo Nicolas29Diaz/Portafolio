@@ -1,28 +1,36 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { getGPUTier } from "detect-gpu";
-import { Preload, Text, useProgress } from "@react-three/drei";
+import { Preload, Text, useGLTF, useProgress } from "@react-three/drei";
 import useStore from "./Store/Store.js";
 import { EditScene } from "./Components/EditScene.jsx";
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
 
-import { SceneConf } from "./Components/SceneConf.jsx";
+import { SceneConf } from "./Components/SceneConfiguration/SceneConf.jsx";
 import { Scene } from "./Components/Scene.jsx";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-
 
 //Styles
 import "./Syles/FloatButton.css";
 import "./Syles/CancelButton.css";
 import "./Syles/StartButton.css";
 import "./Syles/GlobalStyles.css";
+import { Scene3D } from "./Components/3D_Models/Scene3D.jsx";
+import { Character } from "./Components/3D_Models/Character.jsx";
+import { FloatObjects } from "./Components/FloatObjects.jsx";
+
+import * as THREE from "three";
+import ZoomDisabler from "./Components/ZoomDisabler.jsx";
+import ZoomDisablerWrapper from "./Components/ZoomDisablerWrapper.jsx";
 
 /*
 QUEDÉ EN SUBTITLE, TOCA CAMBIAR EL MASK POR EL PATH Y PONER EL TEXTO AFUERA DEL SVG, Y VER SI FUNCIONA
 LA ANIMACION O ARREGLARLA PARA HACERLA DESDE CSS Y HTML NORMAL, NO SVG
 
 TAREAS:
+- ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
 MUY IMPORTANTE:
+- En iphon deja hacer zoom, quitarlo
 - En safari la pantalla de contact no sirveeeee el hover
 - Solucionar problemas con IOS (Textos, tamaños, etc)
 - Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
@@ -35,13 +43,15 @@ MUY IMPORTANTE:
 IMPORTANTE:
 - Usar WebP para las imagenes 
 - Verificar el tamaño de los botones que sea responsive, no por pixels
+- Poner todo eso de seo, etiquetas, etc (guiarse pagina david)
 
 
 NO IMPORTA TANTO:
 - Animar svg about y projects y menu y contact
 - Cambiar el icono del cursor, puede ser una bolita o algo así
 - Quitar la lampara arriba mio
-
+- Ver lo del riectionLight helper en drei pa poner lucess
+- Poner luz en las lamparas (lava, mesa de about, PC, etc)
 
 IDEAS:
 - Icono para mostrar al usuario que puede deslizar la pantalla
@@ -54,11 +64,16 @@ function App() {
     isCancelButtonVisible,
     setCancelButtonVisibility,
     setCancelButtonPressed,
-    showButtonStart,
-    setShowButtonStart,
     setGpuTier,
+    gpuTier,
     setMenuView,
     isMenuButtonVisible,
+    isCharacterAnimStarted,
+    cameraFocus,
+
+    isStartButtonVisible,
+    setStartButtonVisibility,
+    setStartButtonPressed,
   } = useStore();
   const editMode = false;
 
@@ -74,14 +89,23 @@ function App() {
         ? window.innerHeight
         : window.innerHeight + 1,
   });
+  const [showScene, setShowScene] = useState(false);
+
+  const moveCameraDelay = 500;
+
+  let gpuInfo = 0;
 
   useEffect(() => {
     const getGPUInfo = async () => {
-      const gpuInfo = await getGPUTier();
+      gpuInfo = await getGPUTier();
       setGpuTier(gpuInfo.tier);
       console.log("gpuInfo.tier", gpuInfo.tier);
     };
     getGPUInfo();
+
+    setTimeout(() => {
+      setShowScene(true);
+    }, moveCameraDelay);
   }, []);
 
   useEffect(() => {
@@ -118,106 +142,91 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 2000);
+
+    if (show) {
+      setTimeout(() => {
+        setStartButtonVisibility(false);
+      }, 2500);
+    }
+  }, [showScene]);
+
   return (
     <>
-      <div
-        className="canvas-container"
-        style={{
-          opacity: isLoaded ? 0 : 1,
-          height: canvasSize.height,
-          width: canvasSize.width,
-        }}
-      >
-        <Canvas
-          shadows
-          camera={{ position: [1, 4, 7], fov: 60 }}
-          ref={refCanvas}
-          dpr={2}
+      <ZoomDisablerWrapper>
+        <LoadingScreen progress={progress}></LoadingScreen>
+        <div
+          className="canvas-container"
+          style={{
+            opacity: isLoaded ? 0 : 1,
+            height: canvasSize.height,
+            width: canvasSize.width,
+          }}
         >
-          <Suspense fallback={<LoadingScreen />}>
-            <SceneConf></SceneConf>
-            {editMode ? <EditScene></EditScene> : <Scene></Scene>}
-            <Preload all onLoad={() => setIsLoaded(true)} />
-          </Suspense>
+          <Canvas
+            shadows
+            camera={{ position: [1, 5, 7], fov: 60 }}
+            ref={refCanvas}
+            dpr={gpuTier === 3 ? 1 : 1} //REVISAR ESTO, por ahora lo dejo en 1
+          >
+            <Suspense fallback={null}>
+              <SceneConf></SceneConf>
+              <Scene3D></Scene3D>
+              {show && <Scene></Scene>}
 
-          {showButtonStart && (
-            <group
-              position={windowWidth > 1000 ? [2, 2, 2] : [-1.35, 5, 1]}
-              rotation={windowWidth > 1000 ? [-0.3, -0.4, -0.1] : [0, 0, -0.01]}
-            >
-              <Text
-                lineHeight={1}
-                anchorX="left"
-                anchorY="middle"
-                fontSize={windowWidth > 1000 ? 0.7 : 0.45}
-                maxWidth={6}
-                font="./Fonts/Poppins-Black.ttf"
+              <Preload all />
+            </Suspense>
+
+            {/* {showButtonStart && ( */}
+
+            {cameraFocus === "INITIAL" && (
+              <group
+                position={windowWidth > 1000 ? [2, 2, 2] : [-1.45, 5, 1]}
+                rotation={
+                  windowWidth > 1000 ? [-0.3, -0.4, -0.1] : [0, 0, -0.01]
+                }
               >
-                {`Hi! I'm \nNicolas Diaz`}
-                {/* ACA SE PUEDE MEJORAR ESTO PARA MAYOR FLUIDEZ */}
-                {/* <meshStandardMaterial
-                  emissive="white"
-                  emissiveIntensity={0.5}
-                />
-                <EffectComposer>
-                  <Bloom
-                    intensity={0.3}
-                    luminanceThreshold={0.5}
-                    luminanceSmoothing={0.9}
+                <Text
+                  lineHeight={1}
+                  anchorX="left"
+                  anchorY="middle"
+                  fontSize={windowWidth > 1000 ? 0.8 : 0.55}
+                  maxWidth={6}
+                  font="./Fonts/Suse/SUSE-ExtraBold.ttf"
+                >
+                  <meshStandardMaterial color="white" />
+                  {`Hi! I'm \nNicolas Diaz`}
+                  {/* ACA SE PUEDE MEJORAR ESTO PARA MAYOR FLUIDEZ */}
+                  <meshStandardMaterial
+                    emissive="white"
+                    emissiveIntensity={0.5}
                   />
-                </EffectComposer> */}
-              </Text>
-            </group>
-          )}
-        </Canvas>
-      </div>
-
-      {isCancelButtonVisible && (
-        <div className="contentCancelButton">
-          <div
-            onClick={() => {
-              setCancelButtonPressed(true);
-              setCancelButtonVisibility(false);
-            }}
-          >
-            +
-          </div>
-          <i></i>
-          <i></i>
+                </Text>
+              </group>
+            )}
+          </Canvas>
         </div>
-      )}
 
-      {progress >= 100 && showButtonStart && (
-        <div className="containerStartButton">
-          <button
-            onClick={() => {
-              setShowButtonStart(false);
-            }}
-          >
-            Start
-          </button>
-        </div>
-      )}
-
-      {/* {showButtonStart && (
-        <div
-          className={
-            windowWidth > 1000 ? "vintage-overlay-1" : "vintage-overlay-2"
-          }
-        ></div>
-      )} */}
-
-      {isMenuButtonVisible && (
-        <div
-          className="menu-button-container"
-          onClick={() => setMenuView(true)}
-        >
-          <img src="./Images/Icons/Menu3.png" alt="MenuIcon" />
-          {/* <button onClick={() => setMenuView(true)}>Menu</button> */}
-        </div>
-      )}
+        <FloatObjects
+          isCancelButtonVisible={isCancelButtonVisible}
+          progress={progress}
+          windowWidth={windowWidth}
+          isMenuButtonVisible={isMenuButtonVisible}
+          setCancelButtonPressed={setCancelButtonPressed}
+          setCancelButtonVisibility={setCancelButtonVisibility}
+          setMenuView={setMenuView}
+          isStartButtonVisible={isStartButtonVisible}
+          setStartButtonPressed={setStartButtonPressed}
+        />
+      </ZoomDisablerWrapper>
     </>
   );
 }
 
+useGLTF.preload("./Fonts/Suse/SUSE-ExtraBold.ttf");
 export default App;

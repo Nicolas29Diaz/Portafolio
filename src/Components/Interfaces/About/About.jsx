@@ -1,6 +1,5 @@
 // Importing necessary libraries and components
 import React, { useEffect, useState } from "react";
-import useStore from "../../../Store/Store";
 import { Html } from "@react-three/drei";
 
 // Importing styles
@@ -10,9 +9,8 @@ import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 
 // Importing components
 
-function About({ animate = false }) {
-  const { showButtonStart } = useStore();
-  const opacity = useScaleAnimation(!showButtonStart);
+function About({ animate = false, showScreen }) {
+  const scale = useScaleAnimation(showScreen, 1.72);
 
   return (
     <Html
@@ -23,8 +21,7 @@ function About({ animate = false }) {
       tabIndex={0}
       position={[0.3, 0, 0]}
       rotation={[0, -Math.PI / 2, 0]}
-      scale={[1.72, 1.72, 1.72]}
-      style={{ opacity: opacity }}
+      scale={[scale, scale, scale]}
     >
       <svg
         width="100%"

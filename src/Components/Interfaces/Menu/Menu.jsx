@@ -5,14 +5,17 @@ import "./Menu.css";
 import Background from "./SVG/Background";
 import Buttons from "./SVG/Buttons";
 import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
-function Menu() {
-  const { cameraFocus, showButtonStart, setMenuView, isMenuView } = useStore();
+
+function Menu({ showScreen }) {
+  const { cameraFocus, setMenuView, isMenuView } = useStore();
 
   const [canPressButton, setCanPressButton] = useState(false);
   const [isHandVisible, setHandVisible] = useState(false);
   const [isMenuOptionsVisible, setMenuOptionsVisible] = useState(false);
+  const [isInteractable, setInteractable] = useState(false);
 
-  const opacity = useScaleAnimation(!showButtonStart);
+  const scale = useScaleAnimation(showScreen);
+
   useEffect(() => {
     if (cameraFocus === "MENU") {
       // setAnimate(true);
@@ -22,10 +25,13 @@ function Menu() {
       setTimeout(() => {
         setCanPressButton(true);
       }, 1500);
+    } else if (cameraFocus === "INITIAL") {
+      setInteractable(false);
+      setHandVisible(true);
     } else {
+      setInteractable(true);
       setHandVisible(true);
       setMenuOptionsVisible(false);
-
       setCanPressButton(false);
     }
   }, [cameraFocus]);
@@ -33,13 +39,15 @@ function Menu() {
   return (
     <>
       <Html
-        className={`menu-html`}
+        className={`menu-html ${
+          isInteractable ? "" : "menu-html-no-interaction"
+        } `}
         distanceFactor={1.72}
         transform
         occlude="blending"
         position={[0, 1.57, 0]}
         rotation={[-Math.PI / 3, 0, 0]}
-        style={{ opacity: opacity }}
+        scale={scale}
       >
         <Background
           isHandVisible={isHandVisible}

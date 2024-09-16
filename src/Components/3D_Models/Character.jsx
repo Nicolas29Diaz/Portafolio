@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import useStore from "../../Store/Store";
 export function Character({
   props,
   introAnimation,
@@ -23,18 +24,23 @@ export function Character({
   const colorInicial = new THREE.Color("#2A2A2A");
   const colorFinal = new THREE.Color("white");
   const currentColor = colorInicial.clone().lerp(colorFinal, fadeFactor); // Interpolación suave
+  const [loading, setLoading] = useState(true);
+
+  const { setCharacterAnimStarted } = useStore();
 
   useEffect(() => {
+    if (introAnimation) {
+      actions[names[1]].reset().play().fadeIn(0);
+      // setLoading(false);
+      setCharacterAnimStarted(true);
+    }
+
     if (sitAnimation) {
       const sit = actions[names[0]];
       actions[names[1]].fadeOut(0.5);
       sit.reset().fadeIn(0.5).play();
       sit.setLoop(THREE.LoopOnce);
       sit.clampWhenFinished = true;
-    }
-
-    if (introAnimation) {
-      actions[names[1]].play().fadeIn(0);
     }
   }, [introAnimation, sitAnimation, actions, names]);
 

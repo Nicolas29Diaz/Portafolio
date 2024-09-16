@@ -3,8 +3,7 @@ import { Html } from "@react-three/drei";
 import "./Contact.css";
 import Background from "./SVG/Background";
 import useStore from "../../../Store/Store";
-
-function Contact() {
+function Contact({ showScreen }) {
   const [animate, setAnimate] = useState(false);
 
   const { cameraFocus } = useStore();
@@ -59,6 +58,7 @@ function Contact() {
       occlude="blending"
       position={[0.274, -0.046, 0.44]}
       rotation={[-Math.PI / 9.2, 0, 0]}
+      visible={showScreen}
     >
       <form className="contact-content" onSubmit={handleSubmit}>
         <input type="email" name="email_id" placeholder="Your Email" required />

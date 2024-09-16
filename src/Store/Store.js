@@ -12,10 +12,14 @@ export const views = {
 };
 
 const useStore = create((set) => ({
+  isCharacterAnimStarted: false,
+
   isCancelButtonVisible: false,
   isCancelButtonPressed: false,
 
-  showButtonStart: true,
+  isStartButtonPressed: false,
+  isStartButtonVisible: false,
+
   showFloatButtons: false,
 
   isMenuView: false,
@@ -25,8 +29,12 @@ const useStore = create((set) => ({
   cameraFocus: views.INITIAL,
   gpuTier: 1,
 
+  setCharacterAnimStarted: (value) => set({ isCharacterAnimStarted: value }),
   setGpuTier: (value) => set({ gpuTier: value }),
-  setShowButtonStart: (value) => set({ showButtonStart: value }),
+
+  setStartButtonPressed: (value) => set({ isStartButtonPressed: value }),
+  setStartButtonVisibility: (value) => set({ isStartButtonVisible: value }),
+
   setCameraFocus: (focus) => set({ cameraFocus: focus }),
   setShowFloatButtons: (value) => set({ showFloatButtons: value }),
   setMenuView: (value) => set({ isMenuView: value }),

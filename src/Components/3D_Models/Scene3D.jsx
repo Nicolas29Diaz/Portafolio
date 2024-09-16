@@ -18,7 +18,8 @@ import Menu from "../Interfaces/Menu/Menu";
 import Contact from "../Interfaces/Contact/Contact";
 
 export function Scene3D() {
-  const { showButtonStart, cameraFocus } = useStore();
+  const { isStartButtonPressed, isStartButtonVisible, cameraFocus } =
+    useStore();
 
   //Screens visibility
   const [showScreens, setShowScreens] = useState(false);
@@ -72,13 +73,13 @@ export function Scene3D() {
   };
 
   useEffect(() => {
-    if (showButtonStart) {
-      introAnimation();
-    } else {
-      startAnimation();
+    if (isStartButtonPressed) {
       setShowScreens(true);
+      startAnimation();
+    } else {
+      introAnimation();
     }
-  }, [showButtonStart]);
+  }, [isStartButtonPressed]);
 
   useEffect(() => {
     if (cameraFocus === "PROJECTS") {
@@ -98,15 +99,15 @@ export function Scene3D() {
     <>
       {/* SCREENS */}
       <About3D>
-        <About />
+        <About showScreen={showScreens} />
       </About3D>
 
       <Contact3D>
-        <Contact/>
+        <Contact showScreen={showScreens} />
       </Contact3D>
 
       <Menu3D visible={showMenu}>
-        <Menu />
+        <Menu showScreen={showScreens} />
       </Menu3D>
 
       <Projects3D visible={showProjects}>

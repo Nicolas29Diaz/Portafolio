@@ -2,7 +2,7 @@ import { CameraControls, OrbitControls } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
-import { SceneConf } from "./SceneConf.jsx";
+import { SceneConf } from "./SceneConfiguration/SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { AxesHelper } from "three";

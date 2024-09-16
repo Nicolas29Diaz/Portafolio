@@ -2,7 +2,7 @@ import { CameraControls, Html } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 import { FloatButton } from "./FloatButton.jsx";
 import { MeshFit } from "./MeshFit.jsx";
-import { SceneConf } from "./SceneConf.jsx";
+import { SceneConf } from "./SceneConfiguration/SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
@@ -29,10 +29,10 @@ export function Scene() {
     setCancelButtonVisibility,
     isCancelButtonPressed,
     setCancelButtonPressed,
-    showButtonStart,
+
     setCameraFocus,
-    camerFocus,
-    setShowButtonStart,
+    cameraFocus,
+
     showFloatButtons,
     setShowFloatButtons,
     setCameraControls2,
@@ -41,6 +41,10 @@ export function Scene() {
     menuOption,
     setMenuOption,
     setMenuButtonVisible,
+
+    isStartButtonPressed,
+    setStartButtonVisibility,
+    setStartButtonPressed,
   } = useStore();
 
   const moveCameraToObject = () => {
@@ -67,9 +71,9 @@ export function Scene() {
     const camera = cameraControlRef.current;
     const current = cameraControls[currentView];
 
-    if (currentView === views.CHARACTER && !firstViewToCharacter) {
-      camera.distance = current.dolly.distance;
-    }
+    // if (currentView === views.CHARACTER ) {
+    //   camera.distance = current.dolly.distance;
+    // }
     // camera.distance = current.dolly.distance;
     // console.log("distanceUpdte", current.dolly.distance);
 
@@ -149,15 +153,24 @@ export function Scene() {
   }, [currentView]);
 
   useEffect(() => {
-    if (!showButtonStart) {
-      // setCurrentView(views.CHARACTER);
+    if (isStartButtonPressed) {
+      setStartButtonVisibility(false);
+      setStartButtonPressed(false);
+
       changeView(views.CHARACTER, true);
       setTimeout(() => {
         setShowFloatButtons(true);
       }, timeToMove);
       setFirstViewToCharacter(true);
     }
-  }, [showButtonStart]);
+    // if (!showButtonStart) {
+    //   changeView(views.CHARACTER, true);
+    //   setTimeout(() => {
+    //     setShowFloatButtons(true);
+    //   }, timeToMove);
+    //   setFirstViewToCharacter(true);
+    // }
+  }, [isStartButtonPressed]);
 
   useEffect(() => {
     if (isCancelButtonPressed) {
@@ -169,23 +182,23 @@ export function Scene() {
 
   //MOSTAR COORDENADAS CAMARA
 
-  // useEffect(() => {
-  //   const camera = cameraControlRef.current;
-  //   let pos = {};
-  //   camera.addEventListener("controlend", () => {
-  //     pos = {
-  //       x: camera._camera.position.x,
-  //       y: camera._camera.position.y,
-  //       z: camera._camera.position.z,
-  //     };
+  useEffect(() => {
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
 
-  //     console.log("azimuthAngle: ", camera.azimuthAngle);
-  //     console.log("polarAngle:", camera.polarAngle);
-  //     console.log("distance:", camera.distance);
-  //     console.log("Camera position", pos);
-  //     camera.distance = 0;
-  //   });
-  // }, []);
+      // console.log("azimuthAngle: ", camera.azimuthAngle);
+      // console.log("polarAngle:", camera.polarAngle);
+      console.log("distance:", camera.distance);
+      console.log("Camera position", pos);
+      // camera.distance = 0;
+    });
+  }, []);
 
   useEffect(() => {
     if (isMenuView) {
@@ -213,11 +226,6 @@ export function Scene() {
     <>
       {/* Camera configuration */}
       <CameraControls ref={cameraControlRef} truckSpeed={0} />
-
-      <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-        {/* <Scene3D2></Scene3D2> */}
-        <Scene3D></Scene3D>
-      </group>
 
       <>
         <FloatButton

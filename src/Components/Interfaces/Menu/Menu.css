@@ -5,3 +5,6 @@
   position: relative;
 }
 
+.menu-html-no-interaction {
+  pointer-events: none;
+}

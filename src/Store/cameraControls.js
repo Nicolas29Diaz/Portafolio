@@ -30,7 +30,10 @@ export const getCameraControls = () => {
   const z_positionSkills = relativeDistance(width, -1.75, 0.277);
 
   //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
-  const distanceCharacter = relativeDistance(width, 3.8, 5.7);
+  // const distanceCharacter = relativeDistance(width, 3.8, 5.7);
+  const x_positionCharacter = relativeDistance(width, 0.08, -0.13);
+  const y_positionCharacter = relativeDistance(width, 2.69, 3.53);
+  const z_positionCharacter = relativeDistance(width, 3.38, 5.07);
 
   //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
   const isMobileInitial = width <= 1000;
@@ -70,12 +73,12 @@ export const getCameraControls = () => {
     CHARACTER: {
       rotation: {
         polar: {
-          speed: 0.7, //Enable/Disable (1 or 0) polar rotation
+          speed: 1, //Enable/Disable (1 or 0) polar rotation
           min: Math.PI / 3,
           max: Math.PI / 2,
         },
         azimuth: {
-          speed: 0.7, //Enable/Disable (1 or 0) azimuth rotation
+          speed: 1, //Enable/Disable (1 or 0) azimuth rotation
           min: -Infinity,
           max: Infinity,
         },
@@ -84,12 +87,12 @@ export const getCameraControls = () => {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 0,
         max: 10,
-        distance: distanceCharacter,
+        // distance: distanceCharacter,
       },
       coordCamera: {
-        x: 0,
-        y: 3,
-        z: 4,
+        x: x_positionCharacter,
+        y: y_positionCharacter,
+        z: z_positionCharacter,
       }, //Coordinates to posisionate the camera view
       coordLook: { x: 0.5, y: 1, z: 0 }, //Coordinates to look at
     },
