@@ -30,15 +30,16 @@ export function Character({
 
   useEffect(() => {
     if (introAnimation) {
-      actions[names[1]].reset().play().fadeIn(0);
+      // actions[names[1]]
+      actions[names[1]].play().fadeIn(0).timeScale = 1.5;
       // setLoading(false);
       setCharacterAnimStarted(true);
     }
 
     if (sitAnimation) {
       const sit = actions[names[0]];
-      actions[names[1]].fadeOut(0.5);
-      sit.reset().fadeIn(0.5).play();
+      actions[names[1]].fadeOut(1);
+      sit.play().fadeIn(0.5).timeScale = 1.8;
       sit.setLoop(THREE.LoopOnce);
       sit.clampWhenFinished = true;
     }
@@ -47,7 +48,7 @@ export function Character({
   // Usamos `useFrame` para actualizar el fadeFactor solo cuando está en transición
   useFrame(() => {
     if (fading && fadeFactor < 1) {
-      setFadeFactor(fadeFactor + 0.008); // Se disuelve de negro a blanco
+      setFadeFactor(fadeFactor + 0.1); // Se disuelve de negro a blanco
     } else if (fadeFactor >= 1 && fading) {
       setFading(false); // Detiene la transición cuando el fade ha terminado
     }

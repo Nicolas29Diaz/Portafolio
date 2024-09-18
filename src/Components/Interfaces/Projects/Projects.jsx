@@ -9,7 +9,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Project from "./Project";
 import useStore from "../../../Store/Store";
-function Projects() {
+
+function Projects({ showScreen }) {
   const projectsData = [
     {
       title: "Title",
@@ -105,13 +106,13 @@ function Projects() {
   return (
     <Html
       className={`background-projects`}
-      distanceFactor={1}
+      distanceFactor={2}
       transform
       occlude="blending"
       tabIndex={0}
       position={[0, 0.15, 0]}
       rotation={[-Math.PI / 2, 0, 0]}
-      scale={[2, 2, 1]}
+      visible={showScreen}
     >
       <div
         className={`slider-container-projects ${

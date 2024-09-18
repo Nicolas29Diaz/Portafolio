@@ -20,7 +20,7 @@ import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 import Subtitle from "./SvgItems/Subtitle.jsx";
 
-function Skills() {
+function Skills({ showScreen }) {
   const { cameraFocus, showButtonStart, gpuTier } = useStore();
   const [active, setActive] = useState(0);
 
@@ -49,6 +49,7 @@ function Skills() {
         occlude="blending"
         position={[0, 0.15, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
+        visible={showScreen}
       >
         <BackGround animate={animate} active={active}></BackGround>
 

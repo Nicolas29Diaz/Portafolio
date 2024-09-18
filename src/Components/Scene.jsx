@@ -18,7 +18,7 @@ export function Scene() {
   //No se si dejar eso del tiempo para mover la camara,
   //Puede ser que simplemente el usuario se pueda mover, pero que aparezca
   //el icono de movimiento luego de un tiempo
-  const timeToMove = 0;
+  const timeToMove = 2500;
 
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
@@ -130,12 +130,17 @@ export function Scene() {
   };
 
   useEffect(() => {
-    moveCameraToObject();
-    updateControlsCamera();
+    if (currentView === views.INITIAL && !initialView) {
+      moveCameraToObject();
+      updateControlsCamera();
+    } else if (currentView !== views.INITIAL) {
+      moveCameraToObject();
+      updateControlsCamera();
+    }
   }, [cameraControls]);
 
+  const [initialView, setInitialView] = useState(true);
   useEffect(() => {
-    fixedMoveCameraToObject();
     updateControlsCamera();
 
     if (currentView === views.CHARACTER) {
@@ -144,9 +149,17 @@ export function Scene() {
       setMenuButtonVisible(false);
     }
 
-    setTimeout(() => {
-      updateCancelButtonVisibility();
-    }, timeToChangeView);
+    if (currentView === views.INITIAL && initialView) {
+      setTimeout(() => {
+        fixedMoveCameraToObject();
+        setInitialView(false);
+      }, 1200);
+    } else {
+      fixedMoveCameraToObject();
+      setTimeout(() => {
+        updateCancelButtonVisibility();
+      }, timeToChangeView);
+    }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -155,21 +168,13 @@ export function Scene() {
   useEffect(() => {
     if (isStartButtonPressed) {
       setStartButtonVisibility(false);
-      setStartButtonPressed(false);
-
-      changeView(views.CHARACTER, true);
+      // setStartButtonPressed(false);
+      changeView(views.CHARACTER, false);
       setTimeout(() => {
         setShowFloatButtons(true);
       }, timeToMove);
       setFirstViewToCharacter(true);
     }
-    // if (!showButtonStart) {
-    //   changeView(views.CHARACTER, true);
-    //   setTimeout(() => {
-    //     setShowFloatButtons(true);
-    //   }, timeToMove);
-    //   setFirstViewToCharacter(true);
-    // }
   }, [isStartButtonPressed]);
 
   useEffect(() => {

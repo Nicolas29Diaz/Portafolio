@@ -84,7 +84,7 @@ export function SceneConf() {
 
         {/* Configuración de la malla del plano */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={0}>
-          <planeGeometry args={[50, 50]} />
+          <planeGeometry args={[40, 40]} />
           <MeshReflectorMaterial
             blur={currentSettings.blur} // Blur dinámico basado en el tier
             resolution={currentSettings.floorResolution} // Resolución del suelo
@@ -99,11 +99,7 @@ export function SceneConf() {
         </mesh>
 
         {/* Niebla basada en el tier */}
-        <fogExp2
-          attach="fog"
-          color={currentSettings.fogColor}
-          density={currentSettings.fogDensity}
-        />
+        <fogExp2 attach="fog" color={currentSettings.fogColor} density={0.08} />
 
         {/* Configuración de estrellas */}
         <Stars

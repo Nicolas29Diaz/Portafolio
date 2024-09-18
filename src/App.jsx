@@ -1,7 +1,14 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { getGPUTier } from "detect-gpu";
-import { Preload, Text, useGLTF, useProgress } from "@react-three/drei";
+import {
+  Center,
+  Preload,
+  Text,
+  Text3D,
+  useGLTF,
+  useProgress,
+} from "@react-three/drei";
 import useStore from "./Store/Store.js";
 import { EditScene } from "./Components/EditScene.jsx";
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
@@ -24,13 +31,12 @@ import ZoomDisabler from "./Components/ZoomDisabler.jsx";
 import ZoomDisablerWrapper from "./Components/ZoomDisablerWrapper.jsx";
 
 /*
-QUEDÉ EN SUBTITLE, TOCA CAMBIAR EL MASK POR EL PATH Y PONER EL TEXTO AFUERA DEL SVG, Y VER SI FUNCIONA
-LA ANIMACION O ARREGLARLA PARA HACERLA DESDE CSS Y HTML NORMAL, NO SVG
 
 TAREAS:
 - ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
 MUY IMPORTANTE:
-- En iphon deja hacer zoom, quitarlo
+- VER LO DEL DPR DE CANVAS, QUE SE AJUSTE AL DISPOSITIVO
+- En iphone deja hacer zoom, quitarlo
 - En safari la pantalla de contact no sirveeeee el hover
 - Solucionar problemas con IOS (Textos, tamaños, etc)
 - Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
@@ -70,7 +76,7 @@ function App() {
     isMenuButtonVisible,
     isCharacterAnimStarted,
     cameraFocus,
-
+    isStartButtonPressed,
     isStartButtonVisible,
     setStartButtonVisibility,
     setStartButtonPressed,
@@ -91,21 +97,52 @@ function App() {
   });
   const [showScene, setShowScene] = useState(false);
 
-  const moveCameraDelay = 500;
-
   let gpuInfo = 0;
+
+  const detectBattery = async () => {
+    let charging = true;
+
+    if ("getBattery" in navigator) {
+      try {
+        const battery = await navigator.getBattery();
+        const isPluggedIn = battery.charging;
+
+        if (!isPluggedIn) {
+          console.log("Not charging");
+          charging = false;
+        }
+        return charging;
+      } catch (error) {
+        console.error("Error al obtener el estado de la batería: ", error);
+        return charging;
+      }
+    } else {
+      return charging; // Si la API no está disponible, asumimos que está cargando.
+    }
+  };
 
   useEffect(() => {
     const getGPUInfo = async () => {
       gpuInfo = await getGPUTier();
-      setGpuTier(gpuInfo.tier);
-      console.log("gpuInfo.tier", gpuInfo.tier);
-    };
-    getGPUInfo();
 
-    setTimeout(() => {
-      setShowScene(true);
-    }, moveCameraDelay);
+      console.log("gpuInfo.tier", gpuInfo.tier);
+
+      const charging = await detectBattery(); // Espera el resultado de detectBattery
+      console.log("charging", charging);
+
+      if (!charging) {
+        if (gpuInfo.tier === 3) {
+          console.log("Dispositivo sin cargar, ajustando tier a 2.");
+          setGpuTier(2);
+        } else if (gpuInfo.tier === 2) {
+          setGpuTier(1);
+        }
+      } else {
+        setGpuTier(gpuInfo.tier);
+      }
+    };
+
+    getGPUInfo();
   }, []);
 
   useEffect(() => {
@@ -142,24 +179,20 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [show, setShow] = useState(false);
-
   useEffect(() => {
+    setShowScene(true);
     setTimeout(() => {
-      setShow(true);
-    }, 2000);
-
-    if (show) {
-      setTimeout(() => {
-        setStartButtonVisibility(false);
-      }, 2500);
-    }
-  }, [showScene]);
+      setStartButtonVisibility(true);
+    }, 2500);
+  }, []);
 
   return (
     <>
       <ZoomDisablerWrapper>
-        <LoadingScreen progress={progress}></LoadingScreen>
+        <LoadingScreen
+          progress={progress}
+          isStartButtonPressed={isStartButtonPressed}
+        ></LoadingScreen>
         <div
           className="canvas-container"
           style={{
@@ -170,48 +203,49 @@ function App() {
         >
           <Canvas
             shadows
-            camera={{ position: [1, 5, 7], fov: 60 }}
+            camera={{ position: [0, 5, 5], fov: 60 }}
             ref={refCanvas}
-            dpr={gpuTier === 3 ? 1 : 1} //REVISAR ESTO, por ahora lo dejo en 1
+            //REVISAR ESTO, por ahora lo dejo en 1
+            dpr={gpuTier === 3 ? 2 : 1}
           >
             <Suspense fallback={null}>
-              <SceneConf></SceneConf>
               <Scene3D></Scene3D>
-              {show && <Scene></Scene>}
+              {/* <Character introAnimation={true}></Character> */}
+              <SceneConf></SceneConf>
+              {showScene && <Scene></Scene>}
 
               <Preload all />
             </Suspense>
 
             {/* {showButtonStart && ( */}
 
-            {cameraFocus === "INITIAL" && (
+            {/* {cameraFocus === "INITIAL" && (
               <group
-                position={windowWidth > 1000 ? [2, 2, 2] : [-1.45, 5, 1]}
+                position={windowWidth > 1000 ? [1.5, 2, 2] : [-1.45, 5, 1]}
                 rotation={
-                  windowWidth > 1000 ? [-0.3, -0.4, -0.1] : [0, 0, -0.01]
+                  windowWidth > 1000 ? [0, -Math.PI / 12, 0] : [0, 0, -0.01]
                 }
               >
                 <Text
-                  lineHeight={1}
+                  lineHeight={0.9}
                   anchorX="left"
                   anchorY="middle"
-                  fontSize={windowWidth > 1000 ? 0.8 : 0.55}
+                  fontSize={windowWidth > 1000 ? 0.9 : 0.55}
                   maxWidth={6}
                   font="./Fonts/Suse/SUSE-ExtraBold.ttf"
                 >
                   <meshStandardMaterial color="white" />
-                  {`Hi! I'm \nNicolas Diaz`}
-                  {/* ACA SE PUEDE MEJORAR ESTO PARA MAYOR FLUIDEZ */}
+                  {`\nNicolas\nDiaz Santos`}
+
                   <meshStandardMaterial
                     emissive="white"
                     emissiveIntensity={0.5}
                   />
                 </Text>
               </group>
-            )}
+            )} */}
           </Canvas>
         </div>
-
         <FloatObjects
           isCancelButtonVisible={isCancelButtonVisible}
           progress={progress}
@@ -222,6 +256,7 @@ function App() {
           setMenuView={setMenuView}
           isStartButtonVisible={isStartButtonVisible}
           setStartButtonPressed={setStartButtonPressed}
+          isStartButtonPressed={isStartButtonPressed}
         />
       </ZoomDisablerWrapper>
     </>

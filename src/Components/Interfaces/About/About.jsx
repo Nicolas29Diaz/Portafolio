@@ -5,23 +5,21 @@ import { Html } from "@react-three/drei";
 // Importing styles
 import "./About.css";
 import "./SvgItems/SVG.css";
-import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 
 // Importing components
 
 function About({ animate = false, showScreen }) {
-  const scale = useScaleAnimation(showScreen, 1.72);
-
   return (
     <Html
       className={`about-background ${animate ? "" : ""}`}
-      distanceFactor={1}
+      distanceFactor={1.72}
       transform
       occlude="blending"
       tabIndex={0}
       position={[0.3, 0, 0]}
       rotation={[0, -Math.PI / 2, 0]}
-      scale={[scale, scale, scale]}
+      scale={1}
+      visible={showScreen}
     >
       <svg
         width="100%"
@@ -46,102 +44,69 @@ function About({ animate = false, showScreen }) {
             points="-250,50 525,50 550,60 900,60 925,50 1700,50"
           ></polyline>
         </g>
-        <g transform="translate(230 110)">
-          <text x="0" y="0" className="about-text-title">
-            ABOUT
-          </text>
-        </g>
-        <clipPath id="circleClip">
-          <circle cx="370" cy="350" r="150" />
-        </clipPath>
-        <image
-          xlinkHref="https://www.metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg"
-          x="0"
-          y="0"
-          width="800"
-          height="800"
-          clipPath="url(#circleClip)"
-        />
-
-        <g transform="translate(250 0)">
-          <text x="0" y="520" className="about-text-description">
-            <tspan x="15" dy="1.2em">
-              Virtual Skin
-            </tspan>
-            <tspan x="0" dy="1.2em">
-              {/* Skin */}
-            </tspan>
-          </text>
-        </g>
-
-        <foreignObject x="-580" y="105" width="710" height="600">
-          <div className="about-text-description">
-            I am a Multimedia Engineer, passionate about web development and
-            focused on creating innovative and adaptable solutions in an
-            ever-evolving tech environment. I easily adapt to changes and always
-            prioritize user needs in every project.
-          </div>
-        </foreignObject>
-
-        <g transform="translate(700 95)">
-          <g>
-            <image
-              xlinkHref="Images/AboutImages/IconName.png"
-              x="0"
-              y="0"
-              width="110"
-            />
-            <text x="150" y="50" className="about-text-icon-title">
-              Name:
-            </text>
-            <text x="150" y="100" className="about-text-icon">
-              Nicolas Diaz Santos
-            </text>
-          </g>
-          <g transform="translate(0 140)">
-            <image
-              xlinkHref="Images/AboutImages/IconAge.png"
-              x="0"
-              y="0"
-              width="110"
-            />
-            <text x="150" y="50" className="about-text-icon-title">
-              Age:
-            </text>
-            <text x="150" y="100" className="about-text-icon">
-              26
-            </text>
-          </g>
-          <g transform="translate(0 280)">
-            <image
-              xlinkHref="Images/AboutImages/IconFrom.png"
-              x="0"
-              y="0"
-              width="110"
-            />
-            <text x="150" y="50" className="about-text-icon-title">
-              From:
-            </text>
-            <text x="150" y="100" className="about-text-icon">
-              Colombia
-            </text>
-          </g>
-          <g transform="translate(0 420)">
-            <image
-              xlinkHref="Images/AboutImages/IconProfession.png"
-              x="0"
-              y="0"
-              width="110"
-            />
-            <text x="150" y="50" className="about-text-icon-title">
-              Profession:
-            </text>
-            <text x="150" y="100" className="about-text-icon">
-              Multimedia Engineer
-            </text>
-          </g>
-        </g>
       </svg>
+
+      {/* ICONS AND TEXT */}
+      <div
+        className="about-icons-text-containter"
+        style={{ top: "46px", left: "650px" }}
+      >
+        <img src="Images/AboutImages/IconName.webp" alt="IconName" />
+        <div>
+          <h2>Name:</h2>
+          <p>Nicolas Santiago Diaz Santos</p>
+        </div>
+      </div>
+      <div
+        className="about-icons-text-containter"
+        style={{ top: "114px", left: "650px" }}
+      >
+        <img src="Images/AboutImages/IconAge.webp" alt="IconName" />
+        <div>
+          <h2>Age:</h2>
+          <p>21</p>
+        </div>
+      </div>
+      <div
+        className="about-icons-text-containter"
+        style={{ top: "180px", left: "650px" }}
+      >
+        <img src="Images/AboutImages/IconFrom.webp" alt="IconName" />
+        <div>
+          <h2>From:</h2>
+          <p>Colombia</p>
+        </div>
+      </div>
+      <div
+        className="about-icons-text-containter"
+        style={{ top: "246px", left: "650px" }}
+      >
+        <img src="Images/AboutImages/IconProfession.webp" alt="IconName" />
+        <div>
+          <h2> Profession:</h2>
+          <p> Multimedia Engineer</p>
+        </div>
+      </div>
+      {/* DESCRIPTION */}
+      <div className="about-text-description">
+        I am a Multimedia Engineer, passionate about web development and focused
+        on creating innovative and adaptable solutions in an ever-evolving tech
+        environment. I easily adapt to changes and always prioritize user needs
+        in every project.
+      </div>
+      {/* CENTRAL IMAGE */}
+      <div className="about-centralImage-container">
+        <div>
+          <img
+            src="https://www.metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg"
+            alt="IconAbout"
+          />
+        </div>
+
+        <h2> Virtual Skin</h2>
+      </div>
+
+      <h1 className="about-title">ABOUT</h1>
     </Html>
   );
 }

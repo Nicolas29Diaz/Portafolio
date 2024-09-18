@@ -21,8 +21,18 @@ export function Scene3D() {
   const { isStartButtonPressed, isStartButtonVisible, cameraFocus } =
     useStore();
 
+  //Scenario visibility
+  const [showScenario, setShowScenario] = useState(true);
+
   //Screens visibility
   const [showScreens, setShowScreens] = useState(false);
+  const [showAboutScreen, setShowAboutScreen] = useState(false);
+  const [showContactScreen, setShowContactScreen] = useState(false);
+  const [showMenuScreen, setShowMenuScreen] = useState(false);
+  const [showProjectsScreen, setShowProjectsScreen] = useState(false);
+  const [showSkillsScreen, setShowSkillsScreen] = useState(false);
+
+  const [chargeSreen, setChargeScreen] = useState(false);
 
   // Character
   ////Animations
@@ -31,6 +41,7 @@ export function Scene3D() {
   const [characterDissolveEyes, setCharacterDissolveEyes] = useState(false);
   ////Visibility
   const [showCharacter, setShowCharacter] = useState(true);
+  const [chargeCharacter, setChargeCharacter] = useState(false);
 
   // Chair
   ////Animations
@@ -65,16 +76,18 @@ export function Scene3D() {
 
     setTimeout(() => {
       setChairHelmetAnim(true);
-    }, 1500);
+    }, 1200);
 
     setTimeout(() => {
       setCharacterDissolveEyes(true);
-    }, 3500);
+    }, 3000);
   };
 
   useEffect(() => {
     if (isStartButtonPressed) {
-      setShowScreens(true);
+      setTimeout(() => {
+        setShowScreens(true);
+      }, 2900);
       startAnimation();
     } else {
       introAnimation();
@@ -87,50 +100,57 @@ export function Scene3D() {
       setShowChair(false);
       setShowCharacter(false);
       setShowMenu(false);
+    } else if (cameraFocus === "INITIAL") {
+      setChargeCharacter(true);
+      setTimeout(() => {
+        setShowCharacter(true);
+      }, 500);
     } else {
       setShowCables(false);
       setShowChair(true);
       setShowCharacter(true);
       setShowMenu(true);
+      setChargeScreen(true);
+      setShowScenario(true);
     }
   }, [cameraFocus]);
 
   return (
     <>
       {/* SCREENS */}
-      <About3D>
-        <About showScreen={showScreens} />
-      </About3D>
 
+      <About3D>{chargeSreen && <About showScreen={showScreens} />}</About3D>
       <Contact3D>
-        <Contact showScreen={showScreens} />
+        {chargeSreen && <Contact showScreen={showScreens} />}
       </Contact3D>
 
-      <Menu3D visible={showMenu}>
-        <Menu showScreen={showScreens} />
+      <Menu3D visible={showScenario}>
+        {chargeSreen && <Menu showScreen={showScreens} />}
       </Menu3D>
 
       <Projects3D visible={showProjects}>
-        {showScreens && <Projects />}
+        {chargeSreen && <Projects showScreen={showScreens} />}
       </Projects3D>
 
-      <Skills3D>{showScreens && <Skills />}</Skills3D>
+      <Skills3D>{chargeSreen && <Skills showScreen={showScreens} />}</Skills3D>
 
       {/* Scenario */}
-      <Character
-        introAnimation={characterIntroAnim}
-        sitAnimation={characterSitAnim}
-        visible={showCharacter}
-        dissolveEyes={characterDissolveEyes}
-      />
+      {chargeCharacter && (
+        <Character
+          introAnimation={characterIntroAnim}
+          sitAnimation={characterSitAnim}
+          visible={showCharacter}
+          dissolveEyes={characterDissolveEyes}
+        />
+      )}
 
       <Chair startAnimation={chairHelmetAnim} visible={showChair} />
 
-      {/* Verificar si es mejor con esto o sin esto */}
       <Cables visible={showCables} />
+      {/* Verificar si es mejor con esto o sin esto */}
 
-      <Scenario />
-      <Shelf />
+      <Scenario show={showScenario} />
+      {chargeSreen && <Shelf />}
     </>
   );
 }

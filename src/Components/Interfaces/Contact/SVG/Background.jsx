@@ -34,9 +34,6 @@ function Background() {
           {/* <text x="130" y="84" className="contact-title">
             CONTACT
           </text> */}
-          <foreignObject x="120" y="51" width="300" height="300">
-            <h1 className="contact-title">CONTACT</h1>
-          </foreignObject>
         </g>
 
         {/* IMAGES LOGOS */}
@@ -102,6 +99,10 @@ function Background() {
           </g>
         </g> */}
       </svg>
+
+      <div>
+        <h1 className="contact-title">CONTACT ME</h1>
+      </div>
     </>
   );
 }

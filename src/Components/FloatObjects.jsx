@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 export const FloatObjects = ({
   isCancelButtonVisible,
   setStartButtonPressed,
+  isStartButtonPressed,
   progress,
   isStartButtonVisible,
   windowWidth,
@@ -14,8 +15,21 @@ export const FloatObjects = ({
   setMenuView,
   cameraFocus,
 }) => {
+  const [showMoveLogo, setShowMoveLogo] = useState(false);
+
+  useEffect(() => {
+    console.log("isStartButtonPressed", isStartButtonPressed);
+    if (isStartButtonPressed) {
+      setTimeout(() => {
+        setShowMoveLogo(true);
+      }, 3500);
+    }
+  }, [isStartButtonPressed]);
+
   return (
     <>
+      {showMoveLogo && <div className="logo-canMove"></div>}
+
       {isCancelButtonVisible && (
         <div className="contentCancelButton">
           <div
@@ -56,7 +70,7 @@ export const FloatObjects = ({
           className="menu-button-container"
           onClick={() => setMenuView(true)}
         >
-          <img src="./Images/Icons/Menu3.png" alt="MenuIcon" />
+          <img src="./Images/Icons/Menu3.webp" alt="MenuIcon" />
         </div>
       )}
     </>

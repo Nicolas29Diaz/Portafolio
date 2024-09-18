@@ -117,13 +117,13 @@ export const getCameraControls = () => {
       coordCamera: isMobileInitial
         ? { x: 1, y: 4, z: 7 }
         : isTabletInitial
-        ? { x: 1, y: 3.5, z: 7 }
-        : { x: 1, y: 3.5, z: 7 }, //Coordinates to posisionate the camera view
+        ? { x: 1, y: 2, z: 7 }
+        : { x: 2, y: 2, z: 5.5 }, //Coordinates to posisionate the camera view
       coordLook: isMobileInitial
         ? { x: 0, y: 3, z: 0 }
         : isTabletInitial
-        ? { x: 3, y: 0, z: 0 }
-        : { x: 3, y: 0, z: 0 }, //Coordinates to look at
+        ? { x: 0, y: 3, z: 0 }
+        : { x: 3.5, y: 1.5, z: 0 }, //Coordinates to look at
     },
     CONTACT: {
       rotation: {

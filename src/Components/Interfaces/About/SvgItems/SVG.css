@@ -53,12 +53,7 @@
   fill: #ffffff;
   letter-spacing: 5px;
 }
-.about-text-description {
-  font-size: 50px;
-  font-family: "Electrolize-Regular";
-  color: #ffffff;
-  fill: #ffffff;
-}
+
 
 .about-text-title-2 {
   font-size: 47px;
@@ -66,16 +61,3 @@
   font-weight: 600;
 }
 
-.about-text-icon {
-  font-size: 40px;
-  font-family: "Electrolize-Regular";
-  fill: #ffffff;
-  letter-spacing: 5px;
-}
-.about-text-icon-title {
-  font-size: 40px;
-  font-family: "Electrolize-Regular";
-  font-weight: 600;
-  fill: #ffffff;
-  letter-spacing: 5px;
-}

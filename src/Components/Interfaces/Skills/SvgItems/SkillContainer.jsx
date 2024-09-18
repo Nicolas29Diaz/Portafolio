@@ -64,7 +64,7 @@ function SkillContainer({
         </svg>
 
         <div className="img-container">
-          <img src={srcImg} alt={altImg} loading="lazy" />
+          <img src={srcImg} alt={altImg} />
         </div>
         <div className="skill-text-container" style={{ top: `${y}px` }}>
           <p className="skill-text">{skillText}</p>

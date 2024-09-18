@@ -8,13 +8,14 @@ function Background({ isHandVisible, onHandClick }) {
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 380 430"
         style={{
           width: "100%",
           height: "100%",
           position: "absolute",
           zIndex: "0",
-          top: "10",
-          left: "10",
+          top: "0",
+          left: "6",
         }}
       >
         {/* Borders setup */}
@@ -85,7 +86,7 @@ function Background({ isHandVisible, onHandClick }) {
             // transform="translate(-50%, -50%) scale(0.5)"
             style={{ opacity: opacity }}
           >
-            <img src="/Images/Icons/HandMenu.png" alt="HandIcon" />
+            <img src="/Images/Icons/HandMenu.webp" alt="HandIcon" />
           </foreignObject>
         )}
       </svg>

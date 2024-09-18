@@ -20,7 +20,7 @@ export function Chair({
     if (startAnimation) {
       // console.log("Chair useEffect");
       const helmet = actions[names[0]];
-      helmet.reset().fadeIn(0.5).play();
+      helmet.fadeIn(0.5).play().timeScale = 1.9;
       helmet.setLoop(THREE.LoopOnce);
       helmet.clampWhenFinished = true;
     }
