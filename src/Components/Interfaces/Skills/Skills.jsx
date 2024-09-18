@@ -14,7 +14,7 @@ import SkillContainer from "./SvgItems/SkillContainer";
 import BackGround from "./SvgItems/BackGround";
 
 // Importing constants
-import { sliderConf, skillsConf } from "./Constants.js";
+import { sliderConf, skillsConf } from "../../../Constants/Constants.js";
 
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";

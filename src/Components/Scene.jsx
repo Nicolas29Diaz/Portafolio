@@ -130,13 +130,13 @@ export function Scene() {
   };
 
   useEffect(() => {
-    if (currentView === views.INITIAL && !initialView) {
+    // if (currentView === views.INITIAL && !initialView) {
       moveCameraToObject();
       updateControlsCamera();
-    } else if (currentView !== views.INITIAL) {
-      moveCameraToObject();
-      updateControlsCamera();
-    }
+    // } else if (currentView !== views.INITIAL) {
+    //   moveCameraToObject();
+    //   updateControlsCamera();
+    // }
   }, [cameraControls]);
 
   const [initialView, setInitialView] = useState(true);
@@ -236,7 +236,7 @@ export function Scene() {
         <FloatButton
           view={views.CONTACT}
           changeView={changeView}
-          position={[0, 2.8, -6]}
+          position={[0, 2.1, -6]}
           rotation={[0, 0, Math.PI / 4]}
         />
         <FloatButton

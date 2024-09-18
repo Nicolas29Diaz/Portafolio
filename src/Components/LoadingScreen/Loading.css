@@ -10,12 +10,13 @@
   height: 100%;
   display: flex;
   z-index: 1;
+  pointer-events: none;
 }
 .slideIn {
   animation: slideIn 1s forwards;
 }
 .slideOut {
-  animation: slideOut 1s forwards;
+  animation: slideOut 0.8s forwards;
 }
 @keyframes slideOut {
   0% {
@@ -24,7 +25,7 @@
 
   100% {
     left: 100%;
-    visibility: hidden;
+    /* visibility: hidden; */
   }
 }
 @keyframes slideIn {
@@ -61,8 +62,8 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-
   z-index: 1;
+  user-select: none;
 }
 .loading-text-container h1 {
   position: static;
@@ -152,7 +153,7 @@
 /* MEDIA QUERY PARA PANTALLAS PEQUEÑAS (MENOS DE 768px) */
 @media screen and (max-width: 768px) {
   .sliding-box {
-    /* transform: rotate(-20deg); */
+    pointer-events: none;
     position: fixed;
     top: -20%;
     left: 0%;
@@ -181,7 +182,7 @@
     }
     100% {
       top: -250%;
-      visibility: hidden;
+      /* visibility: hidden; */
     }
   }
   .box {

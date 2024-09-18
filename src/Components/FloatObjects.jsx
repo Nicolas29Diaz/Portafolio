@@ -70,7 +70,7 @@ export const FloatObjects = ({
           className="menu-button-container"
           onClick={() => setMenuView(true)}
         >
-          <img src="./Images/Icons/Menu3.webp" alt="MenuIcon" />
+          <img src="./Images/Icons/Menu.webp" alt="MenuIcon" />
         </div>
       )}
     </>

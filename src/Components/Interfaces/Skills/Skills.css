@@ -1,9 +1,5 @@
 .skills-html {
-  background: radial-gradient(
-    ellipse 700px 400px at center,
-    rgb(0, 52, 112) 40%,
-    rgb(0, 16, 39) 100%
-  );
+  background: var(--skills-background-color);
   width: 980px;
   height: 480px;
   position: relative;

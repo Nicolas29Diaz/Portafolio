@@ -18,9 +18,9 @@ import { Scene } from "./Components/Scene.jsx";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 //Styles
-import "./Syles/FloatButton.css";
-import "./Syles/CancelButton.css";
-import "./Syles/GlobalStyles.css";
+import "./StylesVariables/FloatButton.css";
+import "./StylesVariables/CancelButton.css";
+import "./StylesVariables/GlobalStyles.css";
 import { Scene3D } from "./Components/3D_Models/Scene3D.jsx";
 import { Character } from "./Components/3D_Models/Character.jsx";
 import { FloatObjects } from "./Components/FloatObjects.jsx";
@@ -218,34 +218,6 @@ function App() {
 
               <Preload all />
             </Suspense>
-
-            {/* {showButtonStart && ( */}
-
-            {/* {cameraFocus === "INITIAL" && (
-              <group
-                position={windowWidth > 1000 ? [1.5, 2, 2] : [-1.45, 5, 1]}
-                rotation={
-                  windowWidth > 1000 ? [0, -Math.PI / 12, 0] : [0, 0, -0.01]
-                }
-              >
-                <Text
-                  lineHeight={0.9}
-                  anchorX="left"
-                  anchorY="middle"
-                  fontSize={windowWidth > 1000 ? 0.9 : 0.55}
-                  maxWidth={6}
-                  font="./Fonts/Suse/SUSE-ExtraBold.ttf"
-                >
-                  <meshStandardMaterial color="white" />
-                  {`\nNicolas\nDiaz Santos`}
-
-                  <meshStandardMaterial
-                    emissive="white"
-                    emissiveIntensity={0.5}
-                  />
-                </Text>
-              </group>
-            )} */}
           </Canvas>
         </div>
         <FloatObjects

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import "./Loading.css";
-import "../../Syles/StartButton.css";
+import "../../StylesVariables/StartButton.css";
 function LoadingScreen({
   progress,
   isStartButtonPressed,
@@ -59,6 +59,9 @@ function LoadingScreen({
           ${slideIn ? "slideIn" : ""} 
           ${isStartButtonPressed ? "slideOut" : ""} 
         `}
+        onAnimationEnd={(e) => {
+          if (isStartButtonPressed) e.target.style.display = "none";
+        }}
       >
         <div className="box green"></div>
         <div className="box red"></div>
@@ -85,13 +88,15 @@ function LoadingScreen({
         <h2>Multimedia Engineer</h2>
 
         <div>
-          <button
-            onClick={() => {
-              setStartButtonPressed(true);
-            }}
-          >
-            Start
-          </button>
+          {isStartButtonVisible && (
+            <button
+              onClick={() => {
+                setStartButtonPressed(true);
+              }}
+            >
+              Start
+            </button>
+          )}
         </div>
       </div>
     </>
