@@ -20,7 +20,6 @@ import { Bloom, EffectComposer } from "@react-three/postprocessing";
 //Styles
 import "./Syles/FloatButton.css";
 import "./Syles/CancelButton.css";
-import "./Syles/StartButton.css";
 import "./Syles/GlobalStyles.css";
 import { Scene3D } from "./Components/3D_Models/Scene3D.jsx";
 import { Character } from "./Components/3D_Models/Character.jsx";
@@ -108,16 +107,17 @@ function App() {
         const isPluggedIn = battery.charging;
 
         if (!isPluggedIn) {
-          console.log("Not charging");
+          // console.log("Not charging");
           charging = false;
         }
         return charging;
       } catch (error) {
-        console.error("Error al obtener el estado de la batería: ", error);
+        // console.error("Error al obtener el estado de la batería: ", error);
         return charging;
       }
     } else {
-      return charging; // Si la API no está disponible, asumimos que está cargando.
+      // console.log("API de batería no disponible.");
+      return charging;
     }
   };
 
@@ -192,6 +192,8 @@ function App() {
         <LoadingScreen
           progress={progress}
           isStartButtonPressed={isStartButtonPressed}
+          isStartButtonVisible={isStartButtonVisible}
+          setStartButtonPressed={setStartButtonPressed}
         ></LoadingScreen>
         <div
           className="canvas-container"

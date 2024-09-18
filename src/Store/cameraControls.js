@@ -36,8 +36,8 @@ export const getCameraControls = () => {
   const z_positionCharacter = relativeDistance(width, 3.38, 5.07);
 
   //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
-  const isMobileInitial = width <= 1000;
-  const isTabletInitial = width <= 1024;
+  const isMobileInitial = width <= 760;
+  const isTabletInitial = width <= 768;
 
   //En Menu cambia tanto Y como Z como X entonces se aplica la función relativeDistance a todas
   const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
@@ -117,7 +117,7 @@ export const getCameraControls = () => {
       coordCamera: isMobileInitial
         ? { x: 1, y: 4, z: 7 }
         : isTabletInitial
-        ? { x: 1, y: 2, z: 7 }
+        ? { x: 1, y: 4, z: 7 }
         : { x: 2, y: 2, z: 5.5 }, //Coordinates to posisionate the camera view
       coordLook: isMobileInitial
         ? { x: 0, y: 3, z: 0 }

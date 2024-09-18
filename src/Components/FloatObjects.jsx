@@ -45,7 +45,7 @@ export const FloatObjects = ({
         </div>
       )}
 
-      {isStartButtonVisible && (
+      {/* {isStartButtonVisible && (
         <div className="containerStartButton">
           <button
             onClick={() => {
@@ -55,7 +55,7 @@ export const FloatObjects = ({
             Start
           </button>
         </div>
-      )}
+      )} */}
 
       {/* {isStartButtonVisible && (
         <div

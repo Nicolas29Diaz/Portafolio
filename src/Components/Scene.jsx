@@ -187,23 +187,23 @@ export function Scene() {
 
   //MOSTAR COORDENADAS CAMARA
 
-  useEffect(() => {
-    const camera = cameraControlRef.current;
-    let pos = {};
-    camera.addEventListener("controlend", () => {
-      pos = {
-        x: camera._camera.position.x,
-        y: camera._camera.position.y,
-        z: camera._camera.position.z,
-      };
+  // useEffect(() => {
+  //   const camera = cameraControlRef.current;
+  //   let pos = {};
+  //   camera.addEventListener("controlend", () => {
+  //     pos = {
+  //       x: camera._camera.position.x,
+  //       y: camera._camera.position.y,
+  //       z: camera._camera.position.z,
+  //     };
 
-      // console.log("azimuthAngle: ", camera.azimuthAngle);
-      // console.log("polarAngle:", camera.polarAngle);
-      console.log("distance:", camera.distance);
-      console.log("Camera position", pos);
-      // camera.distance = 0;
-    });
-  }, []);
+  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
+  //     // console.log("polarAngle:", camera.polarAngle);
+  //     console.log("distance:", camera.distance);
+  //     console.log("Camera position", pos);
+  //     // camera.distance = 0;
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (isMenuView) {
