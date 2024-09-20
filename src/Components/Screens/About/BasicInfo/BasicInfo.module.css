@@ -1,0 +1,25 @@
+.ulContainer {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.liInfo {
+  margin: 10px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  font-size: 15px;
+  font-family: var(--main-font);
+  color: #ffffff;
+}
+
+.liInfo h2 {
+  font-size: 20px;
+}
+
+.liInfo img {
+  font-size: 20px;
+  width: 55px;
+}

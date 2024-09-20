@@ -1,0 +1,65 @@
+.html {
+  background: var(--skills-background-color);
+  width: 980px;
+  height: 480px;
+  position: relative;
+}
+
+.noPointer {
+  pointer-events: none;
+}
+
+.sectionSlider {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  width: 660px;
+  height: 320px;
+  z-index: 1;
+}
+
+.sectionCharacter {
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  width: 220px;
+  height: 360px;
+  z-index: 1;
+}
+
+.sliderContainer {
+  margin: auto;
+  width: 95%;
+  cursor: grab;
+}
+
+.sliderItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+/* 
+.canvas-container-skills {
+  position: fixed;
+  top: 20px;
+  left: 696px;
+  width: 320px;
+  height: 500px;
+  clip-path: polygon(
+    1.9% 9.1%,
+    12.5% 0.5%,
+    73% 0.5%,
+    82% 6%,
+    82% 74%,
+    73% 80%,
+    3.8% 80%,
+    11.15% 75%,
+    11.15% 15%
+  );
+}
+.canvas-container-skills img {
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+} */

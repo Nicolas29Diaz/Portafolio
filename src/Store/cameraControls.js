@@ -23,7 +23,7 @@ export const getCameraControls = () => {
 
   const x_distanceAbout = relativeDistance(width, 6.27, 1.23);
 
-  const z_positionProjects = relativeDistance(width, 3.013, -4);
+  const z_positionProjects = relativeDistance(width, 3.5, -4);
 
   //En skills cambia tanto X como Z entonces se aplica la función relativeDistance a ambas
   const x_positionSkills = relativeDistance(width, -5.29, -0.507);

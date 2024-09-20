@@ -4,18 +4,19 @@ import { Contact3D } from "./Screens/Contact3D";
 import { Menu3D } from "./Screens/Menu3D";
 import { Projects3D } from "./Screens/Projects3D";
 import { Skills3D } from "./Screens/Skills3D";
-import { Scenario } from "./Scenario";
-import { Shelf } from "./Shelf";
-import { Character } from "./Character";
-import { Chair } from "./Chair";
+import { Scenario } from "./Scenario/Scenario";
+import { Shelf } from "./Scenario/Shelf";
+import { Character } from "./Scenario/Character";
+import { Chair } from "./Scenario/Chair";
 
-import Skills from "../Interfaces/Skills/Skills";
-import Projects from "../Interfaces/Projects/Projects";
-import About from "../Interfaces/About/About";
+import Skills from "../Screens/Skills/Main/Skills";
+import Projects from "../Screens/Projects/Main/Projects";
+import About from "../Screens/About/Main/About";
+import Menu from "../Screens/Menu/Menu";
+import Contact from "../Screens/Contact/Contact";
+
 import useStore from "../../Store/Store";
-import { Cables } from "./Cables";
-import Menu from "../Interfaces/Menu/Menu";
-import Contact from "../Interfaces/Contact/Contact";
+import { Cables } from "./Scenario/Cables";
 
 export function Scene3D() {
   const { isStartButtonPressed, isStartButtonVisible, cameraFocus } =

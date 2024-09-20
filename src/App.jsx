@@ -22,7 +22,7 @@ import "./StylesVariables/FloatButton.css";
 import "./StylesVariables/CancelButton.css";
 import "./StylesVariables/GlobalStyles.css";
 import { Scene3D } from "./Components/3D_Models/Scene3D.jsx";
-import { Character } from "./Components/3D_Models/Character.jsx";
+
 import { FloatObjects } from "./Components/FloatObjects.jsx";
 
 import * as THREE from "three";

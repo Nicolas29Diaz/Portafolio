@@ -18,14 +18,31 @@
 
   --load-screen-bg-color: #48d0e4;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+  background-color: var(--load-screen-bg-color);
+}
+.preload-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--load-screen-bg-color);
+  z-index: 1;
+  opacity: 1;
+}
 
 text {
   font-family: var(--main-font);
 }
 
 h1 {
-  position: absolute;
-  transform: translate(-50%, -50%); /* Centra el elemento */
   font-family: var(--main-font);
   font-size: var(--heading-font-size);
   color: var(--text-light-color);
@@ -33,7 +50,6 @@ h1 {
 }
 
 h2 {
-  /* position: absolute; */
   font-family: var(--main-font);
   font-size: var(--subheading-font-size);
   color: var(--text-light-color);

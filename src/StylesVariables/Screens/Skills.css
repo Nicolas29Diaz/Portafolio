@@ -5,14 +5,12 @@
     rgb(0, 16, 39) 100%
   );
 
-  --skills-border-color-primary: #08bee1;
+  /* BORDERS */
   --skills-border-stroke-primary: #08bee1;
+  --skills-border-stroke-width-primary: 3;
   --skills-border-fill-primary: #08bee1;
 
-  --skills-border-color-primary: #08bee1;
-  --skills-border-stroke-primary: #08bee1;
-  --skills-border-fill-primary: #08bee1;
+  /* FONTS */
+  --skills-font-color-primary: #ffffff;
+  --skills-font-color-secondary: #3adeff;
 }
-
-
-

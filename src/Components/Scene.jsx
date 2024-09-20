@@ -5,7 +5,7 @@ import { MeshFit } from "./MeshFit.jsx";
 import { SceneConf } from "./SceneConfiguration/SceneConf.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
-import { Scene3D2 } from "./3D_Models/3D_Scene.jsx";
+
 import { useThree } from "@react-three/fiber";
 
 import { getCameraControls } from "../Store/cameraControls.js";
@@ -187,23 +187,23 @@ export function Scene() {
 
   //MOSTAR COORDENADAS CAMARA
 
-  // useEffect(() => {
-  //   const camera = cameraControlRef.current;
-  //   let pos = {};
-  //   camera.addEventListener("controlend", () => {
-  //     pos = {
-  //       x: camera._camera.position.x,
-  //       y: camera._camera.position.y,
-  //       z: camera._camera.position.z,
-  //     };
+  useEffect(() => {
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
 
-  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
-  //     // console.log("polarAngle:", camera.polarAngle);
-  //     console.log("distance:", camera.distance);
-  //     console.log("Camera position", pos);
-  //     // camera.distance = 0;
-  //   });
-  // }, []);
+      // console.log("azimuthAngle: ", camera.azimuthAngle);
+      // console.log("polarAngle:", camera.polarAngle);
+      console.log("distance:", camera.distance);
+      console.log("Camera position", pos);
+      // camera.distance = 0;
+    });
+  }, []);
 
   useEffect(() => {
     if (isMenuView) {
