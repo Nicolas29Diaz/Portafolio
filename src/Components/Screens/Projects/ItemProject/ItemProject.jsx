@@ -30,28 +30,29 @@ function ItemProject({ project, animate, interaction }) {
                 objectFit: "cover",
                 // clipPath: "url(#imageMask2)",
                 clipPath:
-                  "polygon(12% 17%, 92% 17%, 92% 38% , 98% 44%, 98% 82%, 12% 82%",
+                  "polygon(12% 17%, 92% 17%, 92% 38% , 98% 44%, 98% 78%, 12% 78%",
               }}
             />
 
-            <article
-              style={{
-                position: "absolute",
-                top: "310px",
-                left: "50px",
-                width: "244px",
-                height: "188px",
-                backgroundColor: "red",
-              }}
-            >
-              <ul style={{ listStyle: "none" }}>
-                <li style={{margin:"5px"}}>{project.title}</li>
-                <li>{project.title}</li>
-                <li>{project.title}</li>
+            <article className="ulContainer">
+              <ul>
+                <li>
+                  <h1>{project.title}</h1>
+                </li>
+                <li>
+                  <ul id="techList">
+                    {project.techs.map((tech, index) => (
+                      <li key={index}>{tech}</li>
+                    ))}
+                  </ul>
+                </li>
+                <li>
+                  <p>{project.description}</p>
+                </li>
               </ul>
             </article>
 
-            <div
+            {/* <div
               style={{
                 position: "absolute",
                 top: "310px",
@@ -74,7 +75,7 @@ function ItemProject({ project, animate, interaction }) {
               }}
             >
               {project.description}
-            </div>
+            </div> */}
           </>
         </div>
       )}

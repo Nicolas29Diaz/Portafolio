@@ -1,6 +1,4 @@
-.preload-screen {
-  display: none;
-}
+
 /* PANTALLA QUE DESLIZA */
 .sliding-box {
   position: fixed;
@@ -244,3 +242,9 @@
     font-size: 2.5rem;
   }
 } */
+.preload-screen {
+  display: none;
+}
+.preload-image{
+  display: none;
+}

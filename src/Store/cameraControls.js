@@ -26,8 +26,8 @@ export const getCameraControls = () => {
   const z_positionProjects = relativeDistance(width, 3.5, -4);
 
   //En skills cambia tanto X como Z entonces se aplica la función relativeDistance a ambas
-  const x_positionSkills = relativeDistance(width, -5.29, -0.507);
-  const z_positionSkills = relativeDistance(width, -1.75, 0.277);
+  const x_positionSkills = relativeDistance(width, -5.52, -2.04);
+  const z_positionSkills = relativeDistance(width, -1.91, -0.61);
 
   //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
   // const distanceCharacter = relativeDistance(width, 3.8, 5.7);
@@ -63,11 +63,11 @@ export const getCameraControls = () => {
         },
       },
       dolly: {
-        speed: 1, //Enable/Disable (1 or 0) dolly
-        min: 2.8,
+        speed: 0.8, //Enable/Disable (1 or 0) dolly
+        min: 2,
         max: 8,
       },
-      coordCamera: { x: x_positionSkills, y: 3.96, z: z_positionSkills }, //Coordinates to posisionate the camera view
+      coordCamera: { x: x_positionSkills, y: 3.95, z: z_positionSkills }, //Coordinates to posisionate the camera view
       coordLook: { x: -7.87, y: 3.96, z: -2.85 }, //Coordinates to look at
     },
     CHARACTER: {

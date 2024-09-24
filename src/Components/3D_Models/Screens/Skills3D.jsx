@@ -18,21 +18,16 @@ export function Skills3D({ props, children }) {
           receiveShadow
           geometry={nodes.Plane014.geometry}
           material={materials["MetalSilla.001"]}
+          scale={[0.8, 1, 1]}
         />
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Plane014_1.geometry}
           material={materials.TV_Projects}
+          scale={[0.8, 1, 1]}
         />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Plane014_2.geometry}
-          material={materials.Screen}
-        >
-          {children}
-        </mesh>
+        <mesh>{children}</mesh>
       </group>
     </group>
   );

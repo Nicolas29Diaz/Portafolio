@@ -17,7 +17,6 @@ import Subtitle from "../Subtitle/Subtitle.jsx";
 // Importing constants
 import { sliderConf, skillsConf } from "../Constants/Constants.js";
 
-
 function Skills({ showScreen }) {
   const { cameraFocus, showButtonStart, gpuTier } = useStore();
   const [active, setActive] = useState(0);
@@ -48,50 +47,52 @@ function Skills({ showScreen }) {
         rotation={[-Math.PI / 2, 0, 0]}
         visible={showScreen}
       >
-        <BackGround animate={animate} active={active}></BackGround>
+        <section className={styles.fullContainer}>
+          <BackGround animate={animate} active={active}></BackGround>
 
-        {showSubtitle && (
-          <Subtitle
-            animate={animate}
-            active={active}
-            subTitleOptions={skillsConf[active].category}
-          ></Subtitle>
-        )}
+          {showSubtitle && (
+            <Subtitle
+              animate={animate}
+              active={active}
+              subTitleOptions={skillsConf[active].category}
+            ></Subtitle>
+          )}
 
-        <section className={styles.sectionSlider}>
-          <div className={styles.sliderContainer}>
-            <Slider
-              {...sliderConf}
-              beforeChange={(current, next) => {
-                setActive(next);
-              }}
-            >
-              {skillsConf.map((skillsGroup, groupIndex) => (
-                <div key={groupIndex}>
-                  <div className={styles.sliderItem}>
-                    {skillsGroup.skills.map((skill, index) => (
-                      <SkillContainer
-                        animate={animate}
-                        key={index}
-                        skillPoints={skill.points}
-                        skillText={skill.text}
-                        x={skill.x}
-                        y={skill.y}
-                        activeSkillPoints={active === groupIndex}
-                        srcImg={skill.srcImg}
-                        altImg={skill.altImg}
-                        cameraFocus={cameraFocus}
-                      />
-                    ))}
+          <section className={styles.sectionSlider}>
+            <div className={styles.sliderContainer}>
+              <Slider
+                {...sliderConf}
+                beforeChange={(current, next) => {
+                  setActive(next);
+                }}
+              >
+                {skillsConf.map((skillsGroup, groupIndex) => (
+                  <div key={groupIndex}>
+                    <div className={styles.sliderItem}>
+                      {skillsGroup.skills.map((skill, index) => (
+                        <SkillContainer
+                          animate={animate}
+                          key={index}
+                          skillPoints={skill.points}
+                          skillText={skill.text}
+                          x={skill.x}
+                          y={skill.y}
+                          activeSkillPoints={active === groupIndex}
+                          srcImg={skill.srcImg}
+                          altImg={skill.altImg}
+                          cameraFocus={cameraFocus}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
-        </section>
+                ))}
+              </Slider>
+            </div>
+          </section>
 
-        <section className={styles.sectionCharacter}>
-          <img src="" alt="CharacterModelRotating" />
+          {/* <section className={styles.sectionCharacter}>
+  <img src="" alt="CharacterModelRotating" />
+</section> */}
         </section>
       </Html>
     </>

@@ -1,6 +1,6 @@
 .html {
   background: var(--skills-background-color);
-  width: 980px;
+  width: 780px;
   height: 480px;
   position: relative;
 }
@@ -63,3 +63,11 @@
   height: 50%;
   object-fit: contain;
 } */
+
+
+.fullContainer{
+  width: 95%;
+  height: 100%;
+  position: relative;
+  left: 20px;
+}

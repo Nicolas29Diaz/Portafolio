@@ -18,7 +18,7 @@ export function Scene() {
   //No se si dejar eso del tiempo para mover la camara,
   //Puede ser que simplemente el usuario se pueda mover, pero que aparezca
   //el icono de movimiento luego de un tiempo
-  const timeToMove = 2500;
+  const timeToMove = 0;
 
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());

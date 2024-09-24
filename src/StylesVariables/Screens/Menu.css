@@ -1,0 +1,17 @@
+:root {
+    --menu-background-color: radial-gradient(
+      ellipse 700px 400px at center,
+      rgb(0, 52, 112) 40%,
+      rgb(0, 16, 39) 100%
+    );
+  
+    /* BORDERS */
+    --menu-border-stroke-primary: #08bee1;
+    --menu-border-stroke-width-primary: 3;
+    --menu-border-fill-primary: #08bee1;
+  
+    /* FONTS */
+    --menu-font-color-primary: #ffffff;
+    --menu-font-color-secondary: #3adeff;
+  }
+  

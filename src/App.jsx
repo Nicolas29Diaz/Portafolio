@@ -33,19 +33,18 @@ import ZoomDisablerWrapper from "./Components/ZoomDisablerWrapper.jsx";
 
 TAREAS:
 - ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
+
 MUY IMPORTANTE:
-- VER LO DEL DPR DE CANVAS, QUE SE AJUSTE AL DISPOSITIVO
+- Ver por qué a veces sale charging true y otras false
 - En iphone deja hacer zoom, quitarlo
 - En safari la pantalla de contact no sirveeeee el hover
-- Solucionar problemas con IOS (Textos, tamaños, etc)
-- Averiguar y poner en vez de font size, poner el tipo de fuente que ya viene bold
-- Verificar tamaño fuente uniforme IOS y Android y Windows.. Poner una fuente de respaldo
-- Terminar pantalla Skills ponienido el modelo
+- Terminar pantalla Skills ponienido el modelo o quitando esa parte para mejorar la visibilidad
 - Poner los proyectos
-- Hacer la pantalla de caraga
-- Posicionar bien los textos en skills
+- Ver porqué apenas carga la pagina en moviles, hace un zoom raro, toca hacer un toque y se arregla
+
 
 IMPORTANTE:
+- GLOBALIZAR TIEMPOS DE ANIMACIONES Y DELAYS
 - Usar WebP para las imagenes 
 - Verificar el tamaño de los botones que sea responsive, no por pixels
 - Poner todo eso de seo, etiquetas, etc (guiarse pagina david)
@@ -104,6 +103,7 @@ function App() {
     if ("getBattery" in navigator) {
       try {
         const battery = await navigator.getBattery();
+        // console.log("battery", battery);
         const isPluggedIn = battery.charging;
 
         if (!isPluggedIn) {
@@ -188,7 +188,7 @@ function App() {
 
   return (
     <>
-      <ZoomDisablerWrapper>
+      {/* <ZoomDisablerWrapper> */}
         <LoadingScreen
           progress={progress}
           isStartButtonPressed={isStartButtonPressed}
@@ -232,7 +232,7 @@ function App() {
           setStartButtonPressed={setStartButtonPressed}
           isStartButtonPressed={isStartButtonPressed}
         />
-      </ZoomDisablerWrapper>
+      {/* </ZoomDisablerWrapper> */}
     </>
   );
 }

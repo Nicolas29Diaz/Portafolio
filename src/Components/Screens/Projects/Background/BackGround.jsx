@@ -30,9 +30,6 @@ function BackGround({ animate }) {
             className={styles.fill}
             points="0,80 350,80 430,0 80,0 0,80"
           ></polyline>
-          <text x="100" y="55" fill="white" className={styles.title}>
-            PROJECTS
-          </text>
         </g>
 
         {/* Decoration 2 */}
@@ -86,6 +83,8 @@ function BackGround({ animate }) {
           ></polyline>
         </g>
       </svg>
+
+      <h1 className={styles.title}>Projects</h1>
     </>
   );
 }

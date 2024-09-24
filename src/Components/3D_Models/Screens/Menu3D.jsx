@@ -11,7 +11,7 @@ export function Menu3D({ props, children, visible }) {
   const scale = useScaleAnimation(visible, 1, 400);
   return (
     <group {...props} dispose={null} scale={scale}>
-      <group position={[1.502, 0.344, 0.157]} scale={[0.489, 0.325, 0.429]}>
+      <group position={[1.502, 0.344, 0.157]}>
         <mesh
           castShadow
           receiveShadow

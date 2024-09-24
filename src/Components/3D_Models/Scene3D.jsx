@@ -12,8 +12,8 @@ import { Chair } from "./Scenario/Chair";
 import Skills from "../Screens/Skills/Main/Skills";
 import Projects from "../Screens/Projects/Main/Projects";
 import About from "../Screens/About/Main/About";
-import Menu from "../Screens/Menu/Menu";
-import Contact from "../Screens/Contact/Contact";
+import Menu from "../Screens/Menu/Main/Menu";
+import Contact from "../Screens/Contact/Main/Contact";
 
 import useStore from "../../Store/Store";
 import { Cables } from "./Scenario/Cables";

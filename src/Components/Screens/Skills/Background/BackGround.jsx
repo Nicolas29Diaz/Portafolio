@@ -64,12 +64,16 @@ function BackGround({ animate }) {
           </g>
 
           {/* 3D model border */}
-          <g>
+          {/* <g>
             <polyline
               className={styles.borderLine}
               points="680,45 715,0 910,0 940,30 940,390 910,420 685,420 710,395 710,75 680,45"
             />
-          </g>
+          </g> */}
+          <polyline
+            className={(styles.borderLine, styles.titleContent)}
+            points="680,45 705,11 705,70 680,45"
+          />
         </g>
       </svg>
 

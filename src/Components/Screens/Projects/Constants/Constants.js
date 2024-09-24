@@ -2,15 +2,18 @@ export const projectsData = [
   {
     title: "Shewhart",
     description:
-      "Full Stack App to manage a company's quality control system. It includes a dashboard with charts and tables, a form to register new products, and a table to manage the products.",
+      "Full Stack App to manage a company's quality control system. It includes a dashboard with charts and tables..",
     img: "/Images/Projects/Pag1.webp",
+    techs: ["React", "Node", "Express", "Sequelize", "MySql", "JS", "CSS"],
     alt: "Project",
     link: "/Images/Projects/Pag1.webp",
   },
   {
     title: "Portfolio",
-    description: "",
+    description:
+      "3D Portafolio with a 3D model of a room and a 3D model of a book.",
     img: "/Images/Projects/Pag1.webp",
+    techs: ["React", "R3F", "Blender", "CSS", "JS"],
     alt: "Project",
     link: "/Images/Projects/Pag1.webp",
   },
@@ -18,6 +21,7 @@ export const projectsData = [
     title: "Landing Page",
     description: "",
     img: "/Images/Projects/Pag1.webp",
+    techs: ["HTML", "CSS", "JS"],
     alt: "Project",
     link: "/Images/Projects/Pag1.webp",
   },
@@ -25,6 +29,7 @@ export const projectsData = [
     title: "3D Album",
     description: "",
     img: "/Images/Projects/Pag1.webp",
+    techs: ["React", "R3F", "Blender", "CSS", "JS"],
     alt: "Project",
     link: "/Images/Projects/Pag1.webp",
   },

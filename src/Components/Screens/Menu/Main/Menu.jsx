@@ -1,10 +1,21 @@
+// Drei
 import { Html } from "@react-three/drei";
+
+// React
 import React, { useEffect, useState } from "react";
-import useStore from "../../../Store/Store";
-import "./Menu.css";
-import Background from "./SVG/Background";
-import Buttons from "./SVG/Buttons";
-import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
+
+// State Management
+import useStore from "../../../../Store/Store";
+
+// Styles
+import styles from "./Menu.module.css";
+
+// Local Components
+import Background from "../Background/Background";
+import Buttons from "../Buttons/Buttons";
+
+// Animation
+import { useScaleAnimation } from "../../../../Animation/useScaleAnimation";
 
 function Menu({ showScreen }) {
   const { cameraFocus, setMenuView, isMenuView } = useStore();
@@ -36,31 +47,39 @@ function Menu({ showScreen }) {
     }
   }, [cameraFocus]);
 
+  const opacity = useScaleAnimation(isHandVisible);
+
   return (
     <>
       <Html
-        className={`menu-html ${
-          isInteractable ? "" : "menu-html-no-interaction"
-        } `}
-        distanceFactor={1.72}
+        className={`${styles.html} ${
+          isInteractable ? "auto" : styles.noInteraction
+        }`}
+        distanceFactor={1}
         transform
         occlude="blending"
-        position={[0, 1.57, 0]}
-        rotation={[-Math.PI / 3, 0, 0]}
+        position={[0, 0.51, 0]}
+        rotation={[-Math.PI / 2.71, 0, 0]}
         scale={scale}
       >
-        <Background
-          isHandVisible={isHandVisible}
-          onHandClick={() => setMenuView(true)}
-        />
+        <Background />
+        {opacity > 0 && (
+          <div
+            className={styles.handContainer}
+            onClick={() => setMenuView(true)}
+            style={{ opacity: opacity }}
+          >
+            <img src="/Images/Icons/HandMenu.png" alt="HandIcon" />
+          </div>
+        )}
 
+        <h1 className={styles.title}>MENU</h1>
         {isMenuOptionsVisible && (
           <Buttons
             isMenuOptionsVisible={isMenuOptionsVisible}
             canPressButton={canPressButton}
           />
         )}
-        {/* <Buttons animate={animate} canPressButton={canPressButton} /> */}
       </Html>
     </>
   );
