@@ -22,20 +22,20 @@ function Contact({ showScreen }) {
   return (
     <Html
       className={`${styles.html} ${animate ? "" : styles.noPointer}`}
-      distanceFactor={1.72}
+      distanceFactor={1}
       transform
       occlude="blending"
-      position={[0.274, -0.046, 0.44]}
-      rotation={[-Math.PI / 9.2, 0, 0]}
+      position={[0.48, 0.21, 0.44  ]}
+      rotation={[-Math.PI / 15.4, 0, 0]}
       visible={showScreen}
     >
       <Form></Form>
 
       <Background></Background>
 
-      {/* <Icons></Icons> */}
+      <Icons></Icons>
 
-      {/* <h1 className={styles.title}>CONTACT ME</h1> */}
+      <h1 className={styles.title}>CONTACT ME</h1>
     </Html>
   );
 }

@@ -2,34 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import "./Loading.css";
 import "../../StylesVariables/StartButton.css";
+import { showStartTextTime, slideInTime } from "../../Store/Times";
+
 function LoadingScreen({
   progress,
   isStartButtonPressed,
   isStartButtonVisible,
   setStartButtonPressed,
+  setStartButtonVisibility,
 }) {
   // const { progress } = useProgress();
   const [hideLoadinScreen, setHideLoadinScreen] = useState(false);
+
+  const [hideLoadingLogo, setHideLoadingLogo] = useState(false);
   const [hideLoadingIcon, setHideLoadingIcon] = useState(false);
   const [slideIn, setSlideIn] = useState(false);
 
   useEffect(() => {
     if (progress >= 100) {
-      setTimeout(() => {
-        setHideLoadinScreen(true);
-      }, 200);
+      setHideLoadingLogo(true);
 
       setTimeout(() => {
         setSlideIn(true);
-      }, 500);
+      }, slideInTime);
+
+      setTimeout(() => {
+        setStartButtonVisibility(true);
+      }, showStartTextTime);
     }
   }, [progress]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setSlideIn(true);
-  //   }, 500);
-  // }, []);
 
   return (
     <>
@@ -54,6 +55,20 @@ function LoadingScreen({
           </clipPath>
         </defs>
       </svg>
+      {/* SLIDE SCREEN */}
+      {!isStartButtonPressed && (
+        <div
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            width: "100%",
+            height: "100%",
+            zIndex: "3",
+          }}
+        ></div>
+      )}
+      
       <div
         className={`sliding-box
           ${slideIn ? "slideIn" : ""} 
@@ -67,7 +82,8 @@ function LoadingScreen({
         <div className="box red"></div>
       </div>
 
-      <div className={`loading-container ${hideLoadinScreen && "scale-out"}`}>
+      {/* LOGO */}
+      <div className={`loading-container ${hideLoadingLogo && "scale-out"}`}>
         <div className="loading-fill-wrapper ">
           <div
             className="loading-fill"
@@ -76,6 +92,8 @@ function LoadingScreen({
         </div>
         <div className="loading-image"></div>
       </div>
+
+      {/* TEXT */}
 
       <div
         className="loading-text-container"
@@ -94,7 +112,7 @@ function LoadingScreen({
                 setStartButtonPressed(true);
               }}
             >
-              Start
+              Continue
             </button>
           )}
         </div>

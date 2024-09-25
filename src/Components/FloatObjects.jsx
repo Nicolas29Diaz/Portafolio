@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { showMoveIconTime } from "../Store/Times";
 
 export const FloatObjects = ({
   isCancelButtonVisible,
@@ -22,13 +23,17 @@ export const FloatObjects = ({
     if (isStartButtonPressed) {
       setTimeout(() => {
         setShowMoveLogo(true);
-      }, 3500);
+      }, showMoveIconTime);
     }
   }, [isStartButtonPressed]);
 
   return (
     <>
-      {showMoveLogo && <div className="logo-canMove"></div>}
+      {showMoveLogo && (
+        <div className="logo-canMove">
+          <img src="./Images/Icons/Move.webp" alt="MoveIcon" />
+        </div>
+      )}
 
       {isCancelButtonVisible && (
         <div className="contentCancelButton">

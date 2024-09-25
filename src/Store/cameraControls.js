@@ -17,7 +17,7 @@ const relativeDistance = (
     return (y = Math.min(minDist, Math.max(maxDist, y)));
   }
 };
-
+export const truckSpeed = 0;
 export const getCameraControls = () => {
   const width = window.innerWidth;
 
@@ -31,9 +31,9 @@ export const getCameraControls = () => {
 
   //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
   // const distanceCharacter = relativeDistance(width, 3.8, 5.7);
-  const x_positionCharacter = relativeDistance(width, 0.08, -0.13);
-  const y_positionCharacter = relativeDistance(width, 2.69, 3.53);
-  const z_positionCharacter = relativeDistance(width, 3.38, 5.07);
+  const x_positionCharacter = relativeDistance(width, 2.66, 2.95);
+  const y_positionCharacter = relativeDistance(width, 1.62, 2.26);
+  const z_positionCharacter = relativeDistance(width, 3.07, 4.99);
 
   //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
   const isMobileInitial = width <= 760;
@@ -45,8 +45,8 @@ export const getCameraControls = () => {
   const z_positionMenu = relativeDistance(width, 0.81, 1.21, 1024);
 
   //Contacts
-  const y_positionContact = relativeDistance(width, 3.18, 3.37);
-  const z_positionContact = relativeDistance(width, -6.06, -5.51);
+  const y_positionContact = relativeDistance(width, 3.50, 3.59);
+  const z_positionContact = relativeDistance(width, -5.45, -4.72);
 
   return {
     SKILLS: {
@@ -139,12 +139,12 @@ export const getCameraControls = () => {
         },
       },
       dolly: {
-        speed: 1, //Enable/Disable (1 or 0) dolly
+        speed: 0, //Enable/Disable (1 or 0) dolly
         min: 2,
         max: 6,
       },
-      coordCamera: { x: 0.275, y: y_positionContact, z: z_positionContact }, //Coordinates to posisionate the camera view
-      coordLook: { x: 0.275, y: 2.5, z: -8 }, //Coordinates to look at
+      coordCamera: { x: 0.18, y: y_positionContact, z: z_positionContact }, //Coordinates to posisionate the camera view
+      coordLook: { x: 0.275, y: 3, z: -8 }, //Coordinates to look at
     },
     PROJECTS: {
       rotation: {

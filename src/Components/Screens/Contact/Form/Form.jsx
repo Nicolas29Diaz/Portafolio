@@ -51,7 +51,7 @@ function Form() {
         </p>
       )}
       {error && (
-        <p className={`${styles.textFeedback} ${error}`}>
+        <p className={`${styles.textFeedback} ${styles.error}`}>
           Message delivery failed. <br />
           Feel free to use another method below to get in touch.
         </p>

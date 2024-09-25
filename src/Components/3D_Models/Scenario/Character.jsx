@@ -7,6 +7,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import useStore from "../../../Store/Store";
+import { characterIntroSpeed, characterSitSpeed, dissolveEyesSpeed } from "../../../Store/Times";
 export function Character({
   props,
   introAnimation,
@@ -31,7 +32,7 @@ export function Character({
   useEffect(() => {
     if (introAnimation) {
       // actions[names[1]]
-      actions[names[1]].play().fadeIn(0).timeScale = 1.5;
+      actions[names[1]].play().fadeIn(0).timeScale = characterIntroSpeed;
       // setLoading(false);
       setCharacterAnimStarted(true);
     }
@@ -39,7 +40,7 @@ export function Character({
     if (sitAnimation) {
       const sit = actions[names[0]];
       actions[names[1]].fadeOut(1);
-      sit.play().fadeIn(0.5).timeScale = 1.8;
+      sit.play().fadeIn(0.5).timeScale = characterSitSpeed;
       sit.setLoop(THREE.LoopOnce);
       sit.clampWhenFinished = true;
     }
@@ -48,7 +49,7 @@ export function Character({
   // Usamos `useFrame` para actualizar el fadeFactor solo cuando está en transición
   useFrame(() => {
     if (fading && fadeFactor < 1) {
-      setFadeFactor(fadeFactor + 0.1); // Se disuelve de negro a blanco
+      setFadeFactor(fadeFactor + dissolveEyesSpeed); // Se disuelve de negro a blanco
     } else if (fadeFactor >= 1 && fading) {
       setFading(false); // Detiene la transición cuando el fade ha terminado
     }

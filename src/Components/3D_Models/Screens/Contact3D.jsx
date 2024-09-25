@@ -12,9 +12,9 @@ export function Contact3D({ props, children }) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.PhoneScreen.geometry}
+        geometry={nodes.Phone001.geometry}
         material={materials.Screen}
-        position={[0, 2.962, -7.322]}
+        position={[-0.256, 2.962, -7.322]}
       >
         {children}
       </mesh>

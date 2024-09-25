@@ -15,7 +15,7 @@ function Background() {
         }}
       >
         {/* Borders setup */}
-        <g transform="scale(0.5)">
+        <g transform="scale(0.80)">
           <polyline
             points="96.6,35 546,35 546,539 490,581 98,581 42,581 28,567 28,105 98,35"
             className={styles.borderLine}

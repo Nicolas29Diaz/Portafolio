@@ -1,4 +1,3 @@
-
 .canvas-container {
   position: absolute;
   width: 100%;
@@ -82,12 +81,17 @@
 .logo-canMove {
   position: absolute;
   top: 80%;
-  left: 0;
-  background-color: red;
+  left: 50%;
+  /* background-color: red; */
   width: 50px;
   height: 50px;
   pointer-events: none;
-  animation: moveLogo 4s forwards;
+  animation: moveLogo 3s forwards;
+}
+
+.logo-canMove img {
+  width: 100%;
+  height: auto;
 }
 
 @keyframes moveLogo {

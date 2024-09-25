@@ -28,6 +28,7 @@ import { FloatObjects } from "./Components/FloatObjects.jsx";
 import * as THREE from "three";
 import ZoomDisabler from "./Components/ZoomDisabler.jsx";
 import ZoomDisablerWrapper from "./Components/ZoomDisablerWrapper.jsx";
+import { sceneControlsTime } from "./Store/Times.js";
 
 /*
 
@@ -35,6 +36,7 @@ TAREAS:
 - ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
 
 MUY IMPORTANTE:
+- Poner el ALT a las imagenes
 - Ver por qué a veces sale charging true y otras false
 - En iphone deja hacer zoom, quitarlo
 - En safari la pantalla de contact no sirveeeee el hover
@@ -51,13 +53,16 @@ IMPORTANTE:
 
 
 NO IMPORTA TANTO:
+- Ver si meto scroll para continuar en la intro
 - Animar svg about y projects y menu y contact
 - Cambiar el icono del cursor, puede ser una bolita o algo así
 - Quitar la lampara arriba mio
 - Ver lo del riectionLight helper en drei pa poner lucess
 - Poner luz en las lamparas (lava, mesa de about, PC, etc)
-
+- Hacer el movimiento manual sin setLookAt de drei para personalizar la velocidad de movimiento
 IDEAS:
+ - EN VEZ DE ESTAR REPITIENDO LA FUNCIOPN DE SETLOOKAT OSEA MOVER LA CAMARA VARIAS VECES PARA EVITAR PROBLEMAS DE QUE EL USUARIO LA MUEVA, PUEDO INTENTAR EJECUTARLA UNA UNICA VEZ DESPUES DE UN DETERMINADO TIEMPO
+ 
 - Icono para mostrar al usuario que puede deslizar la pantalla
 - Sonido de ambiente y en general
 - Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas
@@ -180,58 +185,58 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setShowScene(true);
     setTimeout(() => {
-      setStartButtonVisibility(true);
-    }, 2500);
+      setShowScene(true);
+    }, sceneControlsTime);
   }, []);
 
   return (
     <>
       {/* <ZoomDisablerWrapper> */}
-        <LoadingScreen
-          progress={progress}
-          isStartButtonPressed={isStartButtonPressed}
-          isStartButtonVisible={isStartButtonVisible}
-          setStartButtonPressed={setStartButtonPressed}
-        ></LoadingScreen>
-        <div
-          className="canvas-container"
-          style={{
-            opacity: isLoaded ? 0 : 1,
-            height: canvasSize.height,
-            width: canvasSize.width,
-          }}
+      <LoadingScreen
+        progress={progress}
+        isStartButtonPressed={isStartButtonPressed}
+        isStartButtonVisible={isStartButtonVisible}
+        setStartButtonPressed={setStartButtonPressed}
+        setStartButtonVisibility={setStartButtonVisibility}
+      ></LoadingScreen>
+      <div
+        className="canvas-container"
+        style={{
+          opacity: isLoaded ? 0 : 1,
+          height: canvasSize.height,
+          width: canvasSize.width,
+        }}
+      >
+        <Canvas
+          shadows
+          camera={{ position: [0, 5, 5], fov: 60 }}
+          ref={refCanvas}
+          //REVISAR ESTO, por ahora lo dejo en 1
+          dpr={gpuTier === 3 ? 2 : 1}
         >
-          <Canvas
-            shadows
-            camera={{ position: [0, 5, 5], fov: 60 }}
-            ref={refCanvas}
-            //REVISAR ESTO, por ahora lo dejo en 1
-            dpr={gpuTier === 3 ? 2 : 1}
-          >
-            <Suspense fallback={null}>
-              <Scene3D></Scene3D>
-              {/* <Character introAnimation={true}></Character> */}
-              <SceneConf></SceneConf>
-              {showScene && <Scene></Scene>}
+          <Suspense fallback={null}>
+            <Scene3D></Scene3D>
+            {/* <Character introAnimation={true}></Character> */}
+            <SceneConf></SceneConf>
+            {showScene && <Scene></Scene>}
 
-              <Preload all />
-            </Suspense>
-          </Canvas>
-        </div>
-        <FloatObjects
-          isCancelButtonVisible={isCancelButtonVisible}
-          progress={progress}
-          windowWidth={windowWidth}
-          isMenuButtonVisible={isMenuButtonVisible}
-          setCancelButtonPressed={setCancelButtonPressed}
-          setCancelButtonVisibility={setCancelButtonVisibility}
-          setMenuView={setMenuView}
-          isStartButtonVisible={isStartButtonVisible}
-          setStartButtonPressed={setStartButtonPressed}
-          isStartButtonPressed={isStartButtonPressed}
-        />
+            <Preload all />
+          </Suspense>
+        </Canvas>
+      </div>
+      <FloatObjects
+        isCancelButtonVisible={isCancelButtonVisible}
+        progress={progress}
+        windowWidth={windowWidth}
+        isMenuButtonVisible={isMenuButtonVisible}
+        setCancelButtonPressed={setCancelButtonPressed}
+        setCancelButtonVisibility={setCancelButtonVisibility}
+        setMenuView={setMenuView}
+        isStartButtonVisible={isStartButtonVisible}
+        setStartButtonPressed={setStartButtonPressed}
+        isStartButtonPressed={isStartButtonPressed}
+      />
       {/* </ZoomDisablerWrapper> */}
     </>
   );

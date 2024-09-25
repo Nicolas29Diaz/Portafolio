@@ -7,10 +7,10 @@ import { useGLTF } from "@react-three/drei";
 import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 
 export function Scenario({ props, show }) {
-  const { nodes, materials } = useGLTF("/Models/Scenario.glb");
+  const { nodes, materials } = useGLTF("/Models/Scenario2.glb");
   const scale = useScaleAnimation(show, 1, 400);
   return (
-    <group {...props} dispose={null} scale={scale}>
+    <group {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow
@@ -290,7 +290,7 @@ export function Scenario({ props, show }) {
           position={[0, -0.515, -1.205]}
           scale={[0.325, 0.177, 0.177]}
         />
-        <group position={[0, 2.178, -0.566]} scale={[1.339, 1, 1]}>
+        <group position={[-0.343, 2.178, -0.566]} scale={[1.339, 1, 1]}>
           <mesh
             castShadow
             receiveShadow
@@ -315,16 +315,16 @@ export function Scenario({ props, show }) {
             receiveShadow
             geometry={nodes.Cube014.geometry}
             material={materials.Phone}
-            position={[-0.45, -0.184, 0.494]}
-            scale={[0.323, 0.283, 0.283]}
+            position={[-0.45, 0.048, 0.504]}
+            scale={[0.411, 0.36, 0.36]}
           />
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.Cube015.geometry}
             material={materials["MetalSilla.001"]}
-            position={[-0.45, 0.007, 0.418]}
-            scale={[0.184, 0.052, 0.052]}
+            position={[-0.45, 0.292, 0.408]}
+            scale={[0.235, 0.066, 0.066]}
           />
         </group>
       </mesh>
@@ -481,24 +481,6 @@ export function Scenario({ props, show }) {
         />
       </group>
       <group
-        position={[8.049, 0.771, -3.8]}
-        rotation={[-Math.PI / 2, 0, -1.551]}
-        scale={0.512}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.System_unit001_1.geometry}
-          material={materials.lambert3SG}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.System_unit001_2.geometry}
-          material={materials.initialShadingGroup}
-        />
-      </group>
-      <group
         position={[8.856, 1.467, 3.513]}
         rotation={[-Math.PI / 2, 0, 2.656]}
         scale={[23.812, 34.496, 0.75]}
@@ -543,6 +525,22 @@ export function Scenario({ props, show }) {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.Cylinder029.geometry}
+        material={materials["MetalSilla.001"]}
+        position={[6.746, 1.277, -2.782]}
+        rotation={[Math.PI / 2, 0, 1.529]}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cylinder028.geometry}
+        material={materials["MetalSilla.001"]}
+        position={[6.751, 1.277, -2.663]}
+        rotation={[Math.PI / 2, 0, 1.529]}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.BasePC.geometry}
         material={materials["MetalSilla.001"]}
         position={[8.987, 1.465, 0.568]}
@@ -556,8 +554,16 @@ export function Scenario({ props, show }) {
           rotation={[Math.PI, -0.862, Math.PI]}
         />
       </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cube006.geometry}
+        material={materials["MetalSilla.001"]}
+        position={[0.579, -0.007, 7.405]}
+        rotation={[-Math.PI, 0.003, -Math.PI]}
+      />
     </group>
   );
 }
 
-useGLTF.preload("/Models/Scenario.glb");
+useGLTF.preload("/Models/Scenario2.glb");

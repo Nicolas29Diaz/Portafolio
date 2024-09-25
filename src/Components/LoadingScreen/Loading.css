@@ -1,4 +1,3 @@
-
 /* PANTALLA QUE DESLIZA */
 .sliding-box {
   position: fixed;
@@ -8,7 +7,8 @@
   height: 100%;
   display: flex;
   z-index: 1;
-  pointer-events: none;
+  pointer-events: all;
+  z-index: 2;
 }
 .slideIn {
   animation: slideIn 1s forwards;
@@ -60,7 +60,7 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 4;
   user-select: none;
 }
 .loading-text-container h1 {
@@ -98,7 +98,7 @@
   width: 100px;
   height: 100px;
   /* background-color: #ff0000; */
-  z-index: 1;
+  z-index: 4;
   overflow: hidden;
 }
 .loading-fill-wrapper {
@@ -245,6 +245,6 @@
 .preload-screen {
   display: none;
 }
-.preload-image{
+.preload-image {
   display: none;
 }

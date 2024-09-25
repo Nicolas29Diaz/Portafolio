@@ -8,22 +8,22 @@ import { views } from "../Store/Store.js";
 
 import { useThree } from "@react-three/fiber";
 
-import { getCameraControls } from "../Store/cameraControls.js";
+import { getCameraControls, truckSpeed } from "../Store/cameraControls.js";
 
 import { Scene3D } from "./3D_Models/Scene3D.jsx";
+import {
+  fixedMoveCameraToObjectTime,
+  enableCameraMovementTime,
+  showFloatButtonsTime,
+} from "../Store/Times.js";
 
 export function Scene() {
-  const timeToChangeView = 1500;
-  // const timeToMove = 3500;
-  //No se si dejar eso del tiempo para mover la camara,
-  //Puede ser que simplemente el usuario se pueda mover, pero que aparezca
-  //el icono de movimiento luego de un tiempo
-  const timeToMove = 0;
-
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
   const [currentView, setCurrentView] = useState(views.INITIAL);
   const [firstViewToCharacter, setFirstViewToCharacter] = useState(true);
+  const [enableCameraMovement, setEnableCameraMovement] = useState(false);
+  const [initialView, setInitialView] = useState(true);
   const {
     isCancelButtonVisible,
     setCancelButtonVisibility,
@@ -97,7 +97,7 @@ export function Scene() {
       setTimeout(() => {
         camera.polarRotateSpeed = current.rotation.polar.speed;
         camera.azimuthRotateSpeed = current.rotation.azimuth.speed;
-      }, timeToMove);
+      }, enableCameraMovementTime);
     }
   };
 
@@ -115,7 +115,7 @@ export function Scene() {
 
       setTimeout(() => {
         clearInterval(intervalId);
-      }, timeToChangeView);
+      }, fixedMoveCameraToObjectTime);
     } else {
       moveCameraToObject();
     }
@@ -131,15 +131,14 @@ export function Scene() {
 
   useEffect(() => {
     // if (currentView === views.INITIAL && !initialView) {
-      moveCameraToObject();
-      updateControlsCamera();
+    moveCameraToObject();
+    updateControlsCamera();
     // } else if (currentView !== views.INITIAL) {
     //   moveCameraToObject();
     //   updateControlsCamera();
     // }
   }, [cameraControls]);
 
-  const [initialView, setInitialView] = useState(true);
   useEffect(() => {
     updateControlsCamera();
 
@@ -150,15 +149,13 @@ export function Scene() {
     }
 
     if (currentView === views.INITIAL && initialView) {
-      setTimeout(() => {
-        fixedMoveCameraToObject();
-        setInitialView(false);
-      }, 1200);
+      moveCameraToObject();
+      setInitialView(false);
     } else {
       fixedMoveCameraToObject();
       setTimeout(() => {
         updateCancelButtonVisibility();
-      }, timeToChangeView);
+      }, fixedMoveCameraToObjectTime);
     }
 
     window.addEventListener("resize", handleResize);
@@ -168,11 +165,10 @@ export function Scene() {
   useEffect(() => {
     if (isStartButtonPressed) {
       setStartButtonVisibility(false);
-      // setStartButtonPressed(false);
       changeView(views.CHARACTER, false);
       setTimeout(() => {
         setShowFloatButtons(true);
-      }, timeToMove);
+      }, showFloatButtonsTime);
       setFirstViewToCharacter(true);
     }
   }, [isStartButtonPressed]);
@@ -230,7 +226,7 @@ export function Scene() {
   return (
     <>
       {/* Camera configuration */}
-      <CameraControls ref={cameraControlRef} truckSpeed={0} />
+      <CameraControls ref={cameraControlRef} truckSpeed={truckSpeed} />
 
       <>
         <FloatButton

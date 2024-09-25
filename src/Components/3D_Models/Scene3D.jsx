@@ -17,6 +17,12 @@ import Contact from "../Screens/Contact/Main/Contact";
 
 import useStore from "../../Store/Store";
 import { Cables } from "./Scenario/Cables";
+import {
+  characterEyesDissolveDelay,
+  helmetAnimationDelay,
+  introAnimationTime,
+  showScreensTime,
+} from "../../Store/Times";
 
 export function Scene3D() {
   const { isStartButtonPressed, isStartButtonVisible, cameraFocus } =
@@ -37,7 +43,7 @@ export function Scene3D() {
 
   // Character
   ////Animations
-  const [characterIntroAnim, setCharacterIntroAnim] = useState(true);
+  const [characterIntroAnim, setCharacterIntroAnim] = useState(false);
   const [characterSitAnim, setCharacterSitAnim] = useState(false);
   const [characterDissolveEyes, setCharacterDissolveEyes] = useState(false);
   ////Visibility
@@ -71,27 +77,26 @@ export function Scene3D() {
   const startAnimation = () => {
     setCharacterIntroAnim(false);
     setCharacterSitAnim(true);
-    setTimeout(() => {
-      setShowProjects(true);
-    }, 500);
-
+    setShowProjects(true);
     setTimeout(() => {
       setChairHelmetAnim(true);
-    }, 1200);
+    }, helmetAnimationDelay);
 
     setTimeout(() => {
       setCharacterDissolveEyes(true);
-    }, 3000);
+    }, characterEyesDissolveDelay);
   };
 
   useEffect(() => {
     if (isStartButtonPressed) {
       setTimeout(() => {
         setShowScreens(true);
-      }, 2900);
+      }, showScreensTime);
       startAnimation();
     } else {
-      introAnimation();
+      setTimeout(() => {
+        introAnimation();
+      }, introAnimationTime);
     }
   }, [isStartButtonPressed]);
 
@@ -103,9 +108,7 @@ export function Scene3D() {
       setShowMenu(false);
     } else if (cameraFocus === "INITIAL") {
       setChargeCharacter(true);
-      setTimeout(() => {
-        setShowCharacter(true);
-      }, 500);
+      setShowCharacter(true);
     } else {
       setShowCables(false);
       setShowChair(true);
