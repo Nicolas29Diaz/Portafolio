@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import "../StylesVariables/FloatButton.css";
+import "..//../StylesVariables/Floats/FloatButton.css";
 import { Html } from "@react-three/drei";
-import { div } from "three/examples/jsm/nodes/Nodes.js";
-import useStore from "../Store/Store.js";
-import { useScaleAnimation } from "../Animation/useScaleAnimation.jsx";
+import useStore from "../../Store/Store.js";
+import { useScaleAnimation } from "../../Animation/useScaleAnimation.jsx";
 
 export function FloatButton({ view, changeView, ...props }) {
   const { showFloatButtons } = useStore();

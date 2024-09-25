@@ -22,7 +22,7 @@ import {
   helmetAnimationDelay,
   introAnimationTime,
   showScreensTime,
-} from "../../Store/Times";
+} from "../../Constants/Times.js";
 
 export function Scene3D() {
   const { isStartButtonPressed, isStartButtonVisible, cameraFocus } =

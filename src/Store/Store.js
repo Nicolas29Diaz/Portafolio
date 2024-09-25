@@ -12,37 +12,49 @@ export const views = {
 };
 
 const useStore = create((set) => ({
-  isCharacterAnimStarted: false,
-
-  isCancelButtonVisible: false,
-  isCancelButtonPressed: false,
-
-  isStartButtonPressed: false,
-  isStartButtonVisible: false,
-
-  showFloatButtons: false,
-
-  isMenuView: false,
-  menuOption: "",
-  isMenuButtonVisible: false,
-
-  cameraFocus: views.INITIAL,
-  gpuTier: 1,
-
+  // Control de animación del personaje
+  isCharacterAnimStarted: false, // Indica si la animación del personaje ha comenzado
   setCharacterAnimStarted: (value) => set({ isCharacterAnimStarted: value }),
-  setGpuTier: (value) => set({ gpuTier: value }),
 
+  // Control del botón de cancelación
+  isCancelButtonVisible: false, // Visibilidad del botón de cancelación
+  setCancelButtonVisibility: (value) => set({ isCancelButtonVisible: value }),
+
+  isCancelButtonPressed: false, // Indica si el botón de cancelación fue presionado
+  setCancelButtonPressed: (value) => set({ isCancelButtonPressed: value }),
+
+  // Control del botón de inicio
+  isStartButtonPressed: false, // Indica si el botón de inicio fue presionado
   setStartButtonPressed: (value) => set({ isStartButtonPressed: value }),
+
+  isStartButtonVisible: false, // Visibilidad del botón de inicio
   setStartButtonVisibility: (value) => set({ isStartButtonVisible: value }),
 
-  setCameraFocus: (focus) => set({ cameraFocus: focus }),
+  // Control de botones flotantes
+  showFloatButtons: false, // Indica si los botones flotantes están visibles
   setShowFloatButtons: (value) => set({ showFloatButtons: value }),
+
+  // Control del menú
+  isMenuView: false, // Indica si el menú está visible
   setMenuView: (value) => set({ isMenuView: value }),
+
+  menuOption: "", // Opción seleccionada en el menú
   setMenuOption: (value) => set({ menuOption: value }),
+
+  isMenuButtonVisible: false, // Visibilidad del botón del menú
   setMenuButtonVisible: (value) => set({ isMenuButtonVisible: value }),
 
-  setCancelButtonVisibility: (value) => set({ isCancelButtonVisible: value }),
-  setCancelButtonPressed: (value) => set({ isCancelButtonPressed: value }),
+  // Control de la cámara
+  cameraFocus: views.INITIAL, // Foco actual de la cámara
+  setCameraFocus: (focus) => set({ cameraFocus: focus }),
+
+  // Información sobre la GPU
+  gpuTier: 1, // Nivel de capacidad de la GPU detectado
+  setGpuTier: (value) => set({ gpuTier: value }),
+
+  // Configuración del tema de la escena
+  sceneTheme: "Dark", // Tema de la escena
+  setSceneTheme: (value) => set({ sceneTheme: value }),
 }));
 
 export default useStore;

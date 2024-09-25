@@ -7,7 +7,11 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import useStore from "../../../Store/Store";
-import { characterIntroSpeed, characterSitSpeed, dissolveEyesSpeed } from "../../../Store/Times";
+import {
+  characterIntroSpeed,
+  characterSitSpeed,
+  dissolveEyesSpeed,
+} from "../../../Constants/Times.js";
 export function Character({
   props,
   introAnimation,

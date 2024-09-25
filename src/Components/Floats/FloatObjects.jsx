@@ -1,25 +1,21 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { showMoveIconTime } from "../Store/Times";
+import { showMoveIconTime } from "../../Constants/Times.js";
+// Styles (CSS)
+import "../../StylesVariables/Floats/CancelButton.css"; // Cancel button styles
+import MenuButtons from "./MenuButtons/MenuButtons.jsx";
 
 export const FloatObjects = ({
   isCancelButtonVisible,
-  setStartButtonPressed,
   isStartButtonPressed,
-  progress,
-  isStartButtonVisible,
-  windowWidth,
   isMenuButtonVisible,
   setCancelButtonPressed,
   setCancelButtonVisibility,
-  setStartButtonVisibility,
   setMenuView,
-  cameraFocus,
 }) => {
   const [showMoveLogo, setShowMoveLogo] = useState(false);
 
   useEffect(() => {
-    console.log("isStartButtonPressed", isStartButtonPressed);
     if (isStartButtonPressed) {
       setTimeout(() => {
         setShowMoveLogo(true);
@@ -50,34 +46,10 @@ export const FloatObjects = ({
         </div>
       )}
 
-      {/* {isStartButtonVisible && (
-        <div className="containerStartButton">
-          <button
-            onClick={() => {
-              setStartButtonPressed(true);
-            }}
-          >
-            Start
-          </button>
-        </div>
-      )} */}
-
-      {/* {isStartButtonVisible && (
-        <div
-          className={
-            windowWidth > 1000 ? "vintage-overlay-1" : "vintage-overlay-2"
-          }
-        ></div>
-      )} */}
-
-      {isMenuButtonVisible && (
-        <div
-          className="menu-button-container"
-          onClick={() => setMenuView(true)}
-        >
-          <img src="./Images/Icons/Menu.webp" alt="MenuIcon" />
-        </div>
-      )}
+      <MenuButtons
+        isMenuButtonVisible={isMenuButtonVisible}
+        setMenuView={setMenuView}
+      ></MenuButtons>
     </>
   );
 };

@@ -1,0 +1,36 @@
+
+TAREAS:
+- ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
+
+MUY IMPORTANTE:
+- Poner el ALT a las imagenes
+- Ver por qué a veces sale charging true y otras false
+- En iphone deja hacer zoom, quitarlo
+- En safari la pantalla de contact no sirveeeee el hover
+- Terminar pantalla Skills ponienido el modelo o quitando esa parte para mejorar la visibilidad
+- Poner los proyectos
+- Ver porqué apenas carga la pagina en moviles, hace un zoom raro, toca hacer un toque y se arregla
+- Reusar materiales y geometrias: https://r3f.docs.pmnd.rs/advanced/scaling-performance (mejorar en blender el uso de materiales)
+
+IMPORTANTE:
+- GLOBALIZAR TIEMPOS DE ANIMACIONES Y DELAYS
+- Usar WebP para las imagenes 
+- Verificar el tamaño de los botones que sea responsive, no por pixels
+- Poner todo eso de seo, etiquetas, etc (guiarse pagina david)
+
+
+NO IMPORTA TANTO:
+- Ver si meto scroll para continuar en la intro
+- Animar svg about y projects y menu y contact
+- Cambiar el icono del cursor, puede ser una bolita o algo así
+- Quitar la lampara arriba mio
+- Ver lo del riectionLight helper en drei pa poner lucess
+- Poner luz en las lamparas (lava, mesa de about, PC, etc)
+- Hacer el movimiento manual sin setLookAt de drei para personalizar la velocidad de movimiento
+IDEAS:
+- CAMBIAR TODO CON PALETAS DE COLORES, DEJAR AL USUARIO IR CAMBIANDO EL COLOR, CAMBIANDO LOS OBJETOS 3D Y TODO
+- EN VEZ DE ESTAR REPITIENDO LA FUNCIOPN DE SETLOOKAT OSEA MOVER LA CAMARA VARIAS VECES PARA EVITAR PROBLEMAS DE QUE EL USUARIO LA MUEVA, PUEDO INTENTAR EJECUTARLA UNA UNICA VEZ DESPUES DE UN DETERMINADO TIEMPO
+ 
+- Icono para mostrar al usuario que puede deslizar la pantalla
+- Sonido de ambiente y en general
+- Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas

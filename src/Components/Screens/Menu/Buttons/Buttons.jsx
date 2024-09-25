@@ -12,17 +12,13 @@ import styles from "./Buttons.module.css";
 
 function Buttons({ isMenuOptionsVisible, canPressButton }) {
   const { setMenuOption } = useStore();
-  const [isHovered, setIsHovered] = useState(false);
-  useEffect(() => {
-    console.log("isHovered", isHovered);
-  }, [isHovered]);
 
   return (
     <>
       <div className={styles.coverButtonsContainer}>
         <div className={styles.coverButtons}></div>
       </div>
-      
+
       <Button
         canPressButton={canPressButton}
         positionY={57}

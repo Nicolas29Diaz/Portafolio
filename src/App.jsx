@@ -1,72 +1,26 @@
+// React & React Three Fiber core imports
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { getGPUTier } from "detect-gpu";
-import {
-  Center,
-  Preload,
-  Text,
-  Text3D,
-  useGLTF,
-  useProgress,
-} from "@react-three/drei";
-import useStore from "./Store/Store.js";
-import { EditScene } from "./Components/EditScene.jsx";
-import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx";
 
-import { SceneConf } from "./Components/SceneConfiguration/SceneConf.jsx";
-import { Scene } from "./Components/Scene.jsx";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+// External libraries and utilities
+import { getGPUTier } from "detect-gpu"; // GPU detection library
+import { Preload, useGLTF, useProgress } from "@react-three/drei"; // Drei utilities for R3F
+
+// Store (Global State Management)
+import useStore from "./Store/Store.js";
+import { sceneControlsTime } from "./Constants/Times.js"; // Custom store for managing scene times
+
+// Components
+import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx"; // Loading screen component
+import { SceneConf } from "./Components/SceneConfiguration/SceneConf.jsx"; // Scene configuration component
+import { Scene } from "./Components/Scene.jsx"; // Main scene component
+import { Scene3D } from "./Components/3D_Models/Scene3D.jsx"; // 3D Models for the scene
+import { FloatObjects } from "./Components/Floats/FloatObjects.jsx"; // Floating objects component
+import ZoomDisabler from "./Components/ZoomDisabler/ZoomDisabler.jsx"; // Disables zoom feature in the scene
+import ZoomDisablerWrapper from "./Components/ZoomDisabler/ZoomDisablerWrapper.jsx"; // Wrapper for zoom disabler
 
 //Styles
-import "./StylesVariables/FloatButton.css";
-import "./StylesVariables/CancelButton.css";
-import "./StylesVariables/GlobalStyles.css";
-import { Scene3D } from "./Components/3D_Models/Scene3D.jsx";
-
-import { FloatObjects } from "./Components/FloatObjects.jsx";
-
-import * as THREE from "three";
-import ZoomDisabler from "./Components/ZoomDisabler.jsx";
-import ZoomDisablerWrapper from "./Components/ZoomDisablerWrapper.jsx";
-import { sceneControlsTime } from "./Store/Times.js";
-
-/*
-
-TAREAS:
-- ENTENDER LO DEL ZOOM, Y VER SI SE PUEDE HACER DESDE CSS O JS APENAS SE CARGA LA PAGINA
-
-MUY IMPORTANTE:
-- Poner el ALT a las imagenes
-- Ver por qué a veces sale charging true y otras false
-- En iphone deja hacer zoom, quitarlo
-- En safari la pantalla de contact no sirveeeee el hover
-- Terminar pantalla Skills ponienido el modelo o quitando esa parte para mejorar la visibilidad
-- Poner los proyectos
-- Ver porqué apenas carga la pagina en moviles, hace un zoom raro, toca hacer un toque y se arregla
-
-
-IMPORTANTE:
-- GLOBALIZAR TIEMPOS DE ANIMACIONES Y DELAYS
-- Usar WebP para las imagenes 
-- Verificar el tamaño de los botones que sea responsive, no por pixels
-- Poner todo eso de seo, etiquetas, etc (guiarse pagina david)
-
-
-NO IMPORTA TANTO:
-- Ver si meto scroll para continuar en la intro
-- Animar svg about y projects y menu y contact
-- Cambiar el icono del cursor, puede ser una bolita o algo así
-- Quitar la lampara arriba mio
-- Ver lo del riectionLight helper en drei pa poner lucess
-- Poner luz en las lamparas (lava, mesa de about, PC, etc)
-- Hacer el movimiento manual sin setLookAt de drei para personalizar la velocidad de movimiento
-IDEAS:
- - EN VEZ DE ESTAR REPITIENDO LA FUNCIOPN DE SETLOOKAT OSEA MOVER LA CAMARA VARIAS VECES PARA EVITAR PROBLEMAS DE QUE EL USUARIO LA MUEVA, PUEDO INTENTAR EJECUTARLA UNA UNICA VEZ DESPUES DE UN DETERMINADO TIEMPO
- 
-- Icono para mostrar al usuario que puede deslizar la pantalla
-- Sonido de ambiente y en general
-- Night Mode, poner la escena oscura y con las estrellas, tambien puede ser cambiar las pantallas
-*/
+import "./StylesVariables/Screens/Skills.css";
 
 function App() {
   const {
@@ -227,15 +181,11 @@ function App() {
       </div>
       <FloatObjects
         isCancelButtonVisible={isCancelButtonVisible}
-        progress={progress}
-        windowWidth={windowWidth}
+        isStartButtonPressed={isStartButtonPressed}
         isMenuButtonVisible={isMenuButtonVisible}
         setCancelButtonPressed={setCancelButtonPressed}
         setCancelButtonVisibility={setCancelButtonVisibility}
         setMenuView={setMenuView}
-        isStartButtonVisible={isStartButtonVisible}
-        setStartButtonPressed={setStartButtonPressed}
-        isStartButtonPressed={isStartButtonPressed}
       />
       {/* </ZoomDisablerWrapper> */}
     </>

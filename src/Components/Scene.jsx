@@ -1,21 +1,19 @@
-import { CameraControls, Html } from "@react-three/drei";
+import { CameraControls } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
-import { FloatButton } from "./FloatButton.jsx";
-import { MeshFit } from "./MeshFit.jsx";
-import { SceneConf } from "./SceneConfiguration/SceneConf.jsx";
+import { FloatButton } from "./Floats/FloatButton.jsx";
+
+
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 
-import { useThree } from "@react-three/fiber";
 
-import { getCameraControls, truckSpeed } from "../Store/cameraControls.js";
+import { getCameraControls, truckSpeed } from "../Constants/cameraControls.js";
 
-import { Scene3D } from "./3D_Models/Scene3D.jsx";
 import {
   fixedMoveCameraToObjectTime,
   enableCameraMovementTime,
   showFloatButtonsTime,
-} from "../Store/Times.js";
+} from "../Constants/Times.js";
 
 export function Scene() {
   const cameraControlRef = useRef();
@@ -183,23 +181,23 @@ export function Scene() {
 
   //MOSTAR COORDENADAS CAMARA
 
-  useEffect(() => {
-    const camera = cameraControlRef.current;
-    let pos = {};
-    camera.addEventListener("controlend", () => {
-      pos = {
-        x: camera._camera.position.x,
-        y: camera._camera.position.y,
-        z: camera._camera.position.z,
-      };
+  // useEffect(() => {
+  //   const camera = cameraControlRef.current;
+  //   let pos = {};
+  //   camera.addEventListener("controlend", () => {
+  //     pos = {
+  //       x: camera._camera.position.x,
+  //       y: camera._camera.position.y,
+  //       z: camera._camera.position.z,
+  //     };
 
-      // console.log("azimuthAngle: ", camera.azimuthAngle);
-      // console.log("polarAngle:", camera.polarAngle);
-      console.log("distance:", camera.distance);
-      console.log("Camera position", pos);
-      // camera.distance = 0;
-    });
-  }, []);
+  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
+  //     // console.log("polarAngle:", camera.polarAngle);
+  //     console.log("distance:", camera.distance);
+  //     console.log("Camera position", pos);
+  //     // camera.distance = 0;
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (isMenuView) {

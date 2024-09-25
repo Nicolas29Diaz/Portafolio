@@ -17,10 +17,10 @@ import { useEffect, useState } from "react";
 import useStore from "../../Store/Store";
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
-import { configurations } from "./Config";
+import { configurations } from "../../Constants/Config.js";
 
 export function SceneConf() {
-  const { gpuTier } = useStore();
+  const { gpuTier, sceneTheme } = useStore();
   const [currentSettings, setCurrentSettings] = useState(configurations[2]);
 
   // useEffect(() => {
@@ -45,6 +45,10 @@ export function SceneConf() {
   // const { viewport } = useThree();
 
   useEffect(() => {
+    console.log("Scene Theme: ", sceneTheme);
+  }, [sceneTheme]);
+
+  useEffect(() => {
     switch (gpuTier) {
       case 1:
         setCurrentSettings(configurations[0]);
@@ -63,55 +67,85 @@ export function SceneConf() {
 
   return (
     <>
-      {/* QUITAR SOMBRAS DISPOSITIVOS PAILAS */}
-      {/* OPTION 1 */}
-      <>
-        {/* Cambiamos el color del fondo basado en el tier */}
-        <color
-          attach="background"
-          args={[currentSettings.backgroundColor]}
-        ></color>
+      {sceneTheme === "Dark" ? (
+        <>
+          <color
+            attach="background"
+            args={[currentSettings.backgroundColor]}
+          ></color>
+          <Environment preset="sunset" />
+          <EffectComposer>
+            <Bloom
+              intensity={gpuTier === 3 ? 0.5 : gpuTier === 2 ? 0.3 : 0}
+              luminanceThreshold={
+                gpuTier === 3 ? 0.5 : gpuTier === 2 ? 0.3 : 0.1
+              }
+              luminanceSmoothing={
+                gpuTier === 3 ? 0.9 : gpuTier === 2 ? 0.3 : 0.1
+              }
+            />
+          </EffectComposer>
 
-        {/* Environment siempre activado */}
-        <Environment preset="sunset" />
-        <EffectComposer>
-          <Bloom
-            intensity={gpuTier === 3 ? 0.5 : gpuTier === 2 ? 0.3 : 0}
-            luminanceThreshold={gpuTier === 3 ? 0.5 : gpuTier === 2 ? 0.3 : 0.1}
-            luminanceSmoothing={gpuTier === 3 ? 0.9 : gpuTier === 2 ? 0.3 : 0.1}
+          <fogExp2
+            attach="fog"
+            color={currentSettings.fogColor}
+            density={0.08}
           />
-        </EffectComposer>
 
-        {/* Configuración de la malla del plano */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={0}>
-          <planeGeometry args={[40, 40]} />
-          <MeshReflectorMaterial
-            blur={currentSettings.blur} // Blur dinámico basado en el tier
-            resolution={currentSettings.floorResolution} // Resolución del suelo
-            mixBlur={0.5}
-            mixStrength={currentSettings.mixStrength} // Fuerza del reflejo
-            depthScale={currentSettings.depthScale} // Escala de profundidad
-            minDepthThreshold={0.4}
-            maxDepthThreshold={1.2}
-            color="rgb(15, 15, 15)"
-            metalness={0.5}
+          <Stars
+            radius={80}
+            depth={100}
+            count={currentSettings.starsCount}
+            factor={currentSettings.starsFactor}
+            saturation={0}
+            fade
+            speed={1.3}
           />
-        </mesh>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position-y={0}>
+            <planeGeometry args={[40, 40]} />
+            <MeshReflectorMaterial
+              blur={currentSettings.blur}
+              resolution={currentSettings.floorResolution}
+              mixBlur={0.5}
+              mixStrength={currentSettings.mixStrength}
+              depthScale={currentSettings.depthScale}
+              minDepthThreshold={0.4}
+              maxDepthThreshold={1.2}
+              color="rgb(15, 15, 15)"
+              metalness={0.5}
+            />
+          </mesh>
+        </>
+      ) : (
+        <>
+          <EffectComposer>
+            <Bloom mipmapBlur luminanceThreshold={2} intensity={0.2} />
+            <Vignette eskil={false} offset={0.3} darkness={0.6} />
+          </EffectComposer>
 
-        {/* Niebla basada en el tier */}
-        <fogExp2 attach="fog" color={currentSettings.fogColor} density={0.08} />
+          <ambientLight intensity={0.01} />
+          <AccumulativeShadows
+            position={[0, 0, 0]}
+            frames={120}
+            alphaTest={0.9}
+            scale={15}
+          >
+            <RandomizedLight
+              amount={1}
+              radius={0.1}
+              ambient={0.9}
+              position={[1, 5, -1]}
+            />
+          </AccumulativeShadows>
 
-        {/* Configuración de estrellas */}
-        <Stars
-          radius={80}
-          depth={100}
-          count={currentSettings.starsCount} // Cantidad de estrellas
-          factor={currentSettings.starsFactor} // Factor de estrellas
-          saturation={0}
-          fade
-          speed={1.3}
-        />
-      </>
+          <Environment
+            resolution={32}
+            background
+            blur={1}
+            preset="sunset"
+          ></Environment>
+        </>
+      )}
 
       {/* OPTION 2 */}
       {/* Se puede poner un modelo 3d de una lapmpara colgando */}

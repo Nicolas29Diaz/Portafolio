@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Html, useProgress } from "@react-three/drei";
 import "./Loading.css";
-import "../../StylesVariables/StartButton.css";
-import { showStartTextTime, slideInTime } from "../../Store/Times";
+import "../../StylesVariables/Floats/StartButton.css";
+import { showStartTextTime, slideInTime } from "../../Constants/Times.js";
 
 function LoadingScreen({
   progress,
