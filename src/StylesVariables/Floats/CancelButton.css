@@ -1,7 +1,4 @@
-@font-face {
-  font-family: "Electrolize-Regular";
-  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
-}
+
 :root {
   --cancel_button-border-color: rgb(255, 255, 255);
   --cancel_button-hover-color: rgb(157, 48, 48);

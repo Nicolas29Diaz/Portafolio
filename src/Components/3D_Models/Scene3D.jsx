@@ -150,7 +150,7 @@ export function Scene3D() {
 
       <Chair startAnimation={chairHelmetAnim} visible={showChair} />
 
-      <Cables visible={showCables} />
+      {/* <Cables visible={showCables} /> */}
       {/* Verificar si es mejor con esto o sin esto */}
 
       <Scenario show={showScenario} />

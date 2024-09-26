@@ -7,7 +7,7 @@ import { useGLTF } from "@react-three/drei";
 import { useScaleAnimation } from "../../../Animation/useScaleAnimation";
 
 export function Scenario({ props, show }) {
-  const { nodes, materials } = useGLTF("/Models/Scenario2.glb");
+  const { nodes, materials } = useGLTF("/Models/Scenario.glb");
   const scale = useScaleAnimation(show, 1, 400);
   return (
     <group {...props} dispose={null}>
@@ -566,4 +566,4 @@ export function Scenario({ props, show }) {
   );
 }
 
-useGLTF.preload("/Models/Scenario2.glb");
+useGLTF.preload("/Models/Scenario.glb");

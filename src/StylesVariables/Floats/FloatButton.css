@@ -1,7 +1,4 @@
-@font-face {
-  font-family: "Electrolize-Regular";
-  src: url("/Fonts/Electrolize-Regular.ttf") format("truetype");
-}
+
 :root {
   --button-border-color: rgb(255, 255, 255);
   --button-hover-color: rgb(0, 159, 203);
