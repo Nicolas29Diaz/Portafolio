@@ -2,12 +2,14 @@ import { CameraControls } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 import { FloatButton } from "./Floats/FloatButton.jsx";
 
-
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 
-
-import { getCameraControls, truckSpeed } from "../Constants/cameraControls.js";
+import {
+  breakPointWidth,
+  getCameraControls,
+  truckSpeed,
+} from "../Constants/cameraControls.js";
 
 import {
   fixedMoveCameraToObjectTime,
@@ -15,7 +17,7 @@ import {
   showFloatButtonsTime,
 } from "../Constants/Times.js";
 
-export function Scene() {
+export function Scene({ moveInitialCamera }) {
   const cameraControlRef = useRef();
   const [cameraControls, setCameraControls] = useState(getCameraControls());
   const [currentView, setCurrentView] = useState(views.INITIAL);
@@ -128,13 +130,8 @@ export function Scene() {
   };
 
   useEffect(() => {
-    // if (currentView === views.INITIAL && !initialView) {
-    moveCameraToObject();
     updateControlsCamera();
-    // } else if (currentView !== views.INITIAL) {
-    //   moveCameraToObject();
-    //   updateControlsCamera();
-    // }
+    moveCameraToObject();
   }, [cameraControls]);
 
   useEffect(() => {
@@ -146,9 +143,14 @@ export function Scene() {
       setMenuButtonVisible(false);
     }
 
-    if (currentView === views.INITIAL && initialView) {
-      moveCameraToObject();
-      setInitialView(false);
+    if (currentView === views.INITIAL) {
+      if (window.innerWidth >= 1440) {
+        cameraControlRef.current.setLookAt(1.3, 3.5, 6, 3.3, 1.2, 0, false);
+      } else if (window.innerWidth >= 1024) {
+        cameraControlRef.current.setLookAt(1.8, 3.5, 6, 2.8, 1.2, 0, false);
+      } else {
+        cameraControlRef.current.setLookAt(0.9, 3.5, 4, 1.9, 1.2, 0, false);
+      }
     } else {
       fixedMoveCameraToObject();
       setTimeout(() => {
@@ -220,6 +222,14 @@ export function Scene() {
       setMenuOption("");
     }
   }, [menuOption]);
+
+  useEffect(() => {
+    if (moveInitialCamera && currentView === views.INITIAL) {
+      console.log("moveInitialCamera");
+      moveCameraToObject();
+      setInitialView(false);
+    }
+  }, [moveInitialCamera]);
 
   return (
     <>

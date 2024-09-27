@@ -148,7 +148,7 @@
   animation: scaleOut 0.5s ease-in-out forwards;
 }
 
-/* MEDIA QUERY PARA PANTALLAS PEQUEÑAS (MENOS DE 768px) */
+/* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
 @media screen and (max-width: 768px) {
   .sliding-box {
     pointer-events: none;

@@ -18,6 +18,9 @@ const relativeDistance = (
   }
 };
 export const truckSpeed = 0;
+
+export const breakPointWidth = 720;
+
 export const getCameraControls = () => {
   const width = window.innerWidth;
 
@@ -36,8 +39,7 @@ export const getCameraControls = () => {
   const z_positionCharacter = relativeDistance(width, 3.07, 4.99);
 
   //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
-  const isMobileInitial = width <= 760;
-  const isTabletInitial = width <= 768;
+  const isMobileInitial = width < breakPointWidth;
 
   //En Menu cambia tanto Y como Z como X entonces se aplica la función relativeDistance a todas
   const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
@@ -45,7 +47,7 @@ export const getCameraControls = () => {
   const z_positionMenu = relativeDistance(width, 0.81, 1.21, 1024);
 
   //Contacts
-  const y_positionContact = relativeDistance(width, 3.50, 3.59);
+  const y_positionContact = relativeDistance(width, 3.5, 3.59);
   const z_positionContact = relativeDistance(width, -5.45, -4.72);
 
   return {
@@ -114,16 +116,10 @@ export const getCameraControls = () => {
         min: 1,
         max: 15,
       },
-      coordCamera: isMobileInitial
-        ? { x: 1, y: 4, z: 7 }
-        : isTabletInitial
-        ? { x: 1, y: 4, z: 7 }
-        : { x: 2, y: 2, z: 5.5 }, //Coordinates to posisionate the camera view
-      coordLook: isMobileInitial
-        ? { x: 0, y: 3, z: 0 }
-        : isTabletInitial
-        ? { x: 0, y: 3, z: 0 }
-        : { x: 3.5, y: 1.5, z: 0 }, //Coordinates to look at
+      coordCamera:
+        width >= 1440 ? { x: 1.5, y: 2.5, z: 5 } : { x: 1.2, y: 2.5, z: 5 },
+      coordLook:
+        width >= 1440 ? { x: 2.5, y: 1.2, z: 0 } : { x: 2.2, y: 1.2, z: 0 },
     },
     CONTACT: {
       rotation: {
@@ -215,3 +211,8 @@ export const getCameraControls = () => {
     },
   };
 };
+
+// coordCamera:
+// width >= 1024 ? { x: 1, y: 4, z: 7 } : { x: 0.9, y: 2.5, z: 4.5 },
+// coordLook:
+// width >= 1024 ? { x: 0, y: 3, z: 0 } : { x: 1.9, y: 1.2, z: 0 },

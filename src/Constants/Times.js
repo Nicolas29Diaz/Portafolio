@@ -1,5 +1,5 @@
-//Tome to enable the scene controls
-export const sceneControlsTime = 2000;
+//Time to animate the intro camera movement
+export const introAnimateCamera = 2500;
 
 //Time to show the start text and button after the progress bar is full
 //(should be bigger than the scebeControlsTime)

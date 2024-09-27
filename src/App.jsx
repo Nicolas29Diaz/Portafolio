@@ -8,7 +8,7 @@ import { Preload, useGLTF, useProgress } from "@react-three/drei"; // Drei utili
 
 // Store (Global State Management)
 import useStore from "./Store/Store.js";
-import { sceneControlsTime } from "./Constants/Times.js"; // Custom store for managing scene times
+import { introAnimateCamera } from "./Constants/Times.js"; // Custom store for managing scene times
 
 // Components
 import LoadingScreen from "./Components/LoadingScreen/LoadingScreen.jsx"; // Loading screen component
@@ -52,7 +52,7 @@ function App() {
         ? window.innerHeight
         : window.innerHeight + 1,
   });
-  const [showScene, setShowScene] = useState(false);
+  const [moveInitialCamera, setMoveInitialCamera] = useState(false);
 
   let gpuInfo = 0;
 
@@ -140,8 +140,8 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      setShowScene(true);
-    }, sceneControlsTime);
+      setMoveInitialCamera(true);
+    }, introAnimateCamera);
   }, []);
 
   return (
@@ -164,7 +164,11 @@ function App() {
       >
         <Canvas
           shadows
-          camera={{ position: [0, 5, 5], fov: 60 }}
+          camera={{ position: [0.9, 3.5, 4], fov: 60 }}
+          onCreated={({ gl, camera }) => {
+            camera.lookAt(1.9, 1.2, 0);
+            camera.updateProjectionMatrix();
+          }}
           ref={refCanvas}
           //REVISAR ESTO, por ahora lo dejo en 1
           dpr={gpuTier === 3 ? 2 : 1}
@@ -173,7 +177,7 @@ function App() {
             <Scene3D></Scene3D>
             {/* <Character introAnimation={true}></Character> */}
             <SceneConf></SceneConf>
-            {showScene && <Scene></Scene>}
+            <Scene moveInitialCamera={moveInitialCamera}></Scene>
 
             <Preload all />
           </Suspense>
