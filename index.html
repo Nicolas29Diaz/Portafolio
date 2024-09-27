@@ -22,36 +22,37 @@
       }
       body {
         overflow: hidden;
-        background-color: var(--load-screen-bg-color);
+        background-color: #48d0e4;
       }
 
-      .preload-screen {
+      #preload-screen {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: var(--load-screen-bg-color);
+        background-color: #48d0e4;
         z-index: 1;
-        opacity: 1;
       }
-      .preload-image {
+      #preload-image {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100px;
         height: 100px;
-        background-image: url("/public/Images/Contact/Whatsapp.webp");
-        background-size: cover;
         z-index: 3;
       }
     </style>
   </head>
   <body>
     <!-- LOADING SCREEN -->
-    <div class="preload-screen"></div>
-    <div class="preload-image"></div>
+    <div id="preload-screen"></div>
+    <img
+      src="/Images/Contact/Whatsapp.webp"
+      alt="LadingLogo"
+      id="preload-image"
+    />
 
     <div id="root"></div>
     <script

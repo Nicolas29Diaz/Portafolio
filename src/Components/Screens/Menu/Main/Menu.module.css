@@ -17,40 +17,30 @@
   z-index: 2;
 }
 
-.handContainer {
+.handButton {
   position: absolute;
-  width: 90%;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
   cursor: pointer;
+  background: none;
+  border: none;
+  transition: transform 0.3s ease;
 }
 
-.handContainer img {
+.handButton img {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 48%;
   transform: translate(-50%, -50%);
-  width: 70%;
+  width: 60%;
   height: auto;
   pointer-events: none;
 }
-.handContainer img {
-  transition: transform 0.3s ease;
-  transform-origin: center;
-}
 
-.handContainer:hover img {
-  transform: translate(-50%, -50%) scale(1.1); /* Mantener centrado y escalar */
+.handButton:hover {
+  transform: scale(1.1); /* Mantener centrado y escalar */
 }
-
-/* .menu-hand:hover {
-  transform: scale(15.5) translate(2px, 5px);
-}
-
-.menu-hand {
-  transform: scale(13) translate(2px, 5px);
-  fill: #000000;
-} */

@@ -19,30 +19,42 @@ function Buttons({ isMenuOptionsVisible, canPressButton }) {
         <div className={styles.coverButtons}></div>
       </div>
 
-      <Button
-        canPressButton={canPressButton}
-        positionY={57}
-        text={"SKILLS"}
-        onClick={() => setMenuOption("SKILLS")}
-      ></Button>
-      <Button
-        canPressButton={canPressButton}
-        positionY={114}
-        text={"ABOUT"}
-        onClick={() => setMenuOption("ABOUT")}
-      ></Button>
-      <Button
-        canPressButton={canPressButton}
-        positionY={171}
-        text={"PROJECTS"}
-        onClick={() => setMenuOption("PROJECTS")}
-      ></Button>
-      <Button
-        canPressButton={canPressButton}
-        positionY={228}
-        text={"CONTACT"}
-        onClick={() => setMenuOption("CONTACT")}
-      ></Button>
+      <nav aria-label="Menu options" className={styles.navContainer}>
+        <ul className={styles.menuOptionsList}>
+          <li>
+            <Button
+              canPressButton={canPressButton}
+              positionY={57}
+              text={"SKILLS"}
+              onClick={() => setMenuOption("SKILLS")}
+            />
+          </li>
+          <li>
+            <Button
+              canPressButton={canPressButton}
+              positionY={114}
+              text={"ABOUT"}
+              onClick={() => setMenuOption("ABOUT")}
+            />
+          </li>
+          <li>
+            <Button
+              canPressButton={canPressButton}
+              positionY={171}
+              text={"PROJECTS"}
+              onClick={() => setMenuOption("PROJECTS")}
+            />
+          </li>
+          <li>
+            <Button
+              canPressButton={canPressButton}
+              positionY={228}
+              text={"CONTACT"}
+              onClick={() => setMenuOption("CONTACT")}
+            />
+          </li>
+        </ul>
+      </nav>
     </>
   );
 }

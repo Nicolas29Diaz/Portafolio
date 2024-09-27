@@ -24,6 +24,7 @@ function Menu({ showScreen }) {
   const [isHandVisible, setHandVisible] = useState(false);
   const [isMenuOptionsVisible, setMenuOptionsVisible] = useState(false);
   const [isInteractable, setInteractable] = useState(false);
+  const opacity = useScaleAnimation(isHandVisible);
 
   const scale = useScaleAnimation(showScreen);
 
@@ -47,7 +48,6 @@ function Menu({ showScreen }) {
     }
   }, [cameraFocus]);
 
-  const opacity = useScaleAnimation(isHandVisible);
 
   return (
     <>
@@ -64,16 +64,18 @@ function Menu({ showScreen }) {
       >
         <Background />
         {opacity > 0 && (
-          <div
-            className={styles.handContainer}
+          <button
+            className={styles.handButton}
             onClick={() => setMenuView(true)}
             style={{ opacity: opacity }}
+            aria-label="Hand Icon to open the menu"
           >
-            <img src="/Images/Icons/HandMenu.png" alt="HandIcon" />
-          </div>
+            <img src="/Images/Icons/HandMenu.webp" alt="HandIcon" />
+          </button>
         )}
 
         <h1 className={styles.title}>MENU</h1>
+
         {isMenuOptionsVisible && (
           <Buttons
             isMenuOptionsVisible={isMenuOptionsVisible}

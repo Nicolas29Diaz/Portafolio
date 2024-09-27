@@ -30,6 +30,9 @@ function LoadingScreen({
         setStartButtonVisibility(true);
       }, showStartTextTime);
     }
+
+    document.getElementById("preload-image").style.display = "none";
+    document.getElementById("preload-screen").style.display = "none";
   }, [progress]);
 
   return (
@@ -68,7 +71,7 @@ function LoadingScreen({
           }}
         ></div>
       )}
-      
+
       <div
         className={`sliding-box
           ${slideIn ? "slideIn" : ""} 

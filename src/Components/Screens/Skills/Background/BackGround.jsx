@@ -77,7 +77,7 @@ function BackGround({ animate }) {
         </g>
       </svg>
 
-      <header>
+      <header className={styles.header}>
         <h1>SKILLS</h1>
       </header>
     </>

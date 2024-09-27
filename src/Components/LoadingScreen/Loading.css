@@ -236,15 +236,3 @@
     border: none;
   }
 }
-
-/* @media screen and (max-width: 375px) {
-  .loading-text-container h1 {
-    font-size: 2.5rem;
-  }
-} */
-.preload-screen {
-  display: none;
-}
-.preload-image {
-  display: none;
-}

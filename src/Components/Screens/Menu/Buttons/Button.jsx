@@ -3,12 +3,13 @@ import styles from "./Buttons.module.css";
 
 function Button({ positionY = 88, canPressButton, onClick, text }) {
   return (
-    <div
-      className={styles.container}
+    <button
+      className={styles.containerButton}
       style={{
         top: `${positionY}px`,
       }}
       onClick={canPressButton ? onClick : () => {}}
+      aria-label={`Go to ${text}`}
     >
       <svg
         width="190"
@@ -36,8 +37,8 @@ function Button({ positionY = 88, canPressButton, onClick, text }) {
         />
       </svg>
 
-      <h1 className={styles.title}>{text}</h1>
-    </div>
+      <h2 className={styles.title}>{text}</h2>
+    </button>
   );
 }
 

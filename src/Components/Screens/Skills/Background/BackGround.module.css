@@ -24,12 +24,12 @@
   fill: var(--skills-border-fill-primary);
 }
 
-header {
+.header {
   position: absolute;
   top: 48px;
   left: 170px;
 }
-header h1 {
+.header h1 {
   transform: translate(-50%, -50%);
   color: var(--skills-font-color-primary);
 }

@@ -59,7 +59,7 @@ function SkillContainer({
 
         {/* TEXT AND IMAGES */}
         <div className={styles.imgContainer}>
-          <img src={srcImg} alt={altImg} />
+          <img src={srcImg} alt={altImg} loading="lazy"/>
         </div>
         <div className={styles.textContainer} style={{ top: `${y}px` }}>
           <p>{skillText}</p>

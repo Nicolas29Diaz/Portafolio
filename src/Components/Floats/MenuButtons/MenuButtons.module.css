@@ -9,31 +9,28 @@
   z-index: 2;
 }
 
-.container div {
+.container ul {
+  list-style: none; /* Eliminar los puntos de la lista */
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.container li {
+  margin: 0;
+}
+
+.container button {
   width: 2.5rem;
   height: 2.5rem;
   background-color: #48d0e4;
-  border-radius: 20%;
-}
-
-.container div img {
-  width: 100%;
-  height: auto;
+  border-radius: 37%;
   cursor: pointer;
+  border: none; /* Remove default button border */
 }
 
-.container img:hover {
+.container button:hover {
   transition: transform 0.3s;
   transform: scale(1.07);
-}
-
-.imgContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 2;
-  background-color: red;
 }
