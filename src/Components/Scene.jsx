@@ -5,11 +5,7 @@ import { FloatButton } from "./Floats/FloatButton.jsx";
 import useStore from "../Store/Store.js";
 import { views } from "../Store/Store.js";
 
-import {
-  breakPointWidth,
-  getCameraControls,
-  truckSpeed,
-} from "../Constants/cameraControls.js";
+import { getCameraControls, truckSpeed } from "../Constants/cameraControls.js";
 
 import {
   fixedMoveCameraToObjectTime,
@@ -129,6 +125,20 @@ export function Scene({ moveInitialCamera }) {
     }
   };
 
+  const setCameraLookAt = (width) => {
+    const cameraControl = cameraControlRef.current;
+
+    if (width >= 1440) {
+      cameraControl.setLookAt(1.3, 3.5, 6, 3.3, 1.2, 0, false);
+    } else if (width >= 1024) {
+      cameraControl.setLookAt(1.8, 3.5, 6, 2.8, 1.2, 0, false);
+    } else if (width >= 768) {
+      cameraControl.setLookAt(1.2, 3.5, 6, 2.2, 1.2, 0, false);
+    } else {
+      cameraControl.setLookAt(1, 5, 8, 0, 3, 0, false);
+    }
+  };
+
   useEffect(() => {
     updateControlsCamera();
     moveCameraToObject();
@@ -144,13 +154,7 @@ export function Scene({ moveInitialCamera }) {
     }
 
     if (currentView === views.INITIAL) {
-      if (window.innerWidth >= 1440) {
-        cameraControlRef.current.setLookAt(1.3, 3.5, 6, 3.3, 1.2, 0, false);
-      } else if (window.innerWidth >= 1024) {
-        cameraControlRef.current.setLookAt(1.8, 3.5, 6, 2.8, 1.2, 0, false);
-      } else {
-        cameraControlRef.current.setLookAt(0.9, 3.5, 4, 1.9, 1.2, 0, false);
-      }
+      setCameraLookAt(window.innerWidth);
     } else {
       fixedMoveCameraToObject();
       setTimeout(() => {
@@ -225,7 +229,7 @@ export function Scene({ moveInitialCamera }) {
 
   useEffect(() => {
     if (moveInitialCamera && currentView === views.INITIAL) {
-      console.log("moveInitialCamera");
+      // console.log("moveInitialCamera");
       moveCameraToObject();
       setInitialView(false);
     }

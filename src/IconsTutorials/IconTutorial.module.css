@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+
+  /* background-color: red; */
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+}
+.container img {
+  width: 100%;
+  height: auto;
+}
+.move {
+  /* animation: moveLogo 3s forwards; */
+  animation: moveLogo 1.2s infinite;
+}
+
+@keyframes moveLogo {
+  0% {
+    transform: translate(-30%, -20%);
+  }
+  50% {
+    transform: translate(-70%, -20%);
+  }
+  100% {
+    transform: translate(-30%, -20%);
+  }
+}

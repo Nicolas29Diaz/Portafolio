@@ -1,5 +1,5 @@
 //Time to animate the intro camera movement
-export const introAnimateCamera = 2500;
+export const introAnimateCamera = 2000;
 
 //Time to show the start text and button after the progress bar is full
 //(should be bigger than the scebeControlsTime)
@@ -42,4 +42,12 @@ export const helmetAnimationSpeed = 2;
 export const dissolveEyesSpeed = 0.05;
 
 //Time to show icon that show how move the scene
-export const showMoveIconTime = 2100;
+export const showIconTutorialCharacterTime = 2100;
+//Time to show icon that show how move the scene
+export const hideIconTutorialCharacterTime = 4500;
+
+//Time to hide skill icon tutorial
+export const hideSkillIconTutorialTime = 2500;
+
+//Time to hide skill icon tutorial
+export const hideProjectsIconTutorialTime = 2500;

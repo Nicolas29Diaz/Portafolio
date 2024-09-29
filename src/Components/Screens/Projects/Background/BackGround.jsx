@@ -25,15 +25,15 @@ function BackGround({ animate }) {
         </g>
 
         {/* Decoration 1 */}
-        <g transform="translate(-230 20) scale(1)">
+        <g transform="translate(-25 0)">
           <polyline
             className={styles.fill}
-            points="0,80 350,80 430,0 80,0 0,80"
+            points="180,20 250,90 530,90 600,20 180,20"
           ></polyline>
         </g>
 
         {/* Decoration 2 */}
-        <g transform="translate(170 30) scale(0.7)">
+        <g transform="translate(550 30) scale(0.7)">
           <polyline
             className={styles.fill}
             points="40,0 70,0 30,40 0,40 40,0"
@@ -82,8 +82,38 @@ function BackGround({ animate }) {
             points="40,0 250,0 290,30 0,30 40,0"
           ></polyline>
         </g>
+
+         {/* Decoration 2 */}
+      <g transform="translate(180 30) scale(-0.7 0.7)">
+        <polyline
+          className={styles.fill}
+          points="40,0 70,0 30,40 0,40 40,0"
+        ></polyline>
+        <polyline
+          transform="translate(40 0)"
+          className={styles.fill}
+          points="40,0 70,0 30,40 0,40 40,0"
+        ></polyline>
+        <polyline
+          transform="translate(80 0)"
+          className={styles.fill}
+          points="40,0 70,0 30,40 0,40 40,0"
+        ></polyline>
+        <polyline
+          transform="translate(120 0)"
+          className={styles.fill}
+          points="40,0 70,0 30,40 0,40 40,0"
+        ></polyline>
+        <polyline
+          transform="translate(160 0)"
+          className={styles.fill}
+          points="40,0 70,0 30,40 0,40 40,0"
+        ></polyline>
+      </g>
+
       </svg>
 
+     
       <h1 className={styles.title}>Projects</h1>
     </>
   );

@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { showMoveIconTime } from "../../Constants/Times.js";
+import {
+  hideIconTutorialCharacterTime,
+  showIconTutorialCharacterTime,
+} from "../../Constants/Times.js";
 // Styles (CSS)
 import "../../StylesVariables/Floats/CancelButton.css"; // Cancel button styles
 import MenuButtons from "./MenuButtons/MenuButtons.jsx";
+import { useScaleAnimation } from "../../Animation/useScaleAnimation.jsx";
+import IconTutorial from "../../IconsTutorials/IconTutorial.jsx";
 
 export const FloatObjects = ({
   isCancelButtonVisible,
@@ -14,21 +19,34 @@ export const FloatObjects = ({
   setMenuView,
 }) => {
   const [showMoveLogo, setShowMoveLogo] = useState(false);
+  const scale = useScaleAnimation(showMoveLogo);
 
   useEffect(() => {
     if (isStartButtonPressed) {
       setTimeout(() => {
         setShowMoveLogo(true);
-      }, showMoveIconTime);
+      }, showIconTutorialCharacterTime);
+      setTimeout(() => {
+        setShowMoveLogo(false);
+      }, hideIconTutorialCharacterTime);
     }
   }, [isStartButtonPressed]);
 
   return (
     <>
-      {showMoveLogo && (
+      {/* {showMoveLogo && (
         <div className="logo-canMove">
           <img src="./Images/Icons/Move.webp" alt="MoveIcon" />
         </div>
+      )} */}
+
+      {scale > 0 && (
+        <IconTutorial
+          move={true}
+          top="80%"
+          left="50%"
+          scale={scale}
+        ></IconTutorial>
       )}
 
       {isCancelButtonVisible && (

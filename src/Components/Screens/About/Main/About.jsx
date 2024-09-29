@@ -38,13 +38,12 @@ function About({ animate = false, showScreen }) {
       </section>
       {/* CENTRAL IMAGE */}
       <section className={styles.imageContainer}>
-        <div>
-          <img
-            src="https://www.metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg"
-            alt="IconAbout"
-          />
-        </div>
-        <h2> Virtual Skin</h2>
+        <img
+          src="/Images/AboutImages/Yo.webp"
+          alt="IconAbout"
+        />
+
+        {/* <h2> Virtual Skin</h2> */}
       </section>
 
       <h1 className={styles.title}>ABOUT</h1>

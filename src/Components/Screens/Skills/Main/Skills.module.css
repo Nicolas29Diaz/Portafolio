@@ -30,7 +30,7 @@
 .sliderContainer {
   margin: auto;
   width: 95%;
-  cursor: grab;
+  cursor: pointer;
 }
 
 .sliderItem {
@@ -64,10 +64,57 @@
   object-fit: contain;
 } */
 
-
-.fullContainer{
+.fullContainer {
   width: 95%;
   height: 100%;
   position: relative;
   left: 20px;
+}
+
+.customSlickArrowPrev {
+  position: absolute;
+  top: 50%;
+  left: -2%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(-50%, -50%) scale(1.5);
+  cursor: pointer;
+}
+
+.customSlickArrowPrev:hover {
+  transform: translate(-50%, -50%) scale(1.7);
+}
+
+.customSlickArrowPrev {
+  position: absolute;
+  top: 50%;
+  left: -2%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(-50%, -50%) scale(1.5);
+  cursor: pointer;
+}
+
+.customSlickArrowPrev:hover {
+  transform: translate(-50%, -50%) scale(1.7);
+}
+
+.customSlickArrowNext {
+  position: absolute;
+  top: 50%;
+  right: -5%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  transform: translate(-50%, -50%) scale(1.5);
+  cursor: pointer;
+}
+
+.customSlickArrowNext:hover {
+  transform: translate(-50%, -50%) scale(1.7);
 }

@@ -19,14 +19,35 @@ const relativeDistance = (
 };
 export const truckSpeed = 0;
 
-export const breakPointWidth = 720;
+const getCoords = (width, breakpoints) => {
+  const { extralarge, large, medium, small } = breakpoints;
+
+  if (width >= 1440) return extralarge;
+  if (width >= 1024) return large;
+  if (width >= 768) return medium;
+  return small;
+};
+
+const breakpointsPosition = {
+  extralarge: { x: 1.5, y: 2.5, z: 5 },
+  large: { x: 1.2, y: 2.5, z: 5 },
+  medium: { x: 1.2, y: 2.5, z: 5.5 },
+  small: { x: 1, y: 2.8, z: 7 },
+};
+
+const breakpointsLook = {
+  extralarge: { x: 2.5, y: 1.2, z: 0 },
+  large: { x: 2.2, y: 1.2, z: 0 },
+  medium: { x: 1.9, y: 1.2, z: 0 },
+  small: { x: 0, y: 2.8, z: 0 },
+};
 
 export const getCameraControls = () => {
   const width = window.innerWidth;
 
-  const x_distanceAbout = relativeDistance(width, 6.27, 1.23);
+  const x_distanceAbout = relativeDistance(width, 6.33, 3.64);
 
-  const z_positionProjects = relativeDistance(width, 3.5, -4);
+  const z_positionProjects = relativeDistance(width, 3.5, 2.32);
 
   //En skills cambia tanto X como Z entonces se aplica la función relativeDistance a ambas
   const x_positionSkills = relativeDistance(width, -5.52, -2.04);
@@ -38,9 +59,6 @@ export const getCameraControls = () => {
   const y_positionCharacter = relativeDistance(width, 1.62, 2.26);
   const z_positionCharacter = relativeDistance(width, 3.07, 4.99);
 
-  //Acá solo hay dos tamaños fijos entonces no se aplica la función relativeDistance
-  const isMobileInitial = width < breakPointWidth;
-
   //En Menu cambia tanto Y como Z como X entonces se aplica la función relativeDistance a todas
   const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
   const y_positionMenu = relativeDistance(width, 1.48, 2.32, 1024);
@@ -49,6 +67,10 @@ export const getCameraControls = () => {
   //Contacts
   const y_positionContact = relativeDistance(width, 3.5, 3.59);
   const z_positionContact = relativeDistance(width, -5.45, -4.72);
+
+  //Inital
+  const positionInitial = getCoords(width, breakpointsPosition);
+  const lookInitial = getCoords(width, breakpointsLook);
 
   return {
     SKILLS: {
@@ -116,10 +138,8 @@ export const getCameraControls = () => {
         min: 1,
         max: 15,
       },
-      coordCamera:
-        width >= 1440 ? { x: 1.5, y: 2.5, z: 5 } : { x: 1.2, y: 2.5, z: 5 },
-      coordLook:
-        width >= 1440 ? { x: 2.5, y: 1.2, z: 0 } : { x: 2.2, y: 1.2, z: 0 },
+      coordCamera: positionInitial,
+      coordLook: lookInitial,
     },
     CONTACT: {
       rotation: {

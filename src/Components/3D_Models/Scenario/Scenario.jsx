@@ -552,6 +552,7 @@ export function Scenario({ props, show }) {
           geometry={nodes.BasePC2.geometry}
           material={materials["MetalSilla.001"]}
           rotation={[Math.PI, -0.862, Math.PI]}
+          scale={[0.8, 1, 1]}
         />
       </mesh>
       <mesh

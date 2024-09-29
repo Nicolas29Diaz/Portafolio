@@ -45,10 +45,6 @@ export function SceneConf() {
   // const { viewport } = useThree();
 
   useEffect(() => {
-    console.log("Scene Theme: ", sceneTheme);
-  }, [sceneTheme]);
-
-  useEffect(() => {
     switch (gpuTier) {
       case 1:
         setCurrentSettings(configurations[0]);

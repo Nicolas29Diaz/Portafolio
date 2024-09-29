@@ -12,14 +12,24 @@ import useStore from "../../../../Store/Store";
 import styles from "./Projects.module.css";
 import ProjectsSlider from "../Slider/ProjectsSlider";
 
-function Projects({ showScreen }) {
+import { useScaleAnimation } from "../../../../Animation/useScaleAnimation.jsx";
+import IconTutorial from "../../../../IconsTutorials/IconTutorial.jsx";
+import { hideProjectsIconTutorialTime } from "../../../../Constants/Times.js";
 
+function Projects({ showScreen }) {
   const [animate, setAnimate] = useState(false);
   const [interaction, setInteraction] = useState(false);
   const { cameraFocus, gpuTier } = useStore();
 
+  const [showMoveLogo, setShowMoveLogo] = useState(false);
+  const scale = useScaleAnimation(showMoveLogo);
+
   useEffect(() => {
     if (cameraFocus === "PROJECTS") {
+      setShowMoveLogo(true);
+      setTimeout(() => {
+        setShowMoveLogo(false);
+      }, hideProjectsIconTutorialTime);
       setInteraction(true);
       if (gpuTier >= 3) {
         setAnimate(true);
@@ -49,6 +59,15 @@ function Projects({ showScreen }) {
       ></ProjectsSlider>
 
       <BackGround animate={animate}></BackGround>
+
+      {scale > 0 && (
+        <IconTutorial
+          move={true}
+          top="35%"
+          left="50%"
+          scale={scale}
+        ></IconTutorial>
+      )}
     </Html>
   );
 }

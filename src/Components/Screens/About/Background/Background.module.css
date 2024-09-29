@@ -1,5 +1,11 @@
 .borderLine {
   fill: none;
   stroke: #a700c4;
-  stroke-width: 8;
+  stroke-width: 3;
+}
+
+.borderLineFilled {
+  stroke: #a700c4;
+  fill: #a700c469;
+  stroke-width: 3;
 }
