@@ -114,7 +114,7 @@ function BackGround({ animate }) {
       </svg>
 
      
-      <h1 className={styles.title}>Projects</h1>
+      <h1 className={styles.title}>PROJECTS</h1>
     </>
   );
 }

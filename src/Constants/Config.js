@@ -22,7 +22,7 @@ export const configurations = [
     backgroundColor: "rgb(5, 5, 5)",
   },
   {
-    floorResolution: 720,
+    floorResolution: 640,
     blur: [300, 300],
     mixStrength: 30,
     depthScale: 1.2,

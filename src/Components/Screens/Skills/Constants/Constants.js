@@ -11,7 +11,7 @@ export const skillsConf = [
         points: 3,
         x: 145,
         y: 50,
-        srcImg: "Images/SkillsLogos/javascript.webp",
+        srcImg: "Images/SkillsLogos/JavaScript.webp",
         altImg: "JavaScript Logo",
       },
       {
