@@ -88,65 +88,6 @@
   border: none;
 }
 
-/* LOGO */
-
-.loading-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  /* background-color: #ff0000; */
-  z-index: 4;
-  overflow: hidden;
-}
-.loading-fill-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* clip-path: circle(32% at 50% 55%); */
-  clip-path: ellipse(35% 36% at 50% 51.5%);
-}
-
-.loading-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #00ff66;
-}
-
-.loading-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  background-image: url("/public/Images/Contact/Whatsapp.webp");
-  background-size: cover;
-}
-
-@keyframes scaleOut {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  60% {
-    transform: translate(-50%, -50%) scale(1.5);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(0);
-  }
-}
-.scale-out {
-  will-change: transform;
-  animation: scaleOut 0.5s ease-in-out forwards;
-}
 
 /* MEDIA QUERY PARA PANTALLAS PEQUEÑAS */
 @media screen and (max-width: 767px) {

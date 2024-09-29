@@ -3,6 +3,7 @@ import { Html, useProgress } from "@react-three/drei";
 import "./Loading.css";
 import "../../StylesVariables/Floats/StartButton.css";
 import { showStartTextTime, slideInTime } from "../../Constants/Times.js";
+import LoadingLogo from "./LoadingIcon/LoadingIcon.jsx";
 
 function LoadingScreen({
   progress,
@@ -31,7 +32,7 @@ function LoadingScreen({
       }, showStartTextTime);
     }
 
-    document.getElementById("preload-image").style.display = "none";
+    document.getElementById("preload-logo").style.display = "none";
     document.getElementById("preload-screen").style.display = "none";
   }, [progress]);
 
@@ -86,7 +87,11 @@ function LoadingScreen({
       </div>
 
       {/* LOGO */}
-      <div className={`loading-container ${hideLoadingLogo && "scale-out"}`}>
+      <LoadingLogo
+        progress={progress}
+        hideLoadinLogo={hideLoadingLogo}
+      ></LoadingLogo>
+      {/* <div className={`loading-container ${hideLoadingLogo && "scale-out"}`}>
         <div className="loading-fill-wrapper ">
           <div
             className="loading-fill"
@@ -94,7 +99,7 @@ function LoadingScreen({
           ></div>
         </div>
         <div className="loading-image"></div>
-      </div>
+      </div> */}
 
       {/* TEXT */}
 
