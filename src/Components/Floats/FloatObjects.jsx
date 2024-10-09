@@ -19,9 +19,11 @@ export const FloatObjects = ({
   setMenuView,
 }) => {
   const [showMoveLogo, setShowMoveLogo] = useState(false);
-  const scale = useScaleAnimation(showMoveLogo);
+
+  const scale = useScaleAnimation(showMoveLogo, 1.1, 1, 0.5);
 
   useEffect(() => {
+    console.log(isStartButtonPressed);
     if (isStartButtonPressed) {
       setTimeout(() => {
         setShowMoveLogo(true);

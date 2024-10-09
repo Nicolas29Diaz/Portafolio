@@ -27,7 +27,7 @@ function ItemProject({ project, animate, interaction }) {
                 left: "0",
                 height: "300px",
                 width: "300px",
-                objectFit: "cover",
+                objectFit: "contain",
                 // clipPath: "url(#imageMask2)",
                 clipPath:
                   "polygon(12% 17%, 92% 17%, 92% 38% , 98% 44%, 98% 78%, 12% 78%",
@@ -51,6 +51,14 @@ function ItemProject({ project, animate, interaction }) {
                 </li>
               </ul>
             </article>
+
+            {project.title !== "Portfolio" && (
+              <div id="link">
+                <a href={project.link} target="_blank">
+                  Go to
+                </a>
+              </div>
+            )}
 
             {/* <div
               style={{

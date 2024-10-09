@@ -91,7 +91,7 @@ function App() {
 
       if (!charging) {
         if (gpuInfo.tier === 3) {
-          // console.log("Dispositivo sin cargar, ajustando tier a 2.");
+          console.log("Dispositivo sin cargar, ajustando tier a 2.");
           setGpuTier(2);
         } else if (gpuInfo.tier === 2) {
           setGpuTier(1);
