@@ -55,9 +55,9 @@ export const getCameraControls = () => {
 
   //Acá como la rotacion es 360 se hace con la distancia y no una coordenada
   // const distanceCharacter = relativeDistance(width, 3.8, 5.7);
-  const x_positionCharacter = relativeDistance(width, 2.66, 2.95);
-  const y_positionCharacter = relativeDistance(width, 1.62, 2.26);
-  const z_positionCharacter = relativeDistance(width, 3.07, 4.99);
+  const x_positionCharacter = relativeDistance(width, 2.66, 1.69);
+  const y_positionCharacter = relativeDistance(width, 1.62, 3.29);
+  const z_positionCharacter = relativeDistance(width, 3.07, 5.08);
 
   //En Menu cambia tanto Y como Z como X entonces se aplica la función relativeDistance a todas
   const x_positionMenu = relativeDistance(width, 1.31, 1.5, 1024);
@@ -98,8 +98,8 @@ export const getCameraControls = () => {
       rotation: {
         polar: {
           speed: 1, //Enable/Disable (1 or 0) polar rotation
-          min: Math.PI / 3,
-          max: Math.PI / 2,
+          min: Math.PI / 4,
+          max: Math.PI / 2.5,
         },
         azimuth: {
           speed: 1, //Enable/Disable (1 or 0) azimuth rotation
@@ -110,7 +110,7 @@ export const getCameraControls = () => {
       dolly: {
         speed: 0, //Enable/Disable (1 or 0) dolly
         min: 0,
-        max: 10,
+        max: 6,
         // distance: distanceCharacter,
       },
       coordCamera: {

@@ -187,23 +187,23 @@ export function Scene({ moveInitialCamera }) {
 
   //MOSTAR COORDENADAS CAMARA
 
-  // useEffect(() => {
-  //   const camera = cameraControlRef.current;
-  //   let pos = {};
-  //   camera.addEventListener("controlend", () => {
-  //     pos = {
-  //       x: camera._camera.position.x,
-  //       y: camera._camera.position.y,
-  //       z: camera._camera.position.z,
-  //     };
+  useEffect(() => {
+    const camera = cameraControlRef.current;
+    let pos = {};
+    camera.addEventListener("controlend", () => {
+      pos = {
+        x: camera._camera.position.x,
+        y: camera._camera.position.y,
+        z: camera._camera.position.z,
+      };
 
-  //     // console.log("azimuthAngle: ", camera.azimuthAngle);
-  //     // console.log("polarAngle:", camera.polarAngle);
-  //     console.log("distance:", camera.distance);
-  //     console.log("Camera position", pos);
-  //     // camera.distance = 0;
-  //   });
-  // }, []);
+      // console.log("azimuthAngle: ", camera.azimuthAngle);
+      // console.log("polarAngle:", camera.polarAngle);
+      // console.log("distance:", camera.distance);
+      console.log("Camera position", pos);
+      // camera.distance = 0;
+    });
+  }, []);
 
   useEffect(() => {
     if (isMenuView) {
@@ -244,7 +244,7 @@ export function Scene({ moveInitialCamera }) {
         <FloatButton
           view={views.CONTACT}
           changeView={changeView}
-          position={[0, 2.1, -6]}
+          position={[0, 2.7, -6]}
           rotation={[0, 0, Math.PI / 4]}
         />
         <FloatButton

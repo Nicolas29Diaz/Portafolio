@@ -12,20 +12,33 @@ export function FloatButton({ view, changeView, ...props }) {
   const scale = useScaleAnimation(showFloatButtons, 0.8);
 
   return (
-    <Html
-      // distanceFactor={1}
-      {...props}
-      transform
-      occlude="blending"
-      className={`
-        
-      contentFloatButton `}
-      // visible={show}
-      scale={scale}
-    >
-      <div onClick={() => changeView(view)}>+</div>
-      <i></i>
-      <i></i>
-    </Html>
+    <>
+      {/* <Html
+        // distanceFactor={1}
+        {...props}
+        transform
+        occlude="blending"
+        className={`contentFloatButton`}
+        // visible={show}
+        scale={scale}
+      >
+        <div onClick={() => changeView(view)}>+</div>
+        <i></i>
+        <i></i>
+      </Html> */}
+      <Html
+        // distanceFactor={1}
+        {...props}
+        transform
+        occlude="blending"
+        className={`contentFloatButton`}
+        // visible={show}
+        scale={scale}
+      >
+        <div onClick={() => changeView(view)}>+</div>
+        <i></i>
+        <i></i>
+      </Html>
+    </>
   );
 }

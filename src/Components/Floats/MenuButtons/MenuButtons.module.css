@@ -1,7 +1,7 @@
 .container {
   position: fixed;
   top: 1rem;
-  right: 2.5rem;
+  right: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,8 +22,8 @@
 }
 
 .container button {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.2rem;
+  height: 2.2rem;
   background-color: #48d0e4;
   border-radius: 37%;
   cursor: pointer;

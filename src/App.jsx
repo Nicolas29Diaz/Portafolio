@@ -164,7 +164,7 @@ function App() {
       >
         <Canvas
           shadows
-          camera={{ position: [0.9, 3.5, 4], fov: 60 }}
+          camera={{ position: [0.9, 3.5, 4], fov: 75 }}
           onCreated={({ gl, camera }) => {
             camera.lookAt(1.9, 1.2, 0);
             camera.updateProjectionMatrix();
