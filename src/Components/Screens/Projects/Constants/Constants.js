@@ -6,7 +6,16 @@ export const projectsData = [
     img: "/Images/Projects/Shewhart.webp",
     techs: ["React", "Node", "Express", "Sequelize", "MySql", "JS", "CSS"],
     alt: "Project",
-    link: "https://docs.google.com/presentation/d/1YbFTQx4J4m9ufeAwVfg6kkx8rVTfGMjQ/edit?usp=sharing&ouid=112107447077751835334&rtpof=true&sd=true",
+    link: "https://docs.google.com/presentation/d/1EuM169vsVZgvwz8XPWuzqrawWEL29CgQ/edit?usp=sharing&ouid=117959705271142254422&rtpof=true&sd=true",
+  },
+  {
+    title: "3D Album",
+    description:
+      "Dragon Ball 3D book, the data comes from the Dragon Ball API, it is rendered on a canvas that is used as a texture.",
+    img: "/Images/Projects/3Dbook.webp",
+    techs: ["React", "R3F", "Tailwind", "JS", "Dragon Ball API"],
+    alt: "Project",
+    link: "https://dragonball3dbook.netlify.app",
   },
   {
     title: "Portfolio",
@@ -18,14 +27,15 @@ export const projectsData = [
     link: "/Images/Projects/Portfolio.webp",
   },
   {
-    title: "3D Album",
+    title: "ValleTour (UX/UI)",
     description:
-      "Dragon Ball 3D book, the data comes from the Dragon Ball API, it is rendered on a canvas that is used as a texture.",
-    img: "/Images/Projects/3Dbook.webp",
-    techs: ["React", "R3F", "Tailwind", "JS", "Dragon Ball API"],
+      "UX/UI design for a tourism reactivation app in Valle del Cauca, connecting users directly with guides.",
+    img: "/Images/Projects/ValleTour.webp",
+    techs: ["Figma"],
     alt: "Project",
-    link: "https://dragonball3dbook.netlify.app",
+    link: "https://www.behance.net/gallery/144405951/ValleTour",
   },
+
   // {
   //   title: "Landing Page",
   //   description: "",

@@ -36,7 +36,7 @@ function About({ animate = false, showScreen }) {
           prioritize user needs in every project.
         </p>
       </section>
-      {/* CENTRAL IMAGE */}
+      {/* IMAGE */}
       <section className={styles.imageContainer}>
         <img
           src="/Images/AboutImages/Yo.webp"
