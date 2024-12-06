@@ -1,3 +1,4 @@
+//Each category has 4 items
 export const skillsConf = [
   {
     category: {
@@ -23,19 +24,19 @@ export const skillsConf = [
         altImg: "React Logo",
       },
       {
-        text: "CSS",
+        text: "CSS & HTML",
         points: 3,
         x: 145,
         y: 50,
-        srcImg: "Images/SkillsLogos/CSS.webp",
+        srcImg: "Images/SkillsLogos/html_css.webp",
         altImg: "CSS Logo",
       },
       {
-        text: "HTML",
+        text: "Next",
         points: 3,
         x: 145,
         y: 50,
-        srcImg: "Images/SkillsLogos/CSS.webp",
+        srcImg: "Images/SkillsLogos/Next.webp",
         altImg: "HTML Logo",
       },
     ],
